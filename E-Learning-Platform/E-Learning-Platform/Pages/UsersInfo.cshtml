@@ -358,3 +358,164 @@
                     <option value="inactive">Inactive</option>
                 </select>
             </div>
+
+            <div class="users-table">
+                <div class="users-table-row">
+                    <div><strong>John Smith</strong></div>
+                    <div>john.smith@example.com</div>
+                    <div>Instructor</div>
+                    <div class="user-status">Active</div>
+                    <div class="user-actions">
+                        <a href="#" class="action-link edit">edit</a>
+                        <a href="#" class="action-link delete">delete</a>
+                    </div>
+                </div>
+
+                <div class="users-table-row">
+                    <div><strong>Sarah Johnson</strong></div>
+                    <div>sarah.j@example.com</div>
+                    <div>Student</div>
+                    <div class="user-status">Active</div>
+                    <div class="user-actions">
+                        <a href="#" class="action-link edit">edit</a>
+                        <a href="#" class="action-link delete">delete</a>
+                    </div>
+                </div>
+
+                <div class="users-table-row">
+                    <div><strong>Michael Brown</strong></div>
+                    <div>m.brown@example.com</div>
+                    <div>Admin</div>
+                    <div class="user-status">Active</div>
+                    <div class="user-actions">
+                        <a href="#" class="action-link edit">edit</a>
+                        <a href="#" class="action-link delete">delete</a>
+                    </div>
+                </div>
+
+                <div class="users-table-row">
+                    <div><strong>Emily Davis</strong></div>
+                    <div>emily.d@example.com</div>
+                    <div>Instructor</div>
+                    <div class="user-status inactive">Inactive</div>
+                    <div class="user-actions">
+                        <a href="#" class="action-link edit">edit</a>
+                        <a href="#" class="action-link delete">delete</a>
+                    </div>
+                </div>
+
+                <div class="users-table-row">
+                    <div><strong>David Wilson</strong></div>
+                    <div>d.wilson@example.com</div>
+                    <div>Student</div>
+                    <div class="user-status">Active</div>
+                    <div class="user-actions">
+                        <a href="#" class="action-link edit">edit</a>
+                        <a href="#" class="action-link delete">delete</a>
+                    </div>
+                </div>
+
+                <div class="users-table-row">
+                    <div><strong>Jennifer Lee</strong></div>
+                    <div>j.lee@example.com</div>
+                    <div>Student</div>
+                    <div class="user-status">Active</div>
+                    <div class="user-actions">
+                        <a href="#" class="action-link edit">edit</a>
+                        <a href="#" class="action-link delete">delete</a>
+                    </div>
+                </div>
+
+                <div class="users-table-row">
+                    <div><strong>Robert Taylor</strong></div>
+                    <div>r.taylor@example.com</div>
+                    <div>Instructor</div>
+                    <div class="user-status">Active</div>
+                    <div class="user-actions">
+                        <a href="#" class="action-link edit">edit</a>
+                        <a href="#" class="action-link delete">delete</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pagination">
+                <div>Showing 1-7 of 42</div>
+                <div class="pagination-buttons">
+                    <button class="pagination-btn">Previous</button>
+                    <button class="pagination-btn">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                // Here you would typically load content for the selected tab
+            });
+        });
+
+        // Menu item active state
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                if (e.currentTarget.getAttribute('href') === '#') {
+                    e.preventDefault();
+                    document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Add event listeners for edit and delete buttons
+        document.querySelectorAll('.action-link.edit').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const row = link.closest('.users-table-row');
+                const userName = row.querySelector('strong').textContent;
+                alert(`Edit user: ${userName}`);
+                // Here you would implement edit functionality
+            });
+        });
+
+        document.querySelectorAll('.action-link.delete').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const row = link.closest('.users-table-row');
+                const userName = row.querySelector('strong').textContent;
+                if (confirm(`Are you sure you want to delete user: ${userName}?`)) {
+                    // Here you would implement delete functionality
+                    row.remove();
+                }
+            });
+        });
+
+        // Add User button functionality
+        document.querySelector('.btn-primary').addEventListener('click', () => {
+            alert('Add new user functionality will be implemented here');
+            // Here you would implement add user functionality
+        });
+
+        // Filter functionality
+        document.querySelectorAll('.filter').forEach(filter => {
+            filter.addEventListener('change', () => {
+                // Here you would implement filtering functionality
+                const roleFilter = document.querySelectorAll('.filter')[0].value;
+                const statusFilter = document.querySelectorAll('.filter')[1].value;
+
+                // Simple example of filtering (can be expanded)
+                console.log(`Filtering by role: ${roleFilter}, status: ${statusFilter}`);
+            });
+        });
+
+        // Search functionality
+        document.querySelector('.search-bar').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            // Here you would implement search functionality
+            console.log(`Searching for: ${searchTerm}`);
+        });
+    </script>
+</body>
+</html>
