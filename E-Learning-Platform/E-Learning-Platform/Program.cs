@@ -17,5 +17,6 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+app.MapGet("/", () => Results.Redirect("/AdminDashboard"));
 
 app.Run();
