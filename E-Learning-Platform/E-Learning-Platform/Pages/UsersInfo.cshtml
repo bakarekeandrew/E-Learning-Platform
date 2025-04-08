@@ -1,0 +1,360 @@
+﻿@page
+@model E_Learning_Platform.Pages.UsersInfoModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Users Management";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users Management</title>
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --secondary-color: #6366f1;
+            --light-color: #f8fafc;
+            --dark-color: #1e293b;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --sidebar-width: 240px;
+            --sidebar-bg: #f8fafc;
+            --active-menu-bg: #e0e7ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark-color);
+            display: flex;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--sidebar-bg);
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+            box-shadow: 1px 0 5px rgba(0, 0, 0, 0.05);
+            padding: 20px 0;
+        }
+
+        .sidebar-header {
+            padding: 0 20px 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .menu-category {
+            text-transform: uppercase;
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            padding: 15px 20px 5px;
+        }
+
+        .menu-item {
+            padding: 10px 20px;
+            display: block;
+            color: var(--dark-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 2px 0;
+            border-radius: 0 20px 20px 0;
+        }
+
+        .menu-item:hover, .menu-item.active {
+            background-color: var(--active-menu-bg);
+            color: var(--primary-color);
+            padding-left: 25px;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 20px;
+            width: calc(100% - var(--sidebar-width));
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .breadcrumb span {
+            margin: 0 8px;
+        }
+
+        header {
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--dark-color);
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        /* Users Management Specific Styles */
+        .users-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-bar {
+            width: 300px;
+            padding: 10px 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--border-radius);
+            font-size: 14px;
+            background-color: white;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 15px;
+        }
+
+        .tab {
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            color: #64748b;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active, .tab:hover {
+            color: var(--primary-color);
+            background-color: #e0e7ff;
+        }
+
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .filter {
+            padding: 10px 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--border-radius);
+            font-size: 14px;
+            background-color: white;
+            width: 200px;
+        }
+
+        /* Users Table Styles */
+        .users-table {
+            width: 100%;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+        }
+
+        .users-table-row {
+            display: grid;
+            grid-template-columns: 2fr 2fr 1fr 1fr 1fr;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e2e8f0;
+            align-items: center;
+        }
+
+        .users-table-row:last-child {
+            border-bottom: none;
+        }
+
+        .user-status {
+            font-weight: 500;
+            color: var(--success-color);
+        }
+
+        .user-status.inactive {
+            color: #94a3b8;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .action-link {
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .action-link.edit {
+            color: var(--primary-color);
+        }
+
+        .action-link.delete {
+            color: var(--danger-color);
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .pagination-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .pagination-btn {
+            padding: 8px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--border-radius);
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+
+        .pagination-btn:hover {
+            background-color: #f1f5f9;
+        }
+
+        .avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-color);
+            font-weight: 500;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">E-Learning</div>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a asp-page="/AdminDashboard" class="menu-item">Dashboard</a></li>
+            <li><a asp-page="/Courses" class="menu-item">Courses</a></li>
+            <li><a asp-page="/UsersInfo" class="menu-item active">Users</a></li>
+            <li><a asp-page="/Analytics" class="menu-item">Analytics</a></li>
+            
+            <li class="menu-category">MANAGEMENT</li>
+            <li><a asp-page="/Instructors" class="menu-item">Instructors</a></li>
+            <li><a asp-page="/Students" class="menu-item">Students</a></li>
+            <li><a asp-page="/Content" class="menu-item">Content</a></li>
+            
+            <li class="menu-category">SYSTEM</li>
+            <li><a asp-page="/Settings" class="menu-item">Settings</a></li>
+            <li><a asp-page="/Support" class="menu-item">Support</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <div class="breadcrumb">
+                <a asp-page="/AdminDashboard">Dashboard</a>
+                <span>></span>
+                Users
+            </div>
+            
+            <div class="users-header">
+                <h1>Users Management</h1>
+                <div class="action-buttons">
+                    <input type="text" class="search-bar" placeholder="Search users">
+                    <button class="btn-primary">Add User</button>
+                </div>
+            </div>
+
+            <div class="tabs">
+                <div class="tab active">All Users</div>
+                <div class="tab">Instructors</div>
+                <div class="tab">Students</div>
+                <div class="tab">Admins</div>
+            </div>
+
+            <div class="filters">
+                <select class="filter">
+                    <option value="">Filter by role</option>
+                    <option value="instructor">Instructor</option>
+                    <option value="student">Student</option>
+                    <option value="admin">Admin</option>
+                </select>
+                <select class="filter">
+                    <option value="">Filter by status</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+            </div>
