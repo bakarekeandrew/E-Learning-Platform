@@ -89,11 +89,11 @@
             border-radius: 0 20px 20px 0;
         }
 
-        .menu-item:hover, .menu-item.active {
-            background-color: var(--active-menu-bg);
-            color: var(--primary-color);
-            padding-left: 25px;
-        }
+            .menu-item:hover, .menu-item.active {
+                background-color: var(--active-menu-bg);
+                color: var(--primary-color);
+                padding-left: 25px;
+            }
 
         /* Main Content Styles */
         .main-content {
@@ -116,14 +116,14 @@
             font-size: 14px;
         }
 
-        .breadcrumb a {
-            color: var(--primary-color);
-            text-decoration: none;
-        }
+            .breadcrumb a {
+                color: var(--primary-color);
+                text-decoration: none;
+            }
 
-        .breadcrumb span {
-            margin: 0 8px;
-        }
+            .breadcrumb span {
+                margin: 0 8px;
+            }
 
         header {
             margin-bottom: 30px;
@@ -133,6 +133,16 @@
             color: var(--dark-color);
             font-size: 28px;
             margin-bottom: 20px;
+        }
+
+        /* Error Message Styles */
+        .error-message {
+            background-color: #fee2e2;
+            color: var(--danger-color);
+            padding: 12px 16px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            border-left: 4px solid var(--danger-color);
         }
 
         /* Users Management Specific Styles */
@@ -164,9 +174,9 @@
             transition: all 0.3s ease;
         }
 
-        .btn-primary:hover {
-            background-color: var(--secondary-color);
-        }
+            .btn-primary:hover {
+                background-color: var(--secondary-color);
+            }
 
         .tabs {
             display: flex;
@@ -185,10 +195,10 @@
             transition: all 0.3s ease;
         }
 
-        .tab.active, .tab:hover {
-            color: var(--primary-color);
-            background-color: #e0e7ff;
-        }
+            .tab.active, .tab:hover {
+                color: var(--primary-color);
+                background-color: #e0e7ff;
+            }
 
         .filters {
             display: flex;
@@ -214,6 +224,15 @@
             overflow: hidden;
         }
 
+        .users-table-header {
+            display: grid;
+            grid-template-columns: 2fr 2fr 1fr 1fr 1fr;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e2e8f0;
+            font-weight: 600;
+            background-color: #f8fafc;
+        }
+
         .users-table-row {
             display: grid;
             grid-template-columns: 2fr 2fr 1fr 1fr 1fr;
@@ -222,18 +241,18 @@
             align-items: center;
         }
 
-        .users-table-row:last-child {
-            border-bottom: none;
-        }
+            .users-table-row:last-child {
+                border-bottom: none;
+            }
 
         .user-status {
             font-weight: 500;
             color: var(--success-color);
         }
 
-        .user-status.inactive {
-            color: #94a3b8;
-        }
+            .user-status.inactive {
+                color: #94a3b8;
+            }
 
         .user-actions {
             display: flex;
@@ -247,13 +266,13 @@
             font-weight: 500;
         }
 
-        .action-link.edit {
-            color: var(--primary-color);
-        }
+            .action-link.edit {
+                color: var(--primary-color);
+            }
 
-        .action-link.delete {
-            color: var(--danger-color);
-        }
+            .action-link.delete {
+                color: var(--danger-color);
+            }
 
         .pagination {
             display: flex;
@@ -280,9 +299,9 @@
             color: var(--dark-color);
         }
 
-        .pagination-btn:hover {
-            background-color: #f1f5f9;
-        }
+            .pagination-btn:hover {
+                background-color: #f1f5f9;
+            }
 
         .avatar {
             width: 30px;
@@ -295,6 +314,12 @@
             color: var(--dark-color);
             font-weight: 500;
             font-size: 14px;
+        }
+
+        .no-data {
+            padding: 40px;
+            text-align: center;
+            color: #64748b;
         }
     </style>
 </head>
@@ -309,12 +334,12 @@
             <li><a asp-page="/CourseInfo" class="menu-item">Courses</a></li>
             <li><a asp-page="/UsersInfo" class="menu-item active">Users</a></li>
             <li><a asp-page="/Analytics" class="menu-item">Analytics</a></li>
-            
+
             <li class="menu-category">MANAGEMENT</li>
             <li><a asp-page="/Instructors" class="menu-item">Instructors</a></li>
             <li><a asp-page="/Students" class="menu-item">Students</a></li>
             <li><a asp-page="/Content" class="menu-item">Content</a></li>
-            
+
             <li class="menu-category">SYSTEM</li>
             <li><a asp-page="/Settings" class="menu-item">Settings</a></li>
             <li><a asp-page="/Support" class="menu-item">Support</a></li>
@@ -329,7 +354,29 @@
                 <span>></span>
                 Users
             </div>
-            
+
+            <!-- Display Error Message if any -->
+            @if (ViewData.ContainsKey("ErrorMessage"))
+            {
+                <div class="error-message">
+                    <strong>Error:</strong> @ViewData["ErrorMessage"]
+                </div>
+            }
+
+            <!-- Display Model State Errors -->
+            @if (!ModelState.IsValid)
+            {
+                <div class="error-message">
+                    <strong>Validation Errors:</strong>
+                    <ul>
+                        @foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                        {
+                            <li>@error.ErrorMessage</li>
+                        }
+                    </ul>
+                </div>
+            }
+
             <div class="users-header">
                 <h1>Users Management</h1>
                 <div class="action-buttons">
@@ -360,89 +407,55 @@
             </div>
 
             <div class="users-table">
-                <div class="users-table-row">
-                    <div><strong>John Smith</strong></div>
-                    <div>john.smith@example.com</div>
-                    <div>Instructor</div>
-                    <div class="user-status">Active</div>
-                    <div class="user-actions">
-                        <a href="#" class="action-link edit">edit</a>
-                        <a href="#" class="action-link delete">delete</a>
-                    </div>
+                <!-- Table Header -->
+                <div class="users-table-header">
+                    <div>Name</div>
+                    <div>Email</div>
+                    <div>Role</div>
+                    <div>Status</div>
+                    <div>Actions</div>
                 </div>
 
-                <div class="users-table-row">
-                    <div><strong>Sarah Johnson</strong></div>
-                    <div>sarah.j@example.com</div>
-                    <div>Student</div>
-                    <div class="user-status">Active</div>
-                    <div class="user-actions">
-                        <a href="#" class="action-link edit">edit</a>
-                        <a href="#" class="action-link delete">delete</a>
+                @if (Model.Users != null && Model.Users.Count > 0)
+                {
+                    @foreach (var user in Model.Users)
+                    {
+                        <div class="users-table-row">
+                            <div><strong>@user.FullName</strong></div>
+                            <div>@user.Email</div>
+                            <div>@user.RoleName</div>
+                            <div class="user-status @(user.IsActive ? "" : "inactive")">
+                                @(user.IsActive ? "Active" : "Inactive")
+                            </div>
+                            <div class="user-actions">
+                                <a href="#" class="action-link edit" data-userid="@user.UserId">edit</a>
+                                <a href="#" class="action-link delete" data-userid="@user.UserId">delete</a>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="no-data">
+                        <p>No user data available. This could be due to an empty database or connection issues.</p>
                     </div>
-                </div>
-
-                <div class="users-table-row">
-                    <div><strong>Michael Brown</strong></div>
-                    <div>m.brown@example.com</div>
-                    <div>Admin</div>
-                    <div class="user-status">Active</div>
-                    <div class="user-actions">
-                        <a href="#" class="action-link edit">edit</a>
-                        <a href="#" class="action-link delete">delete</a>
-                    </div>
-                </div>
-
-                <div class="users-table-row">
-                    <div><strong>Emily Davis</strong></div>
-                    <div>emily.d@example.com</div>
-                    <div>Instructor</div>
-                    <div class="user-status inactive">Inactive</div>
-                    <div class="user-actions">
-                        <a href="#" class="action-link edit">edit</a>
-                        <a href="#" class="action-link delete">delete</a>
-                    </div>
-                </div>
-
-                <div class="users-table-row">
-                    <div><strong>David Wilson</strong></div>
-                    <div>d.wilson@example.com</div>
-                    <div>Student</div>
-                    <div class="user-status">Active</div>
-                    <div class="user-actions">
-                        <a href="#" class="action-link edit">edit</a>
-                        <a href="#" class="action-link delete">delete</a>
-                    </div>
-                </div>
-
-                <div class="users-table-row">
-                    <div><strong>Jennifer Lee</strong></div>
-                    <div>j.lee@example.com</div>
-                    <div>Student</div>
-                    <div class="user-status">Active</div>
-                    <div class="user-actions">
-                        <a href="#" class="action-link edit">edit</a>
-                        <a href="#" class="action-link delete">delete</a>
-                    </div>
-                </div>
-
-                <div class="users-table-row">
-                    <div><strong>Robert Taylor</strong></div>
-                    <div>r.taylor@example.com</div>
-                    <div>Instructor</div>
-                    <div class="user-status">Active</div>
-                    <div class="user-actions">
-                        <a href="#" class="action-link edit">edit</a>
-                        <a href="#" class="action-link delete">delete</a>
-                    </div>
-                </div>
+                }
             </div>
 
             <div class="pagination">
-                <div>Showing 1-7 of 42</div>
+                <div>
+                    @if (Model.Users != null && Model.Users.Count > 0)
+                    {
+                        <span>Showing 1-@Model.Users.Count of @Model.Users.Count</span>
+                    }
+                    else
+                    {
+                        <span>No results</span>
+                    }
+                </div>
                 <div class="pagination-buttons">
-                    <button class="pagination-btn">Previous</button>
-                    <button class="pagination-btn">Next</button>
+                    <button class="pagination-btn" disabled>Previous</button>
+                    <button class="pagination-btn" disabled>Next</button>
                 </div>
             </div>
         </div>
@@ -473,9 +486,10 @@
         document.querySelectorAll('.action-link.edit').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
+                const userId = link.getAttribute('data-userid');
                 const row = link.closest('.users-table-row');
                 const userName = row.querySelector('strong').textContent;
-                alert(`Edit user: ${userName}`);
+                alert(`Edit user: ${userName} (ID: ${userId})`);
                 // Here you would implement edit functionality
             });
         });
@@ -483,9 +497,10 @@
         document.querySelectorAll('.action-link.delete').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
+                const userId = link.getAttribute('data-userid');
                 const row = link.closest('.users-table-row');
                 const userName = row.querySelector('strong').textContent;
-                if (confirm(`Are you sure you want to delete user: ${userName}?`)) {
+                if (confirm(`Are you sure you want to delete user: ${userName} (ID: ${userId})?`)) {
                     // Here you would implement delete functionality
                     row.remove();
                 }
