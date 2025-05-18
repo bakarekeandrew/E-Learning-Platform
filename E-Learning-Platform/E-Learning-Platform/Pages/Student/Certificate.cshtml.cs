@@ -266,3 +266,310 @@ namespace E_Learning_Platform.Pages.Student
                 _logger.LogDebug("[Certificate] Eligibility results - PassedAssignments: {HasPassingAssignmentGrade}, PassedQuiz: {HasPassedQuiz}, CompletedModules: {HasCompletedAllModules}",
                     HasPassingAssignmentGrade, HasPassedQuiz, HasCompletedAllModules);
 
+                // Calculate completion time
+                var firstActivity = Progress
+                    .Where(p => p.LastAccessed.HasValue)
+                    .OrderBy(p => p.LastAccessed)
+                    .FirstOrDefault()?.LastAccessed;
+
+                var lastActivity = Progress
+                    .Where(p => p.CompletedOn.HasValue)
+                    .OrderByDescending(p => p.CompletedOn)
+                    .FirstOrDefault()?.CompletedOn;
+
+                if (firstActivity.HasValue && lastActivity.HasValue)
+                {
+                    StartDate = firstActivity.Value;
+                    CompletionDate = lastActivity.Value;
+                    CompletionTime = CompletionDate - StartDate;
+                    _logger.LogDebug("[Certificate] Course duration: {CompletionTime} days", CompletionTime.TotalDays);
+                }
+
+                // Generate QR code if certificate exists
+                if (UserCertificate != null)
+                {
+                    QrCodeUrl = $"/api/qrcode?data=https://yourlearningplatform.com/verify/{UserCertificate.VerificationCode}";
+                    _logger.LogDebug("[Certificate] Generated QR code URL for verification");
+                }
+
+                // Set error message if not eligible
+                if (!IsEligibleForCertificate)
+                {
+                    if (!HasCompletedAllModules)
+                    {
+                        ErrorMessage = "You need to complete all modules for this course to earn a certificate.";
+                    }
+                    else if (!HasPassingAssignmentGrade)
+                    {
+                        ErrorMessage = "Your average assignment grade needs to be at least 50% to earn a certificate.";
+                    }
+                    else if (!HasPassedQuiz)
+                    {
+                        ErrorMessage = "You need to pass at least one quiz to earn a certificate.";
+                    }
+                    else
+                    {
+                        ErrorMessage = "You haven't met all requirements to earn a certificate for this course.";
+                    }
+                    _logger.LogInformation("[Certificate] User not eligible for certificate: {ErrorMessage}", ErrorMessage);
+                }
+
+                _logger.LogInformation("[Certificate] Certificate page successfully prepared for user {UserId}", userId);
+                return Page();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "[Certificate] Exception details: {ExceptionMessage}", ex.Message);
+                ErrorMessage = $"An error occurred while processing your certificate. Details: {ex.Message}";
+                return Page();
+            }
+        }
+
+        private async Task<bool> CheckEligibilityAsync(SqlConnection connection, string userId, int courseId)
+        {
+            try
+            {
+                // Check module completion
+                var moduleProgress = await connection.QueryFirstOrDefaultAsync<(int completed, int total)>(@"
+                    SELECT 
+                        (SELECT COUNT(*) FROM USER_MODULE_PROGRESS p 
+                         JOIN MODULES m ON p.MODULE_ID = m.MODULE_ID 
+                         WHERE p.USER_ID = @UserId AND m.COURSE_ID = @CourseId AND p.STATUS = 'completed') as completed,
+                        (SELECT COUNT(*) FROM MODULES WHERE COURSE_ID = @CourseId) as total",
+                    new { UserId = userId, CourseId = courseId });
+
+                bool hasCompletedAllModules = moduleProgress.completed == moduleProgress.total && moduleProgress.total > 0;
+
+                // Check assignment grades
+                var assignmentAverage = await connection.QueryFirstOrDefaultAsync<decimal?>(@"
+                    SELECT AVG(CAST(s.GRADE as decimal(5,2)))
+                    FROM ASSIGNMENT_SUBMISSIONS s
+                    JOIN ASSIGNMENTS a ON s.ASSIGNMENT_ID = a.ASSIGNMENT_ID
+                    WHERE s.USER_ID = @UserId AND a.COURSE_ID = @CourseId AND s.GRADE IS NOT NULL",
+                    new { UserId = userId, CourseId = courseId });
+
+                bool hasPassingAssignmentGrade = (assignmentAverage ?? 0) >= PASSING_GRADE_THRESHOLD;
+
+                // Check quiz completion
+                var hasPassedQuiz = await connection.QueryFirstOrDefaultAsync<bool>(@"
+                    SELECT CASE WHEN EXISTS (
+                        SELECT 1 FROM QUIZ_ATTEMPTS qa
+                        JOIN QUIZZES q ON qa.QUIZ_ID = q.QUIZ_ID
+                        JOIN MODULES m ON q.MODULE_ID = m.MODULE_ID
+                        WHERE qa.USER_ID = @UserId AND m.COURSE_ID = @CourseId AND qa.PASSED = 1
+                    ) THEN 1 ELSE 0 END",
+                    new { UserId = userId, CourseId = courseId });
+
+                return hasCompletedAllModules && hasPassingAssignmentGrade && hasPassedQuiz;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "[Certificate] Error checking certificate eligibility: {ErrorMessage}", ex.Message);
+                return false;
+            }
+        }
+
+        public async Task<IActionResult> OnPostGenerateCertificateAsync()
+        {
+            _logger.LogInformation("Certificate generation requested by user");
+
+            string userId = null;
+            byte[] userIdBytes;
+            if (HttpContext.Session.TryGetValue("UserId", out userIdBytes))
+            {
+                userId = BitConverter.ToInt32(userIdBytes, 0).ToString();
+                _logger.LogDebug("Retrieved UserId from session: {UserId}", userId);
+            }
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                _logger.LogWarning("User not authenticated, redirecting to login");
+                return RedirectToPage("/Login");
+            }
+
+            try
+            {
+                using var connection = new SqlConnection(_connectionString);
+                _logger.LogDebug("Opening database connection");
+                await connection.OpenAsync();
+
+                // Check if certificate already exists
+                _logger.LogDebug("Checking for existing certificate");
+                var existingCertificate = await connection.QueryFirstOrDefaultAsync<Certificate>(
+                    @"SELECT CERTIFICATE_ID AS CertificateId FROM CERTIFICATES WITH (NOLOCK)
+                      WHERE USER_ID = @UserId AND COURSE_ID = @CourseId",
+                    new { UserId = userId, CourseId });
+
+                if (existingCertificate != null)
+                {
+                    _logger.LogInformation("Certificate already exists, redirecting");
+                    return RedirectToPage("/Student/Certificate", new { courseId = CourseId });
+                }
+
+                // Check eligibility criteria
+                _logger.LogDebug("Checking certificate eligibility criteria");
+
+                // 1. Check module completion
+                var progressResult = await connection.QueryFirstOrDefaultAsync<(int AllModules, int CompletedModules)>(
+                    @"SELECT (SELECT COUNT(*) FROM MODULES WHERE COURSE_ID = @CourseId) AS AllModules,
+                      (SELECT COUNT(*) FROM USER_PROGRESS p JOIN MODULES m ON p.MODULE_ID = m.MODULE_ID
+                      WHERE p.USER_ID = @UserId AND m.COURSE_ID = @CourseId AND p.STATUS = 'Completed') AS CompletedModules",
+                    new { UserId = userId, CourseId });
+
+                bool hasCompletedAllModules = progressResult.CompletedModules >= progressResult.AllModules && progressResult.AllModules > 0;
+                _logger.LogDebug("Module completion: {Completed}/{Total}", progressResult.CompletedModules, progressResult.AllModules);
+
+                if (!hasCompletedAllModules)
+                {
+                    _logger.LogInformation("User hasn't completed all modules");
+                    TempData["ErrorMessage"] = "You must complete all modules before generating a certificate.";
+                    return RedirectToPage("/Student/Certificate", new { courseId = CourseId });
+                }
+
+                // 2. Check assignment grades
+                var assignmentGrades = await connection.QueryAsync<decimal?>(
+                    @"SELECT s.GRADE FROM ASSIGNMENT_SUBMISSIONS s
+                      JOIN ASSIGNMENTS a ON s.ASSIGNMENT_ID = a.ASSIGNMENT_ID
+                      WHERE s.USER_ID = @UserId AND a.COURSE_ID = @CourseId AND s.GRADE IS NOT NULL",
+                    new { UserId = userId, CourseId });
+
+                var validGrades = assignmentGrades.Where(g => g.HasValue).Select(g => g.Value).ToList();
+                bool hasPassingAssignmentGrade = validGrades.Any() && validGrades.Average() >= PASSING_GRADE_THRESHOLD;
+                _logger.LogDebug("Assignment grades: {Count}, Average: {Average}, Passing: {IsPassing}",
+                    validGrades.Count, validGrades.Any() ? validGrades.Average() : 0, hasPassingAssignmentGrade);
+
+                if (!hasPassingAssignmentGrade)
+                {
+                    _logger.LogInformation("User doesn't have passing assignment grade");
+                    TempData["ErrorMessage"] = "Your average assignment grade must be at least 50% to earn a certificate.";
+                    return RedirectToPage("/Student/Certificate", new { courseId = CourseId });
+                }
+
+                // 3. Check quiz passing
+                var hasPassedQuiz = await connection.QueryFirstOrDefaultAsync<bool>(
+                    @"SELECT CASE WHEN EXISTS (
+                        SELECT 1 FROM QUIZ_ATTEMPTS a JOIN QUIZZES q ON a.QUIZ_ID = q.QUIZ_ID
+                        JOIN MODULES m ON q.MODULE_ID = m.MODULE_ID
+                        WHERE a.USER_ID = @UserId AND m.COURSE_ID = @CourseId AND a.PASSED = 1
+                      ) THEN 1 ELSE 0 END",
+                    new { UserId = userId, CourseId });
+                _logger.LogDebug("Has passed quiz: {HasPassedQuiz}", hasPassedQuiz);
+
+                if (!hasPassedQuiz)
+                {
+                    _logger.LogInformation("User hasn't passed any quizzes");
+                    TempData["ErrorMessage"] = "You must pass at least one quiz to earn a certificate.";
+                    return RedirectToPage("/Student/Certificate", new { courseId = CourseId });
+                }
+
+                // All conditions met, generate certificate
+                _logger.LogInformation("All conditions met, generating certificate");
+                await GenerateCertificateInternalAsync(userId);
+
+                _logger.LogInformation("Certificate generated successfully, redirecting");
+                return RedirectToPage("/Student/Certificate", new { courseId = CourseId });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error generating certificate for user {UserId}", userId);
+                TempData["ErrorMessage"] = "An error occurred while generating your certificate. Please try again later.";
+                return RedirectToPage("/Student/Certificate", new { courseId = CourseId });
+            }
+        }
+
+        private async Task AutoGenerateCertificateAsync(string userId)
+        {
+            _logger.LogInformation("Auto-generating certificate for user {UserId}, course {CourseId}", userId, CourseId);
+
+            try
+            {
+                using var connection = new SqlConnection(_connectionString);
+                _logger.LogDebug("Opening database connection");
+                await connection.OpenAsync();
+
+                _logger.LogDebug("Checking for existing certificate");
+                var existingCertificate = await connection.QueryFirstOrDefaultAsync<Certificate>(
+                    @"SELECT CERTIFICATE_ID AS CertificateId FROM CERTIFICATES WITH (NOLOCK)
+                      WHERE USER_ID = @UserId AND COURSE_ID = @CourseId",
+                    new { UserId = userId, CourseId });
+
+                if (existingCertificate == null)
+                {
+                    _logger.LogInformation("No existing certificate found, generating new one");
+                    await GenerateCertificateInternalAsync(userId);
+                }
+                else
+                {
+                    _logger.LogDebug("Certificate already exists, no action needed");
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error auto-generating certificate for user {UserId}", userId);
+            }
+        }
+
+        private async Task GenerateCertificateInternalAsync(string userId)
+        {
+            _logger.LogInformation("Generating certificate internally for user {UserId}", userId);
+
+            using var connection = new SqlConnection(_connectionString);
+            _logger.LogDebug("Opening database connection");
+            await connection.OpenAsync();
+
+            _logger.LogDebug("Generating verification code");
+            string verificationCode = GenerateVerificationCode();
+            string certificateUrl = $"/certificates/{userId}-{CourseId}-{verificationCode}.pdf";
+            _logger.LogDebug("Certificate URL: {CertificateUrl}", certificateUrl);
+
+            using var transaction = connection.BeginTransaction();
+            try
+            {
+                _logger.LogDebug("Inserting certificate record");
+                await connection.ExecuteAsync(
+                    @"INSERT INTO CERTIFICATES (USER_ID, COURSE_ID, ISSUE_DATE, CERTIFICATE_URL, VERIFICATION_CODE)
+                      VALUES (@UserId, @CourseId, @IssueDate, @CertificateUrl, @VerificationCode)",
+                    new { UserId = userId, CourseId, IssueDate = DateTime.Now, CertificateUrl = certificateUrl, VerificationCode = verificationCode },
+                    transaction);
+
+                transaction.Commit();
+                _logger.LogInformation("Certificate generated successfully with verification code: {VerificationCode}", verificationCode);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error during certificate generation transaction");
+                transaction.Rollback();
+                throw;
+            }
+        }
+
+        private string GenerateVerificationCode()
+        {
+            _logger.LogDebug("Generating secure verification code");
+            using var rng = RandomNumberGenerator.Create();
+            var bytes = new byte[4];
+            rng.GetBytes(bytes);
+            var code = BitConverter.ToString(bytes).Replace("-", "").ToUpper();
+            _logger.LogDebug("Generated verification code: {VerificationCode}", code);
+            return code;
+        }
+
+        public async Task<IActionResult> OnGetDownloadPdfAsync(int? courseId)
+        {
+            // Set QuestPDF license - Community for free use if applicable
+            QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
+
+            _logger.LogInformation("[Certificate] PDF download requested for courseId: {CourseId}", courseId);
+            if (courseId == null)
+                return NotFound();
+
+            CourseId = courseId.Value;
+            string userId = null;
+            byte[] userIdBytes;
+            if (HttpContext.Session.TryGetValue("UserId", out userIdBytes))
+                userId = BitConverter.ToInt32(userIdBytes, 0).ToString();
+            else
+                return RedirectToPage("/Login");
+
+            using var connection = new SqlConnection(_connectionString);
+            await connection.OpenAsync();
