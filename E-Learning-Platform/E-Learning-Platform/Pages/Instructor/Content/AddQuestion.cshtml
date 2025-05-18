@@ -1,0 +1,195 @@
+﻿@page
+@model E_Learning_Platform.Pages.Instructor.Content.AddQuestionModel
+@{
+    Layout = "/Pages/Instructor/_Layout.cshtml";
+    ViewData["Title"] = "Add Question";
+}
+
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <h5 class="mb-0">Add New Question</h5>
+                <p class="text-muted mb-0">For quiz: @Model.QuizTitle</p>
+            </div>
+            <div class="card-body">
+                <form method="post" id="questionForm">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="QuizId" />
+
+
+                    <div class="mb-3">
+                        <label asp-for="Question.QuestionText" class="form-label">Question Text</label>
+                        <textarea asp-for="Question.QuestionText" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="Question.QuestionText" class="text-danger"></span>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="Question.QuestionType" class="form-label">Question Type</label>
+                                <select asp-for="Question.QuestionType" class="form-select" id="questionType">
+                                    <option value="multiple_choice">Multiple Choice</option>
+                                    <option value="true_false">True/False</option>
+                                </select>
+                                <span asp-validation-for="Question.QuestionType" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="Question.Points" class="form-label">Points</label>
+                                <input asp-for="Question.Points" class="form-control" type="number" min="1" value="1" />
+                                <span asp-validation-for="Question.Points" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Question.SequenceNumber" class="form-label">Question Order</label>
+                        <input asp-for="Question.SequenceNumber" class="form-control" type="number" min="1" />
+                        <span asp-validation-for="Question.SequenceNumber" class="text-danger"></span>
+                    </div>
+
+                    <div id="optionsSection">
+                        <h6 class="mb-3">Options</h6>
+
+                        <div id="optionsContainer">
+                            <!-- Four default options -->
+                            <div class="option-item mb-3">
+                                <div class="input-group">
+                                    <div class="input-group-text">
+                                        <input class="form-check-input mt-0" type="radio" name="CorrectOptionIndex" value="0" checked>
+                                    </div>
+                                    <input type="text" class="form-control" name="Question.Options[0].OptionText" required>
+                                    <button type="button" class="btn btn-outline-danger remove-option" disabled>
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="option-item mb-3">
+                                <div class="input-group">
+                                    <div class="input-group-text">
+                                        <input class="form-check-input mt-0" type="radio" name="CorrectOptionIndex" value="1">
+                                    </div>
+                                    <input type="text" class="form-control" name="Question.Options[1].OptionText" required>
+                                    <button type="button" class="btn btn-outline-danger remove-option">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="option-item mb-3">
+                                <div class="input-group">
+                                    <div class="input-group-text">
+                                        <input class="form-check-input mt-0" type="radio" name="CorrectOptionIndex" value="2">
+                                    </div>
+                                    <input type="text" class="form-control" name="Question.Options[2].OptionText" required>
+                                    <button type="button" class="btn btn-outline-danger remove-option">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="option-item mb-3">
+                                <div class="input-group">
+                                    <div class="input-group-text">
+                                        <input class="form-check-input mt-0" type="radio" name="CorrectOptionIndex" value="3">
+                                    </div>
+                                    <input type="text" class="form-control" name="Question.Options[3].OptionText" required>
+                                    <button type="button" class="btn btn-outline-danger remove-option">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="button" id="addOption" class="btn btn-sm btn-outline-primary mb-3">
+                            <i class="bi bi-plus"></i> Add Option
+                        </button>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a asp-page="QuizQuestions" asp-route-quizId="@Model.QuizId" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Save Question</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+        <script>
+            $(document).ready(function() {
+                // Start counting from 4 since we have 4 default options
+                let optionCount = 4;
+
+                // Add new option
+                $('#addOption').click(function() {
+                    const newOption = `
+                        <div class="option-item mb-3">
+                            <div class="input-group">
+                                <div class="input-group-text">
+                                    <input class="form-check-input mt-0" type="radio" name="CorrectOptionIndex" value="${optionCount}">
+                                </div>
+                                <input type="text" class="form-control" name="Question.Options[${optionCount}].OptionText" required>
+                                <button type="button" class="btn btn-outline-danger remove-option">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    $('#optionsContainer').append(newOption);
+                    optionCount++;
+                });
+
+                // Remove option
+                $(document).on('click', '.remove-option', function() {
+                    // Only allow removal if we have more than 2 options
+                    if ($('.option-item').length > 2) {
+                        const $item = $(this).closest('.option-item');
+                        const wasChecked = $item.find('input[type="radio"]').is(':checked');
+
+                        $item.remove();
+
+                        // If we removed the correct answer, select the first option
+                        if (wasChecked) {
+                            $('input[name="CorrectOptionIndex"]').first().prop('checked', true);
+                        }
+
+                        // Reindex all remaining options
+                        $('.option-item').each(function(index) {
+                            $(this).find('input[type="radio"]').val(index);
+                            $(this).find('input[type="text"]').attr('name', `Question.Options[${index}].OptionText`);
+                        });
+
+                        optionCount = $('.option-item').length;
+                    }
+                });
+
+                // Toggle options section based on question type
+                $('#questionType').change(function() {
+                    if ($(this).val() === 'true_false') {
+                        $('#optionsSection').hide();
+                        // Set default true/false options
+                        $('input[name="Question.Options[0].OptionText"]').val('True');
+                        $('input[name="Question.Options[1].OptionText"]').val('False');
+                    } else {
+                        $('#optionsSection').show();
+                    }
+                });
+
+                // Initialize based on question type
+                if ($('#questionType').val() === 'true_false') {
+                    $('#optionsSection').hide();
+                    $('input[name="Question.Options[0].OptionText"]').val('True');
+                    $('input[name="Question.Options[1].OptionText"]').val('False');
+                }
+            });
+        </script>
+}
