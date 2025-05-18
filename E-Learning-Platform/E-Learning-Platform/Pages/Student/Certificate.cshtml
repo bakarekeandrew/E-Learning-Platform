@@ -87,3 +87,114 @@
                                 <p class="small text-muted">Verify at: verify.elearning.com/@Model.UserCertificate.VerificationCode</p>
                             </div>
                         }
+                         else
+                        {
+                            <div class="alert alert-info">
+                                <i class="bi bi-info-circle me-2"></i>
+                                Certificate will be generated upon course completion.
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        @@media print {
+            body
+
+        {
+            background-color: white !important;
+        }
+
+        .btn, .alert {
+            display: none !important;
+        }
+
+        .certificate-container {
+            box-shadow: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        }
+
+        .certificate-container {
+            max-width: 900px;
+            margin: auto;
+            background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+        }
+
+        .platform-logo {
+            height: 80px;
+            object-fit: contain;
+        }
+
+        .certificate-seal {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            margin: 20px auto;
+            display: block;
+        }
+
+        .certificate-seal-container {
+            text-align: center;
+        }
+
+        .student-name {
+            font-size: 2.5rem;
+            font-family: "Times New Roman", Times, serif;
+            color: #2c3e50;
+            text-transform: capitalize;
+        }
+
+        .course-title {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .signature-container {
+            height: 60px;
+            margin-bottom: 10px;
+        }
+
+        .signature-image {
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .signature-line {
+            width: 80%;
+            margin: 10px auto;
+            border-bottom: 2px solid #000;
+        }
+
+        .certificate-footer {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .completion-date {
+            color: #666;
+            font-style: italic;
+        }
+
+        .verification-code {
+            font-family: monospace;
+            letter-spacing: 2px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .verification-section {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            display: inline-block;
+        }
+    </style>
+</body>
+</html>
