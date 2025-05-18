@@ -20,6 +20,7 @@ using System.IO;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
+using System.Reflection.Metadata;
 
 namespace E_Learning_Platform.Pages.Student
 {
@@ -573,3 +574,96 @@ namespace E_Learning_Platform.Pages.Student
 
             using var connection = new SqlConnection(_connectionString);
             await connection.OpenAsync();
+            // Get certificate details
+            var cert = await connection.QueryFirstOrDefaultAsync<Certificate>(
+                @"SELECT CERTIFICATE_ID AS CertificateId, USER_ID AS UserId, COURSE_ID AS CourseId, 
+          ISSUE_DATE AS IssueDate, CERTIFICATE_URL AS CertificateUrl, VERIFICATION_CODE AS VerificationCode
+          FROM CERTIFICATES WHERE USER_ID = @UserId AND COURSE_ID = @CourseId",
+                new { UserId = userId, CourseId });
+
+            if (cert == null)
+                return NotFound();
+
+            // Get user and course details
+            var userFullName = await connection.QueryFirstOrDefaultAsync<string>(
+                "SELECT FULL_NAME FROM USERS WHERE USER_ID = @UserId",
+                new { UserId = int.Parse(userId) });
+            var courseTitle = await connection.QueryFirstOrDefaultAsync<string>(
+                "SELECT TITLE FROM COURSES WHERE COURSE_ID = @CourseId",
+                new { CourseId });
+            var instructorName = await connection.QueryFirstOrDefaultAsync<string>(
+                "SELECT u.FULL_NAME FROM COURSES c JOIN USERS u ON c.CREATED_BY = u.USER_ID WHERE c.COURSE_ID = @CourseId",
+                new { CourseId });
+
+            // Generate PDF
+            var pdfStream = new MemoryStream();
+            var logoPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "logo.png");
+            byte[] logoBytes = System.IO.File.Exists(logoPath) ? System.IO.File.ReadAllBytes(logoPath) : null;
+
+            Document.Create(container =>
+            {
+                container.Page(page =>
+                {
+                    page.Size(PageSizes.A4);
+                    page.Margin(2, Unit.Centimetre);
+                    page.PageColor(Colors.White);
+                    page.DefaultTextStyle(x => x.FontSize(18));
+
+                    page.Header().Row(row =>
+                    {
+                        row.RelativeItem().Column(col =>
+                        {
+                            col.Item().Text("Certificate of Completion").FontSize(32).Bold().FontColor("#2c3e50").AlignCenter();
+                            col.Item().Text("").FontSize(8);
+                        });
+                    });
+
+                    page.Content().Column(col =>
+                    {
+                        // Correct image handling
+                        if (logoBytes != null)
+                        {
+                            col.Item().AlignCenter().Height(120).Image(logoBytes, ImageScaling.FitHeight);
+                        }
+
+                        col.Item().Text("").FontSize(10);
+                        col.Item().AlignCenter().Text($"This certifies that").FontSize(18).FontColor("#555");
+                        col.Item().AlignCenter().Text(userFullName).FontSize(28).Bold().FontColor("#2c3e50");
+                        col.Item().AlignCenter().Text($"has successfully completed the course").FontSize(18).FontColor("#555");
+                        col.Item().AlignCenter().Text(courseTitle).FontSize(24).Bold().FontColor("#2c3e50");
+                        col.Item().Text("").FontSize(10);
+                        col.Item().AlignCenter().Text($"Date of Completion: {cert.IssueDate:MMMM d, yyyy}").FontSize(16);
+                        col.Item().AlignCenter().Text($"Certificate ID: {cert.VerificationCode}").FontSize(12).FontColor("#888");
+                        col.Item().Text("").FontSize(10);
+                        col.Item().Row(row =>
+                        {
+                            row.RelativeItem().AlignCenter().Column(sigCol =>
+                            {
+                                sigCol.Item().Text("________________________").FontSize(16).FontColor("#2c3e50");
+                                sigCol.Item().Text("Instructor").FontSize(12).FontColor("#555");
+                                sigCol.Item().Text(instructorName).FontSize(12).FontColor("#555");
+                            });
+                            row.RelativeItem().AlignCenter().Column(sigCol =>
+                            {
+                                sigCol.Item().Text("________________________").FontSize(16).FontColor("#2c3e50");
+                                sigCol.Item().Text("Platform").FontSize(12).FontColor("#555");
+                                sigCol.Item().Text("E-Learning Platform").FontSize(12).FontColor("#555");
+                            });
+                        });
+                    });
+                });
+            }).GeneratePdf(pdfStream);
+
+            pdfStream.Position = 0;
+            return File(pdfStream, "application/pdf", $"Certificate_{userFullName}_{courseTitle}.pdf");
+        }
+
+        public class InstructorInfo
+        {
+            public int UserId { get; set; }
+            public string FullName { get; set; }
+            public string ProfileImage { get; set; }
+            public string Qualification { get; set; }
+        }
+    }
+}
