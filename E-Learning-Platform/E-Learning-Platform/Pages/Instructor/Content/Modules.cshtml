@@ -1,0 +1,122 @@
+﻿@page
+@model E_Learning_Platform.Pages.Instructor.Content.ModulesModel
+@{
+    Layout = "/Pages/Instructor/_Layout.cshtml";
+    ViewData["Title"] = "Course Modules";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h2">Course Modules</h1>
+    @if (Model.SelectedCourseId.HasValue)
+    {
+            <a asp-page="CreateModule" asp-route-courseId="@Model.SelectedCourseId" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> New Module
+            </a>
+    }
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h5 class="mb-0">Select Course</h5>
+    </div>
+    <div class="card-body">
+        @if (Model.Courses.Count == 0)
+        {
+                <div class="alert alert-info">
+                    You don't have any courses yet. <a asp-page="/Instructor/Courses/CreateModule">Create a course</a> first to add modules.
+                </div>
+        }
+        else
+        {
+                <div class="row">
+                    <div class="col">
+                        <form method="get" id="courseSelectForm">
+                            <select name="courseId" class="form-select" onchange="this.form.submit()">
+                            @foreach (var course in Model.Courses)
+                            {
+                                        <option value="@course.CourseId" selected="@(Model.SelectedCourseId == course.CourseId)">
+                                    @course.Title
+                                        </option>
+                            }
+                            </select>
+                        </form>
+                    </div>
+                </div>
+        }
+    </div>
+</div>
+
+@if (Model.SelectedCourseId.HasValue)
+{
+        <div class="card shadow">
+            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Modules</h5>
+                <div>
+                    <a asp-page="CreateModule" asp-route-courseId="@Model.SelectedCourseId" class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-plus-circle"></i> Add Module
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+            @if (Model.Modules.Count == 0)
+            {
+                        <div class="alert alert-info">
+                            This course doesn't have any modules yet. Add your first module to get started.
+                        </div>
+            }
+            else
+            {
+                        <div class="list-group">
+                    @foreach (var module in Model.Modules.OrderBy(m => m.SequenceNumber))
+                    {
+                                    <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h5 class="mb-1">@module.Title</h5>
+                                            <p class="mb-1 text-muted">@module.Description</p>
+                                            <small>
+                                    @if (module.IsFree)
+                                    {
+                                                        <span class="badge bg-success">Active</span>
+                                    }
+                                    else
+                                    {
+                                                        <span class="badge bg-secondary">Inactive</span>
+                                    }
+                                            </small>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a asp-page="EditModule" asp-route-id="@module.ModuleId" class="btn btn-sm btn-outline-secondary">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-@module.ModuleId">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </div>
+
+                                        <!-- Delete Modal -->
+                                        <div class="modal fade" id="deleteModal-@module.ModuleId" tabindex="-1" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Delete Module</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Are you sure you want to delete the module "@module.Title"?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                        <form method="post" asp-page-handler="Delete" asp-route-id="@module.ModuleId">
+                                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                    }
+                        </div>
+            }
+            </div>
+        </div>
+}
