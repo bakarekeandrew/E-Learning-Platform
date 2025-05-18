@@ -59,3 +59,31 @@
                     <p class="completion-date mb-4">
                         Completed on @Model.CompletionDate.ToString("MMMM dd, yyyy")
                     </p>
+                    <div class="row mt-5">
+                        <div class="col-6 text-center">
+                            <div class="signature-container">
+                                <img src="/img/Director_signature.png" alt="Instructor Signature" class="signature-image" />
+                            </div>
+                            <div class="signature-line"></div>
+                            <p class="mb-0">@(Model.Course?.Instructor ?? "Instructor")</p>
+                            <p>Course Instructor</p>
+                        </div>
+                        <div class="col-6 text-center">
+                            <div class="signature-container">
+                                <img src="/img/Director_signature.png" alt="Director Signature" class="signature-image" />
+                            </div>
+                            <div class="signature-line"></div>
+                            <p class="mb-0">Platform Director</p>
+                            <p>E-Learning Platform</p>
+                        </div>
+                    </div>
+
+                    <div class="certificate-footer mt-5">
+                        @if (Model.UserCertificate != null)
+                        {
+                            <div class="verification-section">
+                                <p class="mb-2">Certificate Verification ID:</p>
+                                <h4 class="verification-code mb-2">@Model.UserCertificate.VerificationCode</h4>
+                                <p class="small text-muted">Verify at: verify.elearning.com/@Model.UserCertificate.VerificationCode</p>
+                            </div>
+                        }
