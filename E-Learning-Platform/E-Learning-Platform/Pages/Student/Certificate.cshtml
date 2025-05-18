@@ -25,3 +25,37 @@
                title="@(Model.UserCertificate == null ? "Certificate not yet generated" : "Download PDF")">
                 <i class="bi bi-download"></i> Download PDF
             </a>
+            <button onclick="window.print()"
+                    class="btn btn-primary @(Model.UserCertificate == null ? "disabled" : "")"
+                    title="@(Model.UserCertificate == null ? "Certificate not yet generated" : "Print Certificate")"
+            @(Model.UserCertificate == null ? "disabled" : "")>
+                <i class="bi bi-printer"></i> Print Certificate
+            </button>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div class="alert alert-warning">
+                <i class="bi bi-exclamation-triangle me-2"></i>
+                @Model.ErrorMessage
+            </div>
+        }
+
+        <div class="certificate-container bg-white p-5 shadow-sm" id="certificateContent">
+            <div class="border border-3 border-dark p-5">
+                <div class="text-center">
+                    <h1 class="display-4 mb-4">Certificate of Completion</h1>
+                    <!-- Certificate Seal -->
+                    <div class="certificate-seal-container mb-4">
+                        <img src="/img/certified_seal.png" alt="Official Seal" class="certificate-seal" />
+                    </div>
+
+                    <h2 class="mb-4">This is to certify that</h2>
+                    <h3 class="student-name mb-4">@Model.StudentName</h3>
+
+                    <p class="lead mb-4">has successfully completed the course</p>
+                    <h3 class="course-title mb-4">@(Model.Course?.Title ?? "Course Title")</h3>
+
+                    <p class="completion-date mb-4">
+                        Completed on @Model.CompletionDate.ToString("MMMM dd, yyyy")
+                    </p>
