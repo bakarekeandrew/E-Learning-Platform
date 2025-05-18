@@ -134,3 +134,80 @@
             color: var(--white);
             transform: translateY(-2px);
         }
+
+            .login-btn i {
+                margin-right: 5px;
+            }
+
+        /* Hero Section */
+        #hero {
+            width: 100%;
+            min-height: 100vh;
+            background: url('../img/hero-bg.jpg') center center no-repeat;
+            background-size: cover;
+            position: relative;
+            padding-top: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+            #hero:before {
+                content: "";
+                background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
+                position: absolute;
+                bottom: 0;
+                top: 0;
+                left: 0;
+                right: 0;
+            }
+
+            #hero .container {
+                position: relative;
+                z-index: 1;
+            }
+
+        .hero-content {
+            padding: 60px 0;
+        }
+
+            .hero-content h1 {
+                font-size: 3.5rem;
+                font-weight: 700;
+                margin-bottom: 20px;
+                color: var(--dark-text);
+                line-height: 1.2;
+            }
+
+            .hero-content h2 {
+                font-size: 1.5rem;
+                color: var(--primary-color);
+                margin-bottom: 30px;
+                font-weight: 500;
+            }
+
+        .btn-get-started {
+            font-weight: 500;
+            font-size: 16px;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            padding: 15px 35px;
+            border-radius: 50px;
+            transition: 0.5s;
+            margin-top: 30px;
+            color: var(--white);
+            background: var(--gradient-primary);
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(74, 108, 247, 0.2);
+        }
+
+            .btn-get-started:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 6px 20px rgba(74, 108, 247, 0.3);
+                color: var(--white);
+            }
+
+            .btn-get-started i {
+                margin-left: 10px;
+                transition: 0.3s;
+            }
