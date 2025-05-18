@@ -1,0 +1,200 @@
+﻿@page
+@model E_Learning_Platform.Pages.Student.CertificateModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Course Completion Certificate</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container my-5">
+        <div class="text-end mb-3">
+            <a asp-page="/Student/Courses/View/@Model.CourseId" class="btn btn-outline-primary me-2">
+                <i class="bi bi-arrow-left"></i> Back to Course
+            </a>
+
+            <a asp-page-handler="DownloadPdf"
+               asp-route-courseId="@Model.CourseId"
+               class="btn btn-success me-2 @(Model.UserCertificate == null ? "disabled" : "")"
+               title="@(Model.UserCertificate == null ? "Certificate not yet generated" : "Download PDF")">
+                <i class="bi bi-download"></i> Download PDF
+            </a>
+            <button onclick="window.print()"
+                    class="btn btn-primary @(Model.UserCertificate == null ? "disabled" : "")"
+                    title="@(Model.UserCertificate == null ? "Certificate not yet generated" : "Print Certificate")"
+            @(Model.UserCertificate == null ? "disabled" : "")>
+                <i class="bi bi-printer"></i> Print Certificate
+            </button>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div class="alert alert-warning">
+                <i class="bi bi-exclamation-triangle me-2"></i>
+                @Model.ErrorMessage
+            </div>
+        }
+
+        <div class="certificate-container bg-white p-5 shadow-sm" id="certificateContent">
+            <div class="border border-3 border-dark p-5">
+                <div class="text-center">
+                    <h1 class="display-4 mb-4">Certificate of Completion</h1>
+                    <!-- Certificate Seal -->
+                    <div class="certificate-seal-container mb-4">
+                        <img src="/img/certified_seal.png" alt="Official Seal" class="certificate-seal" />
+                    </div>
+
+                    <h2 class="mb-4">This is to certify that</h2>
+                    <h3 class="student-name mb-4">@Model.StudentName</h3>
+
+                    <p class="lead mb-4">has successfully completed the course</p>
+                    <h3 class="course-title mb-4">@(Model.Course?.Title ?? "Course Title")</h3>
+
+                    <p class="completion-date mb-4">
+                        Completed on @Model.CompletionDate.ToString("MMMM dd, yyyy")
+                    </p>
+                    <div class="row mt-5">
+                        <div class="col-6 text-center">
+                            <div class="signature-container">
+                                <img src="/img/Director_signature.png" alt="Instructor Signature" class="signature-image" />
+                            </div>
+                            <div class="signature-line"></div>
+                            <p class="mb-0">@(Model.Course?.Instructor ?? "Instructor")</p>
+                            <p>Course Instructor</p>
+                        </div>
+                        <div class="col-6 text-center">
+                            <div class="signature-container">
+                                <img src="/img/Director_signature.png" alt="Director Signature" class="signature-image" />
+                            </div>
+                            <div class="signature-line"></div>
+                            <p class="mb-0">Platform Director</p>
+                            <p>E-Learning Platform</p>
+                        </div>
+                    </div>
+
+                    <div class="certificate-footer mt-5">
+                        @if (Model.UserCertificate != null)
+                        {
+                            <div class="verification-section">
+                                <p class="mb-2">Certificate Verification ID:</p>
+                                <h4 class="verification-code mb-2">@Model.UserCertificate.VerificationCode</h4>
+                                <p class="small text-muted">Verify at: verify.elearning.com/@Model.UserCertificate.VerificationCode</p>
+                            </div>
+                        }
+                         else
+                        {
+                            <div class="alert alert-info">
+                                <i class="bi bi-info-circle me-2"></i>
+                                Certificate will be generated upon course completion.
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        @@media print {
+            body
+
+        {
+            background-color: white !important;
+        }
+
+        .btn, .alert {
+            display: none !important;
+        }
+
+        .certificate-container {
+            box-shadow: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        }
+
+        .certificate-container {
+            max-width: 900px;
+            margin: auto;
+            background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+        }
+
+        .platform-logo {
+            height: 80px;
+            object-fit: contain;
+        }
+
+        .certificate-seal {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            margin: 20px auto;
+            display: block;
+        }
+
+        .certificate-seal-container {
+            text-align: center;
+        }
+
+        .student-name {
+            font-size: 2.5rem;
+            font-family: "Times New Roman", Times, serif;
+            color: #2c3e50;
+            text-transform: capitalize;
+        }
+
+        .course-title {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .signature-container {
+            height: 60px;
+            margin-bottom: 10px;
+        }
+
+        .signature-image {
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .signature-line {
+            width: 80%;
+            margin: 10px auto;
+            border-bottom: 2px solid #000;
+        }
+
+        .certificate-footer {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .completion-date {
+            color: #666;
+            font-style: italic;
+        }
+
+        .verification-code {
+            font-family: monospace;
+            letter-spacing: 2px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .verification-section {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            display: inline-block;
+        }
+    </style>
+</body>
+</html>

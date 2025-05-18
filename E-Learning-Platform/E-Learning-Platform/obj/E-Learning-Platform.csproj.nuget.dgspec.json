@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform.csproj": {}
+    "C:\\Users\\HP\\Downloads\\B\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform.csproj": {}
   },
   "projects": {
-    "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform.csproj": {
+    "C:\\Users\\HP\\Downloads\\B\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform.csproj",
+        "projectUniqueName": "C:\\Users\\HP\\Downloads\\B\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform.csproj",
         "projectName": "E-Learning-Platform",
-        "projectPath": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform.csproj",
+        "projectPath": "C:\\Users\\HP\\Downloads\\B\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\obj\\",
+        "outputPath": "C:\\Users\\HP\\Downloads\\B\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
