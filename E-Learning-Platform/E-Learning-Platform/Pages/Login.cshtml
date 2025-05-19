@@ -1,0 +1,148 @@
+﻿@page
+@model E_Learning_Platform.Pages.LoginModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Log in";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - E-Learning Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f7f7f7;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            background: #fff;
+            padding: 18px 22px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 320px;
+        }
+
+            .login-container h2 {
+                font-size: 1.3rem;
+                margin-bottom: 18px;
+                text-align: center;
+                color: #222;
+            }
+
+        .form-group {
+            margin-bottom: 13px;
+        }
+
+            .form-group label {
+                font-size: 0.97rem;
+                margin-bottom: 4px;
+                color: #444;
+            }
+
+            .form-group input {
+                width: 100%;
+                padding: 8px 10px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                font-size: 1rem;
+            }
+
+        .form-check {
+            display: flex;
+            align-items: center;
+            margin-bottom: 13px;
+        }
+
+            .form-check input {
+                margin-right: 6px;
+            }
+
+        .btn {
+            width: 100%;
+            padding: 9px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: #007bff;
+            color: #fff;
+        }
+
+            .btn-primary:hover {
+                background: #0056b3;
+            }
+
+        .btn-google {
+            background: #fff;
+            color: #444;
+            border: 1px solid #ddd;
+            margin-top: 8px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+            .btn-google .fab.fa-google {
+                color: #DB4437;
+            }
+
+        .divider {
+            text-align: center;
+            margin: 14px 0;
+            color: #888;
+            font-size: 0.95rem;
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+            .links p {
+                margin-bottom: 4px;
+                font-size: 0.97rem;
+            }
+
+            .links a {
+                color: #007bff;
+                text-decoration: none;
+            }
+
+                .links a:hover {
+                    text-decoration: underline;
+                }
+
+        .alert {
+            padding: 8px 10px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            font-size: 0.97rem;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+    </style>
+
