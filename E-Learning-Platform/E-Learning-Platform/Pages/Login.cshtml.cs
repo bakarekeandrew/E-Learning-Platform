@@ -245,7 +245,55 @@ namespace E_Learning_Platform.Pages
                 var newUserId = await connection.ExecuteScalarAsync<int>(insertSql, newUser);
                 user = (newUserId, newUser.FullName, newUser.PasswordHash, newUser.MfaEnabled, studentRole.RoleName);
             }
+            // At this point, 'user' variable (tuple) holds the local user info (either existing or newly created)
+            // Create claims for the local user
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+                new Claim(ClaimTypes.Name, user.FullName),
+                new Claim(ClaimTypes.Email, email), // Use the email from Google
+                new Claim(ClaimTypes.Role, user.RoleName),
+                new Claim("UserId", user.UserId.ToString())
+            };
 
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var authProperties = new AuthenticationProperties
+            {
+                IsPersistent = true, // Or use RememberMe from a form if available
+                ExpiresUtc = DateTimeOffset.UtcNow.AddDays(30)
+            };
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity),
+                authProperties);
+
+            // Clean up the external cookie
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+
+            return RedirectToPage(user.RoleName switch
+            {
+                "INSTRUCTOR" => "/Instructor/Dashboard",
+                "ADMIN" => "/AdminDashboard",
+                "STUDENT" => "/Student/Dashboard",
+                _ => "/Login"
+            });
+        }
+
+        public async Task<IActionResult> OnPostLogoutAsync()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.Session.Clear();
+            return RedirectToPage("/Login");
+        }
+
+        private class RoleDto
+        {
+            public int RoleId { get; set; }
+            public string RoleName { get; set; }
+        }
+    }
+}
 
 
 
