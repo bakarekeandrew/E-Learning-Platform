@@ -78,4 +78,86 @@ namespace E_Learning_Platform.Pages
             {
                 return Page();
             }
+            try
+            {
+                using var connection = new SqlConnection(ConnectionString);
+                var user = await connection.QueryFirstOrDefaultAsync(
+                    @"SELECT U.USER_ID, U.FULL_NAME, U.PASSWORD_HASH, U.MFA_ENABLED, R.ROLE_NAME 
+                      FROM USERS U 
+                      JOIN ROLES R ON U.ROLE_ID = R.ROLE_ID 
+                      WHERE U.EMAIL = @Email",
+                    new { Input.Email });
+
+                if (user != null && BCrypt.Net.BCrypt.Verify(Input.Password, user.PASSWORD_HASH))
+                {
+                    // Check if MFA is enabled for this user
+                    if (user.MFA_ENABLED)
+                    {
+                        // Generate and send OTP                        
+                        var otp = _otpService.GenerateOtp();
+                        _otpService.SaveOtp(user.USER_ID, otp);
+                        _emailService.SendOtpEmail(Input.Email, otp);
+
+                        // Store user info in TempData for MFA verification
+                        TempData["PendingUserId"] = user.USER_ID;
+                        TempData["PendingEmail"] = Input.Email;
+                        TempData["PendingUserRole"] = user.ROLE_NAME;
+                        TempData["PendingUserName"] = user.FULL_NAME;
+                        TempData["RememberMe"] = Input.RememberMe;
+
+                        // Redirect to MFA verification page
+                        return RedirectToPage("/MfaVerification");
+                    }
+                    else
+                    {
+                        // No MFA, proceed with regular login
+                        // Set session variables using the base Set method with byte arrays
+                        HttpContext.Session.Set("UserId", BitConverter.GetBytes(user.USER_ID));
+                        HttpContext.Session.Set("UserRole", System.Text.Encoding.UTF8.GetBytes(user.ROLE_NAME));
+                        HttpContext.Session.Set("UserName", System.Text.Encoding.UTF8.GetBytes(user.FULL_NAME));
+
+                        // Create claims
+                        var claims = new List<Claim>
+                        {
+                            new Claim(ClaimTypes.NameIdentifier, user.USER_ID.ToString()),
+                            new Claim(ClaimTypes.Name, user.FULL_NAME),
+                            new Claim(ClaimTypes.Email, Input.Email),
+                            new Claim(ClaimTypes.Role, user.ROLE_NAME),
+                            new Claim("UserId", user.USER_ID.ToString())
+                        };
+
+                        var authProperties = new AuthenticationProperties
+                        {
+                            IsPersistent = Input.RememberMe,
+                            ExpiresUtc = Input.RememberMe
+                                ? DateTimeOffset.UtcNow.AddDays(30)
+                                : DateTimeOffset.UtcNow.AddHours(1)
+                        };
+
+                        await HttpContext.SignInAsync(
+                            CookieAuthenticationDefaults.AuthenticationScheme,
+                            new ClaimsPrincipal(new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme)),
+                            authProperties);
+
+                        return RedirectToPage(user.ROLE_NAME switch
+                        {
+                            "INSTRUCTOR" => "/Instructor/Dashboard",
+                            "ADMIN" => "/AdminDashboard",
+                            "STUDENT" => "/Student/Dashboard",
+                            _ => "/Login"
+                        });
+                    }
+                }
+
+                ErrorMessage = "Invalid login email or password";
+                return Page();
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = $"Login error: {ex.Message}";
+                return Page();
+            }
+        }
+
+
 
