@@ -108,3 +108,67 @@ namespace E_Learning_Platform.Pages.Student.Courses
 
                     CourseTitle = courseData.Title;
                 }
+
+                // Modified query to check if we're getting enrollments
+                var enrollmentCount = await connection.ExecuteScalarAsync<int>(
+                    "SELECT COUNT(*) FROM COURSE_ENROLLMENTS WHERE USER_ID = @UserId",
+                    new { UserId = CurrentUserId });
+
+                _logger.LogInformation($"User {CurrentUserId} has {enrollmentCount} course enrollments");
+
+                // Build base query for assignments
+                string assignmentQuery = @"
+                    SELECT 
+                        a.ASSIGNMENT_ID AS AssignmentId,
+                        a.TITLE AS Title,
+                        a.INSTRUCTIONS AS Instructions,
+                        a.DUE_DATE AS DueDate,
+                        a.MAX_SCORE AS MaxScore,
+                        a.COURSE_ID AS CourseId,
+                        c.TITLE AS CourseTitle,
+                        s.SUBMISSION_ID AS SubmissionId,
+                        s.SUBMITTED_ON AS SubmittedOn,
+                        s.GRADE AS Grade,
+                        s.FEEDBACK AS Feedback,
+                        s.STATUS AS Status
+                    FROM ASSIGNMENTS a
+                    JOIN COURSES c ON a.COURSE_ID = c.COURSE_ID
+                    JOIN COURSE_ENROLLMENTS ce ON c.COURSE_ID = ce.COURSE_ID AND ce.USER_ID = @UserId
+                    LEFT JOIN ASSIGNMENT_SUBMISSIONS s ON a.ASSIGNMENT_ID = s.ASSIGNMENT_ID AND s.USER_ID = @UserId";
+
+                // Add course filter if specified
+                if (CourseId.HasValue)
+                {
+                    assignmentQuery += " WHERE a.COURSE_ID = @CourseId";
+                }
+
+                // Apply filter conditions
+                string filterCondition = "";
+                switch (Filter?.ToLower())
+                {
+                    case "pending":
+                        filterCondition = CourseId.HasValue
+                            ? " AND s.SUBMISSION_ID IS NULL"
+                            : " WHERE s.SUBMISSION_ID IS NULL";
+                        break;
+                    case "submitted":
+                        filterCondition = CourseId.HasValue
+                            ? " AND s.SUBMISSION_ID IS NOT NULL"
+                            : " WHERE s.SUBMISSION_ID IS NOT NULL";
+                        break;
+                    case "graded":
+                        filterCondition = CourseId.HasValue
+                            ? " AND s.GRADE IS NOT NULL"
+                            : " WHERE s.GRADE IS NOT NULL";
+                        break;
+                    case "upcoming":
+                        filterCondition = CourseId.HasValue
+                            ? " AND a.DUE_DATE > GETDATE() AND a.DUE_DATE <= DATEADD(day, 7, GETDATE()) AND s.SUBMISSION_ID IS NULL"
+                            : " WHERE a.DUE_DATE > GETDATE() AND a.DUE_DATE <= DATEADD(day, 7, GETDATE()) AND s.SUBMISSION_ID IS NULL";
+                        break;
+                    case "overdue":
+                        filterCondition = CourseId.HasValue
+                            ? " AND a.DUE_DATE < GETDATE() AND s.SUBMISSION_ID IS NULL"
+                            : " WHERE a.DUE_DATE < GETDATE() AND s.SUBMISSION_ID IS NULL";
+                        break;
+                }
