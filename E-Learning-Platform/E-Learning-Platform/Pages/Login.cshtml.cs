@@ -159,5 +159,93 @@ namespace E_Learning_Platform.Pages
             }
         }
 
+        public IActionResult OnPostChallengeGoogleAsync()
+        {
+            // Request a redirect to the external login provider.
+            var provider = "Google";
+            var redirectUrl = Url.Page("/Login", pageHandler: "Callback"); // Callback handler on this page
+            var properties = new AuthenticationProperties { RedirectUri = redirectUrl };
+            return new ChallengeResult(provider, properties);
+        }
+
+        public async Task<IActionResult> OnGetCallbackAsync(string returnUrl = null, string remoteError = null)
+        {
+            returnUrl ??= Url.Content("~/");
+            if (remoteError != null)
+            {
+                ErrorMessage = $"Error from external provider: {remoteError}";
+                return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
+            }
+
+            var info = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme); // Trying to get external login info
+            // A more robust way is often via SignInManager if using ASP.NET Core Identity, or directly checking specific external cookie
+            // For Razor Pages without full Identity, we might need to inspect specific claims from an external cookie if HttpContext.GetExternalLoginInfoAsync() isn't readily available.
+            // Let's assume for now the external login info can be retrieved like this or adjust if needed.
+
+            // TEMPORARY: Attempt to get external login info directly. This part is tricky without full ASP.NET Core Identity's SignInManager.
+            // We are looking for claims populated by the Google handler.
+            var externalLoginInfo = await HttpContext.AuthenticateAsync(IdentityConstants.ExternalScheme); // Standard external cookie scheme
+            if (externalLoginInfo?.Succeeded != true)
+            {
+                ErrorMessage = "Error loading external login information.";
+                return RedirectToPage("./Login");
+            }
+
+            var email = externalLoginInfo.Principal.FindFirstValue(ClaimTypes.Email);
+            var fullName = externalLoginInfo.Principal.FindFirstValue(ClaimTypes.Name) ?? externalLoginInfo.Principal.FindFirstValue("name"); // Google might use 'name'
+            var providerDisplayName = externalLoginInfo.Principal.Identity?.AuthenticationType; // Corrected line
+
+            if (email == null)
+            {
+                ErrorMessage = "Email claim not received from Google. Please ensure your Google app requests the email scope.";
+                return RedirectToPage("./Login");
+            }
+
+            // Check if the user already exists in your local database
+            using var connection = new SqlConnection(ConnectionString);
+            var user = await connection.QueryFirstOrDefaultAsync<
+                (int UserId, string FullName, string PasswordHash, bool MfaEnabled, string RoleName) // Tuple for result
+                >(
+                "SELECT U.USER_ID, U.FULL_NAME, U.PASSWORD_HASH, U.MFA_ENABLED, R.ROLE_NAME FROM USERS U JOIN ROLES R ON U.ROLE_ID = R.ROLE_ID WHERE U.EMAIL = @Email",
+                new { Email = email });
+
+            if (user.UserId != 0) // User exists
+            {
+                // User exists, sign them in
+            }
+            else
+            {
+                // User does not exist, create a new user account
+                // For simplicity, assign a default role (e.g., STUDENT)
+                // You might want to redirect to a registration completion page if more info is needed
+
+                var studentRole = await connection.QuerySingleOrDefaultAsync<RoleDto>("SELECT ROLE_ID as RoleId, ROLE_NAME as RoleName FROM ROLES WHERE ROLE_NAME = 'STUDENT'");
+                if (studentRole == null)
+                {
+                    ErrorMessage = "Default role 'STUDENT' not found. Cannot create new user.";
+                    return RedirectToPage("./Login");
+                }
+
+                var newUser = new
+                {
+                    FullName = fullName ?? email, // Use email if full name is not provided
+                    Email = email,
+                    PasswordHash = "EXT_LOGIN_NO_PWD_" + Guid.NewGuid().ToString(), // No local password for external login, or generate one
+                    RoleId = studentRole.RoleId,
+                    DateRegistered = DateTime.UtcNow,
+                    IsActive = true, // Activate user by default
+                    MfaEnabled = false // MFA typically not enforced initially for external logins this way
+                };
+
+                var insertSql = @"
+                    INSERT INTO USERS (FULL_NAME, EMAIL, PASSWORD_HASH, ROLE_ID, DATE_REGISTERED, IS_ACTIVE, MFA_ENABLED)
+                    VALUES (@FullName, @Email, @PasswordHash, @RoleId, @DateRegistered, @IsActive, @MfaEnabled);
+                    SELECT CAST(SCOPE_IDENTITY() as int);
+                ";
+                var newUserId = await connection.ExecuteScalarAsync<int>(insertSql, newUser);
+                user = (newUserId, newUser.FullName, newUser.PasswordHash, newUser.MfaEnabled, studentRole.RoleName);
+            }
+
+
 
 
