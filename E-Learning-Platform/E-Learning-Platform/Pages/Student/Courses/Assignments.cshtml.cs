@@ -172,3 +172,73 @@ namespace E_Learning_Platform.Pages.Student.Courses
                             : " WHERE a.DUE_DATE < GETDATE() AND s.SUBMISSION_ID IS NULL";
                         break;
                 }
+
+                assignmentQuery += filterCondition;
+                assignmentQuery += " ORDER BY a.DUE_DATE ASC";
+
+                _logger.LogInformation($"Executing assignment query for user {CurrentUserId}");
+
+                // Execute query
+                var assignments = await connection.QueryAsync<AssignmentViewModel>(assignmentQuery,
+                    new { UserId = CurrentUserId, CourseId });
+
+                // Process assignments
+                Assignments = assignments?.ToList() ?? new List<AssignmentViewModel>();
+                _logger.LogInformation($"Found {Assignments.Count} assignments for user {CurrentUserId}");
+
+                foreach (var assignment in Assignments)
+                {
+                    assignment.IsSubmitted = assignment.SubmissionId.HasValue;
+                    assignment.IsGraded = assignment.Grade.HasValue;
+                    assignment.IsOverdue = !assignment.IsSubmitted && assignment.DueDate < DateTime.Now;
+                    assignment.IsDueSoon = !assignment.IsSubmitted && !assignment.IsOverdue &&
+                                           assignment.DueDate <= DateTime.Now.AddDays(7);
+                }
+                // Count pending assignments
+                PendingAssignments = await connection.ExecuteScalarAsync<int>(@"
+                    SELECT COUNT(*)
+                    FROM ASSIGNMENTS a
+                    JOIN COURSE_ENROLLMENTS ce ON a.COURSE_ID = ce.COURSE_ID AND ce.USER_ID = @UserId
+                    LEFT JOIN ASSIGNMENT_SUBMISSIONS s ON a.ASSIGNMENT_ID = s.ASSIGNMENT_ID AND s.USER_ID = @UserId
+                    WHERE s.SUBMISSION_ID IS NULL AND a.DUE_DATE > GETDATE()",
+                    new { UserId = CurrentUserId });
+
+                return Page();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error loading assignments for user {UserId}", CurrentUserId);
+                ErrorMessage = "An error occurred while loading assignments: " + ex.Message;
+                return Page();
+            }
+        }
+
+        public class AssignmentViewModel
+        {
+            public int AssignmentId { get; set; }
+            public string Title { get; set; }
+            public string Instructions { get; set; }
+            public DateTime DueDate { get; set; }
+            public int MaxScore { get; set; }
+            public int CourseId { get; set; }
+            public string CourseTitle { get; set; }
+            public int? SubmissionId { get; set; }
+            public DateTime? SubmittedOn { get; set; }
+            public decimal? Grade { get; set; }
+            public string Feedback { get; set; }
+            public string Status { get; set; }
+
+            // Derived properties
+            public bool IsSubmitted { get; set; }
+            public bool IsGraded { get; set; }
+            public bool IsOverdue { get; set; }
+            public bool IsDueSoon { get; set; }
+        }
+
+        private class CourseData
+        {
+            public string Title { get; set; }
+            public int IsEnrolled { get; set; }
+        }
+    }
+}
