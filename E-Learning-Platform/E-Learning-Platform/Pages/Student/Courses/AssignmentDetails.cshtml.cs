@@ -59,3 +59,60 @@ namespace E_Learning_Platform.Pages.Student.Courses
             {
                 return BitConverter.ToInt32(userIdBytes);
             }
+            // If we can't get the user ID, throw an exception - user should be logged in at this point
+            throw new InvalidOperationException("User ID not found. User might not be properly authenticated.");
+        }
+
+        public async Task<IActionResult> OnGetAsync()
+        {
+            try
+            {
+                // Get current user ID from claims or session
+                CurrentUserId = GetCurrentUserId();
+                _logger.LogInformation($"Loading assignment details for user ID: {CurrentUserId}, assignment ID: {Id}");
+
+                using var connection = new SqlConnection(_connectionString);
+                await connection.OpenAsync();
+
+                // Check if assignment exists first
+                var assignmentExists = await connection.ExecuteScalarAsync<bool>(
+                    "SELECT CASE WHEN EXISTS(SELECT 1 FROM ASSIGNMENTS WHERE ASSIGNMENT_ID = @AssignmentId) THEN 1 ELSE 0 END",
+                    new { AssignmentId = Id });
+
+                if (!assignmentExists)
+                {
+                    ErrorMessage = "Assignment not found in database.";
+                    _logger.LogWarning($"Assignment ID {Id} not found in database.");
+                    return Page();
+                }
+
+                // Get assignment details
+                Assignment = await connection.QueryFirstOrDefaultAsync<AssignmentDetails>(@"
+                    SELECT 
+                        a.ASSIGNMENT_ID AS AssignmentId,
+                        a.TITLE AS Title,
+                        a.INSTRUCTIONS AS Instructions,
+                        a.DUE_DATE AS DueDate,
+                        a.MAX_SCORE AS MaxScore,
+                        c.COURSE_ID AS CourseId,
+                        c.TITLE AS CourseTitle,
+                        s.SUBMISSION_ID AS SubmissionId,
+                        s.SUBMISSION_TEXT AS SubmissionText,
+                        s.FILE_URL AS FileUrl,
+                        s.SUBMITTED_ON AS SubmittedOn,
+                        s.GRADE AS Grade,
+                        s.FEEDBACK AS Feedback,
+                        s.STATUS AS Status
+                    FROM ASSIGNMENTS a
+                    JOIN COURSES c ON a.COURSE_ID = c.COURSE_ID
+                    LEFT JOIN ASSIGNMENT_SUBMISSIONS s ON a.ASSIGNMENT_ID = s.ASSIGNMENT_ID 
+                        AND s.USER_ID = @UserId
+                    WHERE a.ASSIGNMENT_ID = @AssignmentId",
+                    new { UserId = CurrentUserId, AssignmentId = Id });
+
+                if (Assignment == null)
+                {
+                    ErrorMessage = "Assignment not found or cannot be loaded.";
+                    _logger.LogError($"Assignment ID {Id} query returned NULL even though it exists in the database.");
+                    return Page();
+                }
