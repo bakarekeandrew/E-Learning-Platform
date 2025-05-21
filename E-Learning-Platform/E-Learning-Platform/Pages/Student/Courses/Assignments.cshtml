@@ -86,3 +86,55 @@
                                             <i class="bi bi-book"></i> @assignment.CourseTitle
                                         </p>
                                     }
+                                </div>
+                                <div class="text-end">
+                                    <div class="@GetBadgeClass(assignment)">
+                                        @GetStatusText(assignment)
+                                    </div>
+                                    <div class="text-muted small mt-1">
+                                        <i class="bi bi-trophy"></i> Max Score: @assignment.MaxScore
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p class="card-text">
+                                @if (assignment.Instructions.Length > 150)
+                                {
+                                    @assignment.Instructions.Substring(0, 150)
+                                    <text>...</text>
+                                }
+                                else
+                                {
+                                    @assignment.Instructions
+                                }
+                            </p>
+
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <div>
+                                    <i class="bi bi-calendar-event"></i>
+                                    <span class="@(assignment.IsOverdue && !assignment.IsSubmitted ? "text-danger fw-bold" : "")">
+                                        Due: @assignment.DueDate.ToString("MMM dd, yyyy h:mm tt")
+                                    </span>
+                                </div>
+                                <div>
+                                    <a href="/Student/Courses/AssignmentDetails?id=@assignment.AssignmentId"
+                                       class="btn @(assignment.IsOverdue && !assignment.IsSubmitted ? "btn-danger" : "btn-primary")">
+                                        <i class="bi @(assignment.IsSubmitted ? "bi-eye" : "bi-upload")"></i>
+                                        @(assignment.IsSubmitted ? "View Submission" : "Submit Assignment")
+                                    </a>
+                                </div>
+                            </div>
+                            @if (assignment.Feedback != null && assignment.IsGraded)
+                            {
+                                <div class="mt-3 p-3 bg-light rounded feedback-section">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <h6 class="mb-2"><i class="bi bi-chat-quote"></i> Feedback</h6>
+                                        <span class="badge bg-success">Grade: @assignment.Grade / @assignment.MaxScore</span>
+                                    </div>
+                                    <p class="mb-0 small">@assignment.Feedback</p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
