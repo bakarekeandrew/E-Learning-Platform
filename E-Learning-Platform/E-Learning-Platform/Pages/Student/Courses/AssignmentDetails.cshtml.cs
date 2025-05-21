@@ -116,3 +116,99 @@ namespace E_Learning_Platform.Pages.Student.Courses
                     _logger.LogError($"Assignment ID {Id} query returned NULL even though it exists in the database.");
                     return Page();
                 }
+                // Check if the user is enrolled in this course
+                var isEnrolled = await connection.ExecuteScalarAsync<bool>(@"
+                    SELECT CASE WHEN EXISTS(
+                        SELECT 1 FROM COURSE_ENROLLMENTS
+                        WHERE USER_ID = @UserId AND COURSE_ID = @CourseId
+                    ) THEN 1 ELSE 0 END",
+                    new { UserId = CurrentUserId, CourseId = Assignment.CourseId });
+
+                if (!isEnrolled)
+                {
+                    ErrorMessage = "You are not enrolled in this course.";
+                    return Page();
+                }
+
+                // Make sure we handle null values properly to avoid errors
+                if (Assignment.SubmissionId == 0)
+                {
+                    // Explicitly set properties that would be NULL from database to avoid NullReferenceException
+                    Assignment.SubmissionText = null;
+                    Assignment.FileUrl = null;
+                    Assignment.SubmittedOn = null;
+                    Assignment.Grade = null;
+                    Assignment.Feedback = null;
+                    Assignment.Status = "Not Submitted";
+                }
+
+                // Initialize submission if not exists
+                if (Assignment.SubmissionId == 0 && Submission == null)
+                {
+                    Submission = new AssignmentSubmission();
+                }
+
+                return Page();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error loading assignment details for assignment ID {AssignmentId} and user {UserId}", Id, CurrentUserId);
+                ErrorMessage = "An error occurred while loading assignment details: " + ex.Message;
+                return Page();
+            }
+        }
+
+        public async Task<IActionResult> OnPostAsync(IFormFile file)
+        {
+            try
+            {
+                // Get current user ID from claims or session
+                CurrentUserId = GetCurrentUserId();
+                _logger.LogInformation($"Submitting assignment for user ID: {CurrentUserId}, assignment ID: {Id}");
+
+                using var connection = new SqlConnection(_connectionString);
+                await connection.OpenAsync();
+
+                // First make sure the assignment exists
+                var assignment = await connection.QueryFirstOrDefaultAsync<dynamic>(
+                    "SELECT ASSIGNMENT_ID, COURSE_ID FROM ASSIGNMENTS WHERE ASSIGNMENT_ID = @AssignmentId",
+                    new { AssignmentId = Id });
+
+                if (assignment == null)
+                {
+                    ErrorMessage = "Assignment not found.";
+                    return Page();
+                }
+
+                // Check if the user is enrolled in this course
+                var isEnrolled = await connection.ExecuteScalarAsync<bool>(@"
+                    SELECT CASE WHEN EXISTS(
+                        SELECT 1 FROM COURSE_ENROLLMENTS
+                        WHERE USER_ID = @UserId AND COURSE_ID = @CourseId
+                    ) THEN 1 ELSE 0 END",
+                    new { UserId = CurrentUserId, CourseId = assignment.COURSE_ID });
+
+                if (!isEnrolled)
+                {
+                    ErrorMessage = "You are not enrolled in this course.";
+                    return Page();
+                }
+
+                // Handle file upload
+                string fileUrl = null;
+                if (file != null && file.Length > 0)
+                {
+                    var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+                    if (!Directory.Exists(uploadsFolder))
+                    {
+                        Directory.CreateDirectory(uploadsFolder);
+                    }
+
+                    var uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                    var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(fileStream);
+                    }
+                    fileUrl = "/uploads/" + uniqueFileName;
+                }
