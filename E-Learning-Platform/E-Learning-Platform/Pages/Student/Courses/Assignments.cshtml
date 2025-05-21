@@ -138,3 +138,85 @@
                     </div>
                 </div>
             }
+        }
+        else
+        {
+            <div class="col-12">
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle"></i> No assignments found matching the selected filter.
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@functions {
+    public string GetCardClass(AssignmentsModel.AssignmentViewModel assignment)
+    {
+        if (assignment.IsGraded) return "border-success";
+        if (assignment.IsSubmitted) return "border-info";
+        if (assignment.IsOverdue) return "border-danger";
+        if (assignment.IsDueSoon) return "border-warning";
+        return "border-primary";
+    }
+
+    public string GetBadgeClass(AssignmentsModel.AssignmentViewModel assignment)
+    {
+        if (assignment.IsGraded) return "badge bg-success";
+        if (assignment.IsSubmitted) return "badge bg-info";
+        if (assignment.IsOverdue) return "badge bg-danger";
+        if (assignment.IsDueSoon) return "badge bg-warning text-dark";
+        return "badge bg-primary";
+    }
+
+    public string GetStatusText(AssignmentsModel.AssignmentViewModel assignment)
+    {
+        if (assignment.IsGraded) return "Graded";
+        if (assignment.IsSubmitted) return "Submitted";
+        if (assignment.IsOverdue) return "Overdue";
+        if (assignment.IsDueSoon) return "Due Soon";
+        return "Pending";
+    }
+}
+
+@section Styles {
+    <style>
+        .assignments-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding-bottom: 2rem;
+        }
+
+        .assignment-card {
+            transition: all 0.3s ease;
+        }
+
+            .assignment-card:hover {
+                transform: translateY(-3px);
+            }
+
+            .assignment-card.border-danger {
+                border-left: 4px solid #dc3545 !important;
+            }
+
+            .assignment-card.border-warning {
+                border-left: 4px solid #ffc107 !important;
+            }
+
+            .assignment-card.border-info {
+                border-left: 4px solid #0dcaf0 !important;
+            }
+
+            .assignment-card.border-success {
+                border-left: 4px solid #198754 !important;
+            }
+
+            .assignment-card.border-primary {
+                border-left: 4px solid #4e73df !important;
+            }
+
+        .feedback-section {
+            border-left: 3px solid #198754;
+        }
+    </style>
+}
