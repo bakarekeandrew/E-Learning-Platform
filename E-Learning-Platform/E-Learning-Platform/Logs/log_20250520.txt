@@ -1,0 +1,192 @@
+2025-05-20 19:09:48 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-20 19:09:48 [Information] [Login] Opening database connection...
+2025-05-20 19:09:48 [Information] [Login] Database connection opened successfully. Connection state: Open
+2025-05-20 19:09:48 [Information] [Login] Connection string used: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 19:09:48 [Information] [Login] User found: ID=14, Role=ADMIN, MFA=False
+2025-05-20 19:09:49 [Information] [Login] Password verification successful
+2025-05-20 19:09:49 [Information] [Login] MFA not enabled, proceeding with direct login
+2025-05-20 19:09:49 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-20 19:09:49 [Information] [Login] Clearing existing authentication
+2025-05-20 19:09:49 [Information] [Login] Setting session values
+2025-05-20 19:09:49 [Information] [Login] Created claims for user: http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier=14, http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name=egide, http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress=egide@gmail.com, http://schemas.microsoft.com/ws/2008/06/identity/claims/role=ADMIN, UserId=14
+2025-05-20 19:09:49 [Information] [Login] Signing in user with properties: IsPersistent=False, ExpiresUtc=5/20/2025 6:09:49 PM +00:00
+2025-05-20 19:09:49 [Information] [Login] User 14 (egide@gmail.com) successfully signed in with role ADMIN
+2025-05-20 19:09:49 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-20 20:36:04 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-20 20:36:04 [Information] [Login] User found: ID=14, Role=ADMIN, MFA=False
+2025-05-20 20:36:05 [Information] [Login] Password verification successful
+2025-05-20 20:36:05 [Information] [Login] MFA not enabled, proceeding with direct login
+2025-05-20 20:36:05 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-20 20:36:05 [Information] [Login] Sign-in completed successfully
+2025-05-20 20:36:05 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-20 20:44:12 [Information] [LoginModel] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 20:44:12 [Information] [LoginModel] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 20:44:15 [Information] [LoginModel] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 20:44:26 [Information] [LoginModel] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 20:44:26 [Information] [Login] Starting login process
+2025-05-20 20:44:26 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-20 20:44:26 [Information] [Login] Opening database connection...
+2025-05-20 20:44:26 [Information] [Login] Database connection opened successfully
+2025-05-20 20:44:26 [Information] [Login] User found: ID=14, Role=ADMIN, MFA=False
+2025-05-20 20:44:27 [Information] [Login] Password verification successful
+2025-05-20 20:44:27 [Information] [Login] MFA not enabled, proceeding with direct login
+2025-05-20 20:44:27 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-20 20:44:27 [Information] [Login] Sign-in completed successfully
+2025-05-20 20:44:27 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-20 20:44:27 [Information] [LoginModel] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 20:48:10 [Information] [LoginModel] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 20:48:10 [Information] [LoginModel] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 20:48:19 [Information] [LoginModel] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 20:48:31 [Information] [LoginModel] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 20:48:31 [Information] [Login] Starting login process
+2025-05-20 20:48:31 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-20 20:48:31 [Information] [Login] Opening database connection...
+2025-05-20 20:48:31 [Information] [Login] Database connection opened successfully
+2025-05-20 20:48:31 [Information] [Login] User found: ID=14, Role=ADMIN, MFA=False
+2025-05-20 20:48:32 [Information] [Login] Password verification successful
+2025-05-20 20:48:32 [Information] [Login] MFA not enabled, proceeding with direct login
+2025-05-20 20:48:32 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-20 20:48:32 [Information] [Login] Sign-in completed successfully
+2025-05-20 20:48:32 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-20 20:48:32 [Information] [LoginModel] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 20:56:47 [Information] [LoginModel] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 20:56:47 [Information] [LoginModel] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 20:58:06 [Information] [LoginModel] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 20:59:23 [Information] [LoginModel] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 20:59:23 [Information] [Login] Starting login process
+2025-05-20 20:59:23 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-20 20:59:23 [Information] [Login] Opening database connection...
+2025-05-20 20:59:23 [Information] [Login] Database connection opened successfully
+2025-05-20 20:59:24 [Information] [Login] User found: ID=14, Role=ADMIN, MFA=False
+2025-05-20 20:59:24 [Information] [Login] Password verification successful
+2025-05-20 20:59:24 [Information] [Login] MFA not enabled, proceeding with direct login
+2025-05-20 20:59:24 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-20 20:59:24 [Information] [Login] Sign-in completed successfully
+2025-05-20 20:59:24 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-20 20:59:24 [Information] [LoginModel] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 21:17:53 [Information] [LoginModel] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 21:17:57 [Information] [LoginModel] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 21:17:58 [Information] [LoginModel] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 21:24:38 [Information] [LoginModel] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 21:24:38 [Information] [LoginModel] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 21:24:39 [Information] [LoginModel] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 21:24:56 [Information] [LoginModel] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 21:24:57 [Information] [Login] Starting login process
+2025-05-20 21:24:57 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-20 21:24:57 [Information] [Login] Opening database connection...
+2025-05-20 21:24:57 [Information] [Login] Database connection opened successfully
+2025-05-20 21:24:57 [Information] [Login] User found: ID=14, Role=ADMIN, MFA=False
+2025-05-20 21:24:58 [Information] [Login] Password verification successful
+2025-05-20 21:24:58 [Information] [Login] MFA not enabled, proceeding with direct login
+2025-05-20 21:24:58 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-20 21:24:58 [Information] [Login] Sign-in completed successfully
+2025-05-20 21:24:58 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-20 21:24:59 [Information] [LoginModel] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 21:30:40 [Information] [LoginModel] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 21:30:40 [Information] [LoginModel] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 21:30:42 [Information] [LoginModel] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 21:30:58 [Information] [LoginModel] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 21:30:59 [Information] [Login] Starting login process
+2025-05-20 21:30:59 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-20 21:30:59 [Information] [Login] Opening database connection...
+2025-05-20 21:30:59 [Information] [Login] Database connection opened successfully
+2025-05-20 21:30:59 [Information] [Login] User found: ID=14, Role=ADMIN, MFA=False
+2025-05-20 21:31:00 [Information] [Login] Password verification successful
+2025-05-20 21:31:00 [Information] [Login] MFA not enabled, proceeding with direct login
+2025-05-20 21:31:00 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-20 21:31:00 [Information] [Login] Sign-in completed successfully
+2025-05-20 21:31:00 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-20 21:31:00 [Information] [LoginModel] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 22:58:18 [Information] [Login] Starting login process
+2025-05-20 22:58:18 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-20 22:58:19 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-20 22:58:19 [Information] [Login] Sign-in completed successfully
+2025-05-20 22:58:19 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-20 23:05:11 [Information] [Login] Starting login process
+2025-05-20 23:05:11 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-20 23:05:12 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-20 23:05:12 [Information] [Login] Sign-in completed successfully
+2025-05-20 23:05:12 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-20 23:05:12 [Information] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 23:16:33 [Information] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 23:16:33 [Information] [AdminDashboard] User 14 with role ADMIN accessed the admin dashboard
+2025-05-20 23:16:33 [Information] Attempting to connect to database...
+2025-05-20 23:16:33 [Information] Successfully connected to database
+2025-05-20 23:16:34 [Information] Total Courses: 3
+2025-05-20 23:16:35 [Information] Active Students: 10
+2025-05-20 23:16:35 [Information] Active Instructors: 5
+2025-05-20 23:16:35 [Information] New Registrations Today: 0
+2025-05-20 23:16:35 [Information] Average Course Completion: 20
+2025-05-20 23:16:35 [Information] Certificates Issued: 1
+2025-05-20 23:16:35 [Error] SQL Error: Invalid column name 'CATEGORY_NAME'.
+Invalid column name 'CATEGORY_NAME'.
+2025-05-20 23:18:18 [Information] [Login] Starting login process
+2025-05-20 23:18:18 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-20 23:18:18 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-20 23:18:18 [Information] [Login] Sign-in completed successfully
+2025-05-20 23:18:18 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-20 23:18:18 [Information] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 23:18:18 [Information] [AdminDashboard] User 14 with role ADMIN accessed the admin dashboard
+2025-05-20 23:18:18 [Information] Attempting to connect to database...
+2025-05-20 23:18:18 [Information] Successfully connected to database
+2025-05-20 23:18:18 [Information] Total Courses: 3
+2025-05-20 23:18:18 [Information] Active Students: 10
+2025-05-20 23:18:18 [Information] Active Instructors: 5
+2025-05-20 23:18:18 [Information] New Registrations Today: 0
+2025-05-20 23:18:18 [Information] Average Course Completion: 20
+2025-05-20 23:18:18 [Information] Certificates Issued: 1
+2025-05-20 23:18:18 [Error] SQL Error: Invalid column name 'CATEGORY_NAME'.
+Invalid column name 'CATEGORY_NAME'.
+2025-05-20 23:19:19 [Information] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 23:20:19 [Information] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 23:21:39 [Information] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 23:22:34 [Information] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 23:26:28 [Information] [Login] Starting login process
+2025-05-20 23:26:28 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-20 23:26:29 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-20 23:26:29 [Information] [Login] Sign-in completed successfully
+2025-05-20 23:26:29 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-20 23:26:29 [Information] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 23:26:29 [Information] [AdminDashboard] User 14 with role ADMIN accessed the admin dashboard
+2025-05-20 23:26:29 [Information] Attempting to connect to database...
+2025-05-20 23:26:29 [Information] Successfully connected to database
+2025-05-20 23:26:29 [Information] Total Courses: 3
+2025-05-20 23:26:29 [Information] Active Students: 10
+2025-05-20 23:26:29 [Information] Active Instructors: 5
+2025-05-20 23:26:29 [Information] New Registrations Today: 0
+2025-05-20 23:26:29 [Information] Average Course Completion: 20
+2025-05-20 23:26:29 [Information] Certificates Issued: 1
+2025-05-20 23:26:29 [Error] SQL Error: Invalid object name 'USER_ACTIVITIES'.
+2025-05-20 23:27:30 [Information] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 23:28:30 [Information] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 23:31:27 [Information] [Login] Starting login process
+2025-05-20 23:31:27 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-20 23:31:27 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-20 23:31:27 [Information] [Login] Sign-in completed successfully
+2025-05-20 23:31:28 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-20 23:31:28 [Information] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 23:31:28 [Information] [AdminDashboard] User 14 with role ADMIN accessed the admin dashboard
+2025-05-20 23:31:28 [Information] Attempting to connect to database...
+2025-05-20 23:31:28 [Information] Successfully connected to database
+2025-05-20 23:31:28 [Information] Total Courses: 3
+2025-05-20 23:31:28 [Information] Active Students: 10
+2025-05-20 23:31:28 [Information] Active Instructors: 5
+2025-05-20 23:31:28 [Information] New Registrations Today: 0
+2025-05-20 23:31:28 [Information] Average Course Completion: 20
+2025-05-20 23:31:28 [Information] Certificates Issued: 1
+2025-05-20 23:32:28 [Information] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 23:38:56 [Information] [Login] Starting login process
+2025-05-20 23:38:56 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-20 23:38:57 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-20 23:38:57 [Information] [Login] Sign-in completed successfully
+2025-05-20 23:38:57 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-20 23:38:57 [Information] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-20 23:38:57 [Information] [AdminDashboard] User 14 with role ADMIN accessed the admin dashboard
+2025-05-20 23:38:57 [Information] Attempting to connect to database...
+2025-05-20 23:38:57 [Information] Successfully connected to database
+2025-05-20 23:38:57 [Information] Total Courses: 3
+2025-05-20 23:38:57 [Information] Active Students: 10
+2025-05-20 23:38:57 [Information] Active Instructors: 5
+2025-05-20 23:38:57 [Information] New Registrations Today: 0
+2025-05-20 23:38:57 [Information] Average Course Completion: 20
+2025-05-20 23:38:57 [Information] Certificates Issued: 1

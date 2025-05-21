@@ -1,0 +1,270 @@
+﻿@page
+@model E_Learning_Platform.Pages.Instructor.Content.SubmissionsModel
+@{
+    ViewData["Title"] = "Assignment Submissions";
+    Layout = "/Pages/Instructor/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-page="/Instructor/Dashboard">Dashboard</a></li>
+            <li class="breadcrumb-item"><a asp-page="/Instructor/Content/Assignments">Assignments</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Submissions</li>
+        </ol>
+    </nav>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+
+    @if (!Model.AssignmentExists)
+    {
+        <div class="alert alert-warning">
+            <p>Assignment not found or you don't have permission to view it.</p>
+            <a asp-page="/Instructor/Content/Assignments" class="btn btn-primary mt-2">Return to Assignments</a>
+        </div>
+    }
+    else
+    {
+        <!-- Assignment Header -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h1 class="h3 mb-0">@Model.AssignmentDetails.Title</h1>
+                    <span class="badge bg-primary">@Model.Submissions.Count submission(s)</span>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p><strong>Course:</strong> @Model.AssignmentDetails.CourseTitle</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p><strong>Module:</strong> @Model.AssignmentDetails.ModuleTitle</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p>
+                            <strong>Due Date:</strong>
+                            @if (Model.AssignmentDetails.DueDate.HasValue)
+                            {
+                                @Model.AssignmentDetails.DueDate.Value.ToString("MMM dd, yyyy")
+                            }
+                            else
+                            {
+                                <span class="text-muted">No due date</span>
+                            }
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p><strong>Instructions:</strong></p>
+                        <p>@Model.AssignmentDetails.Instructions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Submissions Table -->
+        <div class="card">
+            <div class="card-body">
+                @if (Model.Submissions.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Submission Date</th>
+                                    <th>Status</th>
+                                    <th>Grade</th>
+                                    <th class="text-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var submission in Model.Submissions)
+                                {
+                                    <tr>
+                                        <td>@submission.StudentName</td>
+                                        <td>
+                                            @submission.SubmittedOn.ToString("MMM dd, yyyy, HH:mm")
+                                            @if (submission.IsLate)
+                                            {
+                                                <span class="badge bg-warning ms-2">Late</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (submission.Grade.HasValue)
+                                            {
+                                                <span class="badge bg-success">Graded</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-info">Pending</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (submission.Grade.HasValue)
+                                            {
+                                                @submission.Grade
+
+                                                <span>/@Model.AssignmentDetails.MaxScore</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted">Not graded</span>
+                                            }
+                                        </td>
+                                        <td class="text-end">
+                                            <button class="btn btn-sm btn-primary"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#viewSubmissionModal"
+                                                    data-submission-id="@submission.SubmissionId"
+                                                    data-student-name="@submission.StudentName"
+                                                    data-submission-text="@submission.SubmissionText"
+                                                    data-file-url="@submission.FileUrl"
+                                                    data-submitted-on="@submission.SubmittedOn.ToString("MMM dd, yyyy, HH:mm")"
+                                                    data-grade="@submission.Grade"
+                                                    data-feedback="@submission.Feedback"
+                                                    data-is-late="@submission.IsLate.ToString().ToLower()">
+                                                <i class="bi bi-eye"></i> View
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-info">
+                        <p>No submissions have been received for this assignment yet.</p>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="modal fade" id="viewSubmissionModal" tabindex="-1" aria-labelledby="viewSubmissionModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="viewSubmissionModalLabel">Student Submission</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <p><strong>Student:</strong> <span id="modalStudentName"></span></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Submitted:</strong> <span id="modalSubmittedOn"></span></p>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <h6>Submission</h6>
+                            <div class="card">
+                                <div class="card-body">
+                                    <p id="modalSubmissionText" class="mb-2"></p>
+                                    <div id="modalFileUrlContainer" style="display:none;">
+                                        <a id="modalFileUrl" href="#" target="_blank" class="btn btn-sm btn-outline-primary">
+                                            <i class="bi bi-download"></i> Download Attachment
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <form method="post" asp-page-handler="Grade">
+                            <input type="hidden" id="submissionId" name="submissionId" />
+                            <input type="hidden" name="assignmentId" value="@Model.AssignmentId" />
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="grade" class="form-label">Grade (out of @Model.AssignmentDetails.MaxScore)</label>
+                                        <input type="number" class="form-control" id="grade" name="grade" min="0" max="@Model.AssignmentDetails.MaxScore" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="mb-3">
+                                        <label for="feedback" class="form-label">Feedback</label>
+                                        <textarea class="form-control" id="feedback" name="feedback" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="existingGrade" style="display:none;">
+                                <div class="alert alert-info">
+                                    <h6>Previous Grade</h6>
+                                    <p><strong>Score:</strong> <span id="modalGrade"></span>/@Model.AssignmentDetails.MaxScore</p>
+                                    <p><strong>Feedback:</strong> <span id="modalFeedback"></span></p>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save Grade</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize submission modal with data
+        var submissionModal = document.getElementById('viewSubmissionModal');
+        if (submissionModal) {
+            submissionModal.addEventListener('show.bs.modal', function(event) {
+                var button = event.relatedTarget;
+                var submissionId = button.getAttribute('data-submission-id');
+                var studentName = button.getAttribute('data-student-name');
+                var submissionText = button.getAttribute('data-submission-text');
+                var fileUrl = button.getAttribute('data-file-url');
+                var submittedOn = button.getAttribute('data-submitted-on');
+                var grade = button.getAttribute('data-grade');
+                var feedback = button.getAttribute('data-feedback');
+                var isLate = button.getAttribute('data-is-late') === 'true';
+
+                document.getElementById('submissionId').value = submissionId;
+                document.getElementById('modalStudentName').textContent = studentName;
+                document.getElementById('modalSubmittedOn').textContent = submittedOn + (isLate ? ' (Late)' : '');
+                document.getElementById('modalSubmissionText').textContent = submissionText || 'No text submission.';
+
+                // Handle file URL
+                var fileUrlContainer = document.getElementById('modalFileUrlContainer');
+                var fileUrlLink = document.getElementById('modalFileUrl');
+                if (fileUrl) {
+                    fileUrlContainer.style.display = 'block';
+                    fileUrlLink.href = fileUrl;
+                } else {
+                    fileUrlContainer.style.display = 'none';
+                }
+
+                // Handle existing grade
+                var existingGradeDiv = document.getElementById('existingGrade');
+                var gradeInput = document.getElementById('grade');
+                var feedbackInput = document.getElementById('feedback');
+                var modalGradeSpan = document.getElementById('modalGrade');
+                var modalFeedbackSpan = document.getElementById('modalFeedback');
+
+                if (grade) {
+                    existingGradeDiv.style.display = 'block';
+                    modalGradeSpan.textContent = grade;
+                    modalFeedbackSpan.textContent = feedback || 'No feedback provided.';
+                    gradeInput.value = grade;
+                    feedbackInput.value = feedback || '';
+                } else {
+                    existingGradeDiv.style.display = 'none';
+                    gradeInput.value = '';
+                    feedbackInput.value = '';
+                }
+            });
+        }
+    });
+</script>
+}

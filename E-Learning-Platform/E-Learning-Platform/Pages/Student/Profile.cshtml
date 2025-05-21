@@ -1,0 +1,76 @@
+﻿@page
+@model E_Learning_Platform.Pages.Student.ProfileModel
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card shadow mb-4">
+            <div class="card-body text-center">
+                <div class="avatar-container mb-3">
+                    <div class="avatar bg-primary text-white">
+                        @Model.StudentInitials
+                    </div>
+                </div>
+                <h4>@Model.StudentName</h4>
+                <p class="text-muted">@Model.StudentEmail</p>
+                <hr>
+                <div class="text-start">
+                    <p><strong>Student ID:</strong> @Model.StudentId</p>
+                    <p><strong>Enrollment Date:</strong> @Model.EnrollmentDate.ToString("MMM dd, yyyy")</p>
+                    <p><strong>Courses Taken:</strong> @Model.CoursesCount</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="card shadow mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Profile Information</h5>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">First Name</label>
+                            <input type="text" class="form-control" value="@Model.FirstName">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Last Name</label>
+                            <input type="text" class="form-control" value="@Model.LastName">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" value="@Model.StudentEmail">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" placeholder="Enter new password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .avatar-container {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto;
+    }
+
+    .avatar {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        font-weight: bold;
+    }
+</style>

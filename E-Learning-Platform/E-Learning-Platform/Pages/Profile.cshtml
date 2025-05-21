@@ -1,0 +1,137 @@
+﻿@page
+@model E_Learning_Platform.Pages.ProfileModel
+@{
+    Layout = null;
+    ViewData["Title"] = "User Profile";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="h5 mb-0">User Profile</h3>
+                </div>
+                <div class="card-body">
+                    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            @Model.ErrorMessage
+                        </div>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+                    {
+                        <div class="alert alert-success" role="alert">
+                            @Model.SuccessMessage
+                        </div>
+                    }
+
+                    <div class="text-center mb-4">
+                        <div class="avatar-placeholder bg-primary text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 100px; height: 100px; font-size: 2.5rem;">
+                            @(string.IsNullOrEmpty(Model.FullName) ? "U" : Model.FullName[0].ToString().ToUpper())
+                        </div>
+                        <h4 class="mb-0">@Model.FullName</h4>
+                        <p class="text-muted">@Model.Role</p>
+                    </div>
+
+                    <div class="list-group">
+                        <a href="javascript:void(0);" class="list-group-item list-group-item-action active">
+                            <i class="bi bi-person-fill me-2"></i> Profile
+                        </a>
+                        <a asp-page="/ResetPassword" class="list-group-item list-group-item-action">
+                            <i class="bi bi-key-fill me-2"></i> Change Password
+                        </a>
+                        @if (Model.Role == "STUDENT")
+                        {
+                            <a asp-page="/Student/MyCourses" class="list-group-item list-group-item-action">
+                                <i class="bi bi-book-fill me-2"></i> My Courses
+                            </a>
+                        }
+                        @if (Model.Role == "INSTRUCTOR")
+                        {
+                            <a asp-page="/Instructor/MyCourses" class="list-group-item list-group-item-action">
+                                <i class="bi bi-book-fill me-2"></i> My Courses
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card shadow mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="h5 mb-0">Account Information</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Full Name</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            @Model.FullName
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row mb-3">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Email</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            @Model.Email
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row mb-3">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Role</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            @Model.Role
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="h5 mb-0">Security Settings</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" asp-page-handler="ToggleMfa">
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="enableMfa" asp-for="EnableMfa">
+                            <label class="form-check-label" for="enableMfa">
+                                Two-factor authentication
+                            </label>
+                            <p class="text-muted small mt-1">
+                                @(Model.MfaEnabled
+                                    ? "Two-factor authentication is currently enabled. You'll receive a verification code by email when signing in."
+                                    : "Enable two-factor authentication to add an extra layer of security to your account.")
+                            </p>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+
+                    <hr>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-0">Password</h6>
+                            <p class="text-muted small mb-0">Change your account password</p>
+                        </div>
+                        <a asp-page="/ResetPassword" class="btn btn-outline-primary">
+                            Change Password
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Any custom JavaScript can go here
+    </script>
+}

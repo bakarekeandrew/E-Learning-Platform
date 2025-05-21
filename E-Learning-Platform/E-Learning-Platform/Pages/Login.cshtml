@@ -1,0 +1,166 @@
+﻿@page
+@model E_Learning_Platform.Pages.LoginModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Log in";
+}
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - E-Learning Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/themes.css" asp-append-version="true" />
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: var(--primary-bg);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-text);
+        }
+        .login-container {
+            background: var(--card-bg);
+            padding: 18px 22px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px var(--shadow-color);
+            width: 100%;
+            max-width: 320px;
+        }
+        .login-container h2 {
+            font-size: 1.3rem;
+            margin-bottom: 18px;
+            text-align: center;
+            color: var(--primary-text);
+        }
+        .form-group {
+            margin-bottom: 13px;
+        }
+        .form-group label {
+            font-size: 0.97rem;
+            margin-bottom: 4px;
+            color: var(--primary-text);
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 1rem;
+            background-color: var(--input-bg);
+            color: var(--primary-text);
+        }
+        .form-check {
+            display: flex;
+            align-items: center;
+            margin-bottom: 13px;
+        }
+        .form-check input {
+            margin-right: 6px;
+        }
+        .btn {
+            width: 100%;
+            padding: 9px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background-color: var(--btn-primary-bg);
+            color: var(--btn-primary-text);
+        }
+        .btn-primary:hover {
+            background-color: var(--btn-primary-bg);
+            opacity: 0.9;
+        }
+        .validation-error {
+            color: var(--danger-color);
+            font-size: 0.875rem;
+            margin-top: 4px;
+        }
+        .alert {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+        .alert-danger {
+            background-color: var(--danger-light);
+            color: var(--danger-color);
+            border: 1px solid var(--danger-color);
+        }
+        .alert-success {
+            background-color: var(--success-light);
+            color: var(--success-color);
+            border: 1px solid var(--success-color);
+        }
+        .links {
+            margin-top: 15px;
+            text-align: center;
+        }
+        .links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <div asp-validation-summary="ModelOnly" class="validation-error"></div>
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div class="alert alert-danger">@Model.ErrorMessage</div>
+        }
+        @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+        {
+            <div class="alert alert-success">@Model.SuccessMessage</div>
+        }
+        <form method="post" asp-antiforgery="true" id="loginForm">
+            <input type="hidden" name="__RequestVerificationToken" value="@Html.AntiForgeryToken()" />
+            <div class="form-group">
+                <label asp-for="Input.Email">Email</label>
+                <input asp-for="Input.Email" class="form-control" autocomplete="username" required />
+                <span asp-validation-for="Input.Email" class="validation-error"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Password">Password</label>
+                <input asp-for="Input.Password" type="password" class="form-control" autocomplete="current-password" required />
+                <span asp-validation-for="Input.Password" class="validation-error"></span>
+            </div>
+            <div class="form-check">
+                <input asp-for="Input.RememberMe" class="form-check-input" />
+                <label asp-for="Input.RememberMe" class="form-check-label">Remember me</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+        <div class="links">
+            <p><a href="/Register">Sign up</a></p>
+            <p><a href="/ForgotPassword">Forgot password?</a></p>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/theme.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function() {
+            // Prevent form submission if validation fails
+            $("#loginForm").on("submit", function(e) {
+                if (!$(this).valid()) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

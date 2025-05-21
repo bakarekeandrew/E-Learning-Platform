@@ -1,0 +1,100 @@
+﻿@page
+@model E_Learning_Platform.Pages.Instructor.Content.QuizQuestionsModel
+@{
+    Layout = "/Pages/Instructor/_Layout.cshtml";
+    ViewData["Title"] = "Quiz Questions";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h2">Quiz Questions</h1>
+    <div>
+        <a asp-page="AddQuestion" asp-route-quizId="@Model.QuizId" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Add Question
+        </a>
+        <a asp-page="Quizzes" asp-route-moduleId="@Model.ModuleId" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Back to Quiz
+        </a>
+    </div>
+</div>
+
+<div class="card shadow">
+    <div class="card-header py-3">
+        <h5 class="mb-0">@Model.QuizTitle</h5>
+        <p class="text-muted mb-0">Total Points: @Model.TotalPoints | Questions: @Model.Questions.Count</p>
+    </div>
+    <div class="card-body">
+        @if (Model.Questions.Count == 0)
+        {
+            <div class="alert alert-info">
+                This quiz doesn't have any questions yet. Add your first question to get started.
+            </div>
+        }
+        else
+        {
+            <div class="list-group">
+                @foreach (var question in Model.Questions)
+                {
+                    <div class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="w-100">
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="mb-1">@question.QuestionText</h6>
+                                    <span class="badge bg-primary">@question.Points pts</span>
+                                </div>
+                                <small class="text-muted">@question.QuestionType</small>
+
+                                @if (question.Options.Any())
+                                {
+                                    <ul class="mt-2 mb-1">
+                                        @foreach (var option in question.Options)
+                                        {
+                                            <li class="@(option.IsCorrect ? "text-success fw-bold" : "")">
+                                                @option.OptionText
+                                                @if (option.IsCorrect)
+                                                {
+                                                    <i class="bi bi-check-circle ms-1"></i>
+                                                }
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                            </div>
+                            <div class="btn-group ms-3">
+                                <a asp-page="EditQuestion" asp-route-quizId="@Model.QuizId" asp-route-questionId="@question.QuestionId" 
+                                   class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" 
+                                        data-bs-target="#deleteModal-@question.QuestionId">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Delete Modal -->
+                        <div class="modal fade" id="deleteModal-@question.QuestionId" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Confirm Delete</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Are you sure you want to delete this question?</p>
+                                        <p class="text-danger">This action cannot be undone.</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <form method="post" asp-page-handler="Delete" asp-route-questionId="@question.QuestionId">
+                                            <button type="submit" class="btn btn-danger">Delete Question</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>

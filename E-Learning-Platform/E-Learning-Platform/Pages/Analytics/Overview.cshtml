@@ -1,0 +1,397 @@
+@page
+@model E_Learning_Platform.Pages.Analytics.OverviewModel
+@{
+    ViewData["Title"] = "Analytics Overview";
+    Layout = "_AnalyticsLayout";
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <div>@error.ErrorMessage</div>
+        }
+    </div>
+}
+
+<div class="container-fluid">
+    <!-- Key Metrics -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Users</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.TotalUsers</div>
+                            <div class="text-xs text-muted mt-1">
+                                <i class="fas fa-arrow-up text-success"></i> @Model.UserGrowthRate% growth
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Active Courses</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.ActiveCourses</div>
+                            <div class="text-xs text-muted mt-1">
+                                <i class="fas fa-arrow-up text-success"></i> @Model.CourseGrowthRate% growth
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-graduation-cap fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Completion Rate</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.CompletionRate.ToString("F1")%</div>
+                            <div class="text-xs text-muted mt-1">
+                                <i class="fas fa-arrow-up text-success"></i> @Model.CompletionGrowthRate% growth
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clipboard-check fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Average Score</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.AverageScore.ToString("F1")</div>
+                            <div class="text-xs text-muted mt-1">
+                                <i class="fas fa-arrow-up text-success"></i> @Model.ScoreGrowthRate% growth
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-star fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="row">
+        <div class="col-xl-8 col-lg-7">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Enrollment Trends</h6>
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Chart Period:</div>
+                            <a class="dropdown-item" href="#" onclick="updateChartPeriod('weekly')">Weekly</a>
+                            <a class="dropdown-item" href="#" onclick="updateChartPeriod('monthly')">Monthly</a>
+                            <a class="dropdown-item" href="#" onclick="updateChartPeriod('yearly')">Yearly</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="chart-area">
+                        <canvas id="enrollmentChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4 col-lg-5">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Course Categories</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-pie">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Recent Enrollments</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Course</th>
+                                    <th>Student</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var enrollment in Model.RecentEnrollments)
+                                {
+                                    <tr>
+                                        <td>@enrollment.CourseName</td>
+                                        <td>@enrollment.StudentName</td>
+                                        <td>@enrollment.EnrollmentDate.ToString("MMM dd, yyyy")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Recent Completions</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Course</th>
+                                    <th>Student</th>
+                                    <th>Score</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var completion in Model.RecentCompletions)
+                                {
+                                    <tr>
+                                        <td>@completion.CourseName</td>
+                                        <td>@completion.StudentName</td>
+                                        <td>@completion.Score.ToString("F1")</td>
+                                        <td>@completion.CompletionDate.ToString("MMM dd, yyyy")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.min.js"></script>
+    <script>
+        let enrollmentChart;
+        let categoryChart;
+        let currentChartPeriod = 'monthly';
+
+        // Initialize SignalR connection
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/dashboardHub")
+            .withAutomaticReconnect()
+            .build();
+
+        // Join the analytics overview group
+        connection.start().then(function () {
+            connection.invoke("JoinDashboardGroup", "analyticsOverview");
+        }).catch(function (err) {
+            console.error(err.toString());
+        });
+
+        // Handle real-time analytics updates
+        connection.on("AnalyticsUpdated", function (data) {
+            updateAnalyticsData(data);
+        });
+
+        // Function to update analytics data
+        function updateAnalyticsData(data) {
+            // Update metrics
+            document.getElementById('totalUsers').textContent = data.totalUsers;
+            document.getElementById('activeCourses').textContent = data.activeCourses;
+            document.getElementById('completionRate').textContent = data.completionRate.toFixed(1) + '%';
+            document.getElementById('averageScore').textContent = data.averageScore.toFixed(1);
+            document.getElementById('activeStudents').textContent = data.activeStudents;
+            document.getElementById('totalRevenue').textContent = '$' + data.totalRevenue.toFixed(2);
+            document.getElementById('averageRating').textContent = data.averageRating.toFixed(1);
+            document.getElementById('studentSatisfaction').textContent = data.studentSatisfaction.toFixed(1) + '%';
+
+            // Update charts
+            if (enrollmentChart) {
+                enrollmentChart.data.labels = data.engagementLabels;
+                enrollmentChart.data.datasets[0].data = data.activeUsersData;
+                enrollmentChart.data.datasets[1].data = data.completionData;
+                enrollmentChart.update();
+            }
+
+            if (categoryChart) {
+                categoryChart.data.labels = data.courseCategories;
+                categoryChart.data.datasets[0].data = data.courseDistribution;
+                categoryChart.update();
+            }
+
+            // Update recent activity tables
+            updateRecentEnrollments(data.recentEnrollments);
+            updateRecentCompletions(data.recentCompletions);
+        }
+
+        // Function to update recent enrollments table
+        function updateRecentEnrollments(enrollments) {
+            const tbody = document.querySelector('#recentEnrollments tbody');
+            tbody.innerHTML = '';
+            enrollments.forEach(enrollment => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${enrollment.courseName}</td>
+                    <td>${enrollment.studentName}</td>
+                    <td>${new Date(enrollment.enrollmentDate).toLocaleDateString()}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Function to update recent completions table
+        function updateRecentCompletions(completions) {
+            const tbody = document.querySelector('#recentCompletions tbody');
+            tbody.innerHTML = '';
+            completions.forEach(completion => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${completion.courseName}</td>
+                    <td>${completion.studentName}</td>
+                    <td>${completion.score.toFixed(1)}</td>
+                    <td>${new Date(completion.completionDate).toLocaleDateString()}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Initialize charts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Enrollment Chart
+            var enrollmentCtx = document.getElementById('enrollmentChart').getContext('2d');
+            enrollmentChart = new Chart(enrollmentCtx, {
+                type: 'line',
+                data: {
+                    labels: @Json.Serialize(Model.EngagementLabels),
+                    datasets: [{
+                        label: 'Enrollments',
+                        data: @Json.Serialize(Model.ActiveUsersData),
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1,
+                        fill: false
+                    }, {
+                        label: 'Completions',
+                        data: @Json.Serialize(Model.CompletionData),
+                        borderColor: 'rgb(255, 99, 132)',
+                        tension: 0.1,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        }
+                    }
+                }
+            });
+
+            // Category Chart
+            var categoryCtx = document.getElementById('categoryChart').getContext('2d');
+            categoryChart = new Chart(categoryCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: @Json.Serialize(Model.CourseCategories),
+                    datasets: [{
+                        data: @Json.Serialize(Model.CourseDistribution),
+                        backgroundColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 206, 86)',
+                            'rgb(75, 192, 192)',
+                            'rgb(153, 102, 255)',
+                            'rgb(255, 159, 64)'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right'
+                        }
+                    }
+                }
+            });
+
+            // Store chart instances for later updates
+            window.enrollmentChart = enrollmentChart;
+            window.categoryChart = categoryChart;
+        });
+
+        // Function to update chart period
+        async function updateChartPeriod(period) {
+            try {
+                const response = await fetch(`/Analytics/Overview?handler=ChartData&period=${period}`);
+                if (!response.ok) throw new Error('Network response was not ok');
+                
+                const data = await response.json();
+                
+                // Update enrollment chart
+                window.enrollmentChart.data.labels = data.labels;
+                window.enrollmentChart.data.datasets[0].data = data.enrollments;
+                window.enrollmentChart.data.datasets[1].data = data.completions;
+                window.enrollmentChart.update();
+                
+                // Update category chart
+                window.categoryChart.data.labels = data.categories;
+                window.categoryChart.data.datasets[0].data = data.distribution;
+                window.categoryChart.update();
+            } catch (error) {
+                console.error('Error updating chart period:', error);
+            }
+        }
+    </script>
+} 
+} 

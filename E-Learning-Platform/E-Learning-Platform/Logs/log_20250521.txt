@@ -1,0 +1,30 @@
+2025-05-21 00:28:29 [Information] [Login] Starting login process
+2025-05-21 00:28:29 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 00:28:30 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 00:28:30 [Information] [Login] Sign-in completed successfully
+2025-05-21 00:28:30 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 00:28:30 [Information] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-21 00:28:30 [Information] [AdminDashboard] User 14 with role ADMIN accessed the admin dashboard
+2025-05-21 00:28:30 [Information] Attempting to connect to database...
+2025-05-21 00:28:30 [Information] Successfully connected to database
+2025-05-21 00:28:30 [Information] Total Courses: 3
+2025-05-21 00:28:30 [Information] Active Students: 10
+2025-05-21 00:28:30 [Information] Active Instructors: 5
+2025-05-21 00:28:30 [Information] New Registrations Today: 0
+2025-05-21 00:28:31 [Information] Average Course Completion: 20
+2025-05-21 00:28:31 [Information] Certificates Issued: 1
+2025-05-21 00:41:24 [Information] [Login] Starting login process
+2025-05-21 00:41:24 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 00:41:25 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 00:41:25 [Information] [Login] Sign-in completed successfully
+2025-05-21 00:41:25 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 00:41:25 [Information] Connection string: Data Source=ABAKAREKE_25497\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True
+2025-05-21 00:41:25 [Information] [AdminDashboard] User 14 with role ADMIN accessed the admin dashboard
+2025-05-21 00:41:25 [Information] Attempting to connect to database...
+2025-05-21 00:41:25 [Information] Successfully connected to database
+2025-05-21 00:41:26 [Information] Total Courses: 3
+2025-05-21 00:41:26 [Information] Active Students: 10
+2025-05-21 00:41:26 [Information] Active Instructors: 5
+2025-05-21 00:41:26 [Information] New Registrations Today: 0
+2025-05-21 00:41:26 [Information] Average Course Completion: 20
+2025-05-21 00:41:26 [Information] Certificates Issued: 1

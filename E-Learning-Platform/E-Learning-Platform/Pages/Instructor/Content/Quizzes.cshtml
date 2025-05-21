@@ -1,0 +1,257 @@
+﻿@page
+@model E_Learning_Platform.Pages.Instructor.Content.QuizzesModel
+@{
+    Layout = "/Pages/Instructor/_Layout.cshtml";
+    ViewData["Title"] = "Quizzes";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h2">Quizzes</h1>
+    @if (Model.SelectedModuleId.HasValue)
+    {
+        <a asp-page="CreateQuiz" asp-route-moduleId="@Model.SelectedModuleId" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> New Quiz
+        </a>
+    }
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h5 class="mb-0">Course & Module Selection</h5>
+    </div>
+    <div class="card-body">
+        @if (Model.Courses.Count == 0)
+        {
+            <div class="alert alert-info">
+                You don't have any courses yet. <a asp-page="/Instructor/Courses/Create">Create a course</a> first to add quizzes.
+            </div>
+        }
+        else
+        {
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <form method="get" id="courseSelectForm">
+                        <label for="courseId" class="form-label">Select Course</label>
+                        <select name="courseId" id="courseId" class="form-select" onchange="this.form.submit()">
+                            @foreach (var course in Model.Courses)
+                            {
+                                <option value="@course.CourseId" selected="@(Model.SelectedCourseId == course.CourseId)">
+                                    @course.Title
+                                </option>
+                            }
+                        </select>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    @if (Model.SelectedCourseId.HasValue && Model.ModulesList != null && Model.ModulesList.Any())
+                    {
+                        <form method="get" id="moduleSelectForm">
+                            <input type="hidden" name="courseId" value="@Model.SelectedCourseId" />
+                            <label for="moduleId" class="form-label">Select Module</label>
+                            <select name="moduleId" id="moduleId" class="form-select" onchange="this.form.submit()">
+                                <option value="">-- Select Module --</option>
+                                @foreach (var item in Model.ModulesList)
+                                {
+                                    <option value="@item.Value" selected="@(Model.SelectedModuleId.HasValue && Model.SelectedModuleId.ToString() == item.Value)">
+                                        @item.Text
+                                    </option>
+                                }
+                            </select>
+                        </form>
+                    }
+                    else if (Model.SelectedCourseId.HasValue)
+                    {
+                        <div class="alert alert-warning mt-4">
+                            This course doesn't have any modules yet. <a asp-page="Modules" asp-route-courseId="@Model.SelectedCourseId">Create modules</a> first to add quizzes.
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@if (Model.SelectedModuleId.HasValue)
+{
+    <div class="card shadow">
+        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Module Quizzes</h5>
+            <a asp-page="CreateQuiz" asp-route-moduleId="@Model.SelectedModuleId" class="btn btn-sm btn-outline-primary">
+                <i class="bi bi-plus-circle"></i> Add Quiz
+            </a>
+        </div>
+        <div class="card-body">
+            @if (Model.Quizzes.Count == 0)
+            {
+                <div class="alert alert-info">
+                    This module doesn't have any quizzes yet. Add your first quiz to get started.
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Quiz</th>
+                                <th>Questions</th>
+                                <th>Time Limit</th>
+                                <th>Passing Score</th>
+                                <th>Status</th>
+                                <th class="text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var quiz in Model.Quizzes)
+                            {
+                                <tr>
+                                    <td>
+                                        <strong>@quiz.Title</strong>
+                                        <div class="text-muted small">@(quiz.Description?.Length > 50 ? quiz.Description.Substring(0, 50) + "..." : quiz.Description)</div>
+                                    </td>
+                                    <td>@quiz.QuestionCount</td>
+                                    <td>@(quiz.TimeLimitMinutes > 0 ? $"{quiz.TimeLimitMinutes} min" : "No limit")</td>
+                                    <td>@quiz.PassingScore%</td>
+                                    <td>
+                                        @if (quiz.IsActive)
+                                        {
+                                            <span class="badge bg-success">Active</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">Inactive</span>
+                                        }
+                                    </td>
+                                    <td class="text-end">
+                                        <div class="btn-group">
+                                            <button class="btn btn-sm btn-outline-primary edit-quiz-btn"
+                                                    data-quizid="@quiz.QuizId"
+                                                    data-title="@quiz.Title"
+                                                    data-desc="@quiz.Description"
+                                                    data-timelimit="@quiz.TimeLimitMinutes"
+                                                    data-passingscore="@quiz.PassingScore">
+                                                <i class="bi bi-pencil"></i>
+                                            </button>
+                                            <a asp-page="QuizQuestions" asp-route-quizId="@quiz.QuizId" class="btn btn-sm btn-outline-secondary">
+                                                <i class="bi bi-list-check"></i>
+                                            </a>
+                                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-@quiz.QuizId">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </div>
+
+                                        <!-- Delete Modal -->
+                                        <div class="modal fade" id="deleteModal-@quiz.QuizId" tabindex="-1" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Confirm Delete</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>Are you sure you want to delete the quiz <strong>@quiz.Title</strong>? This action cannot be undone.</p>
+                                                        <p class="text-danger">All questions and student attempts will also be deleted.</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                        <form method="post" asp-page-handler="Delete" asp-route-id="@quiz.QuizId">
+                                                            <button type="submit" class="btn btn-danger">Delete Quiz</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+<!-- Edit Quiz Modal -->
+<div class="modal fade" id="editQuizModal" tabindex="-1" aria-labelledby="editQuizModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" asp-page-handler="EditQuiz">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editQuizModalLabel">Edit Quiz</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="EditQuizId" name="EditQuizId" />
+                    <input type="hidden" name="moduleId" value="@Model.SelectedModuleId" />
+
+                    <div class="mb-3">
+                        <label for="EditQuiz_Title" class="form-label">Quiz Title</label>
+                        <input type="text" class="form-control" id="EditQuiz_Title" name="Quiz.Title" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="EditQuiz_Description" class="form-label">Description</label>
+                        <textarea class="form-control" id="EditQuiz_Description" name="Quiz.Description" rows="3"></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="EditQuiz_TimeLimitMinutes" class="form-label">Time Limit (minutes)</label>
+                            <input type="number" class="form-control" id="EditQuiz_TimeLimitMinutes"
+                                   name="Quiz.TimeLimitMinutes" min="0" />
+                            <div class="form-text">Leave at 0 for no time limit</div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="EditQuiz_PassingScore" class="form-label">Passing Score (%)</label>
+                            <input type="number" class="form-control" id="EditQuiz_PassingScore"
+                                   name="Quiz.PassingScore" min="0" max="100" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Initialize tooltips & modals
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize tooltips
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+
+            // Edit quiz functionality
+            var editQuizModal = new bootstrap.Modal(document.getElementById('editQuizModal'));
+
+            document.querySelectorAll('.edit-quiz-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    // Get data attributes
+                    var quizId = this.getAttribute('data-quizid');
+                    var quizTitle = this.getAttribute('data-title');
+                    var quizDesc = this.getAttribute('data-desc');
+                    var quizTimeLimit = this.getAttribute('data-timelimit');
+                    var quizPassingScore = this.getAttribute('data-passingscore');
+
+                    // Set form values
+                    document.getElementById('EditQuizId').value = quizId;
+                    document.getElementById('EditQuiz_Title').value = quizTitle;
+                    document.getElementById('EditQuiz_Description').value = quizDesc;
+                    document.getElementById('EditQuiz_TimeLimitMinutes').value = quizTimeLimit;
+                    document.getElementById('EditQuiz_PassingScore').value = quizPassingScore;
+
+                    // Show modal
+                    editQuizModal.show();
+                });
+            });
+        });
+    </script>
+}

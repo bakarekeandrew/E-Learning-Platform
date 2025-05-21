@@ -1,0 +1,38 @@
+@model E_Learning_Platform.Pages.UsersInfoModel
+
+@if (Model.PermissionAuditLogs.Any())
+{
+    foreach (var log in Model.PermissionAuditLogs)
+    {
+        <tr>
+            <td>@log.ChangeDate.ToString("MMM dd, yyyy HH:mm")</td>
+            <td>@log.UserName</td>
+            <td>@log.PermissionName</td>
+            <td>
+                @switch (log.Action)
+                {
+                    case "GRANTED":
+                        <span class="badge bg-success">Granted</span>
+                        break;
+                    case "REVOKED":
+                        <span class="badge bg-danger">Revoked</span>
+                        break;
+                    default:
+                        <span class="badge bg-secondary">@log.Action</span>
+                        break;
+                }
+            </td>
+            <td>@log.ChangedByName</td>
+            <td>@log.Reason</td>
+        </tr>
+    }
+}
+else
+{
+    <tr>
+        <td colspan="6" class="text-center py-5 text-muted">
+            <i class="bi bi-inbox-fill fs-2 d-block mb-3"></i>
+            No audit log entries found.
+        </td>
+    </tr>
+} 

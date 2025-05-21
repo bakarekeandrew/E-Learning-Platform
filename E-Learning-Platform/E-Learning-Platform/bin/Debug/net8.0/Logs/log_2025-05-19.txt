@@ -1,0 +1,116 @@
+[INFO] [2025-05-19 09:17:06] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 09:18:11] [Login] User 14 (egide@gmail.com) successfully signed in
+[INFO] [2025-05-19 09:18:39] [Login] User 27 (bakarekeandrew@gmail.com) successfully signed in
+[INFO] [2025-05-19 09:21:41] [Login] User 14 (egide@gmail.com) successfully signed in
+[INFO] [2025-05-19 09:33:32] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 09:33:46] [Login] User 14 (egide@gmail.com) successfully signed in
+[INFO] [2025-05-19 09:33:56] [Login] User 27 (bakarekeandrew@gmail.com) successfully signed in
+[INFO] [2025-05-19 09:42:28] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 09:42:54] [Login] User 14 (egide@gmail.com) successfully signed in
+[INFO] [2025-05-19 09:43:07] [Login] User 27 (bakarekeandrew@gmail.com) successfully signed in
+[INFO] [2025-05-19 10:13:44] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 10:14:20] [Login] User 14 (egide@gmail.com) successfully signed in
+[INFO] [2025-05-19 10:14:31] [Login] User 27 (bakarekeandrew@gmail.com) successfully signed in
+[INFO] [2025-05-19 10:15:44] [Login] User 14 (egide@gmail.com) successfully signed in
+[INFO] [2025-05-19 10:16:00] [Login] User 27 (bakarekeandrew@gmail.com) successfully signed in
+[INFO] [2025-05-19 10:35:39] [OtpService] Initialized with provided connection string
+[ERROR] [2025-05-19 10:35:53] [Login] Exception during login: Keyword not supported: 'min protocol'.
+--------------------------------------------------
+[ERROR] [2025-05-19 10:39:17] [Login] Exception during Google login: Keyword not supported: 'min protocol'.
+--------------------------------------------------
+[ERROR] [2025-05-19 10:39:17] [Login] Authentication error: Keyword not supported: 'min protocol'.
+--------------------------------------------------
+[INFO] [2025-05-19 10:53:19] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 10:53:19] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 10:53:37] [Login] User 14 (egide@gmail.com) successfully signed in with role ADMIN
+[INFO] [2025-05-19 10:53:37] [Login] Redirecting user 14 with role ADMIN to dashboard
+[INFO] [2025-05-19 10:53:48] [Login] User 27 (bakarekeandrew@gmail.com) successfully signed in with role STUDENT
+[INFO] [2025-05-19 10:55:16] [Login] User 14 (egide@gmail.com) successfully signed in with role ADMIN
+[INFO] [2025-05-19 10:55:16] [Login] Redirecting user 14 with role ADMIN to dashboard
+[INFO] [2025-05-19 11:11:40] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 11:11:40] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 11:11:53] [Login] User 14 (egide@gmail.com) successfully signed in with role ADMIN
+[INFO] [2025-05-19 11:11:53] [Login] Redirecting user 14 with role ADMIN to dashboard
+[INFO] [2025-05-19 11:12:03] [Login] User 27 (bakarekeandrew@gmail.com) successfully signed in with role STUDENT
+[INFO] [2025-05-19 12:05:37] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 12:05:51] [Login] User 14 (egide@gmail.com) successfully signed in with role ADMIN
+[INFO] [2025-05-19 12:05:51] [Login] Redirecting user 14 with role ADMIN to dashboard
+[INFO] [2025-05-19 12:06:02] [Login] User 27 (bakarekeandrew@gmail.com) successfully signed in with role STUDENT
+[INFO] [2025-05-19 12:24:16] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 12:24:16] [OtpService] Initialized with provided connection string
+[ERROR] [2025-05-19 12:24:28] [Login] Exception during login: Keyword not supported: 'min protocol'.
+--------------------------------------------------
+[ERROR] [2025-05-19 12:24:46] [Login] Exception during Google login: Keyword not supported: 'min protocol'.
+--------------------------------------------------
+[ERROR] [2025-05-19 12:24:46] [Login] Authentication error: Keyword not supported: 'min protocol'.
+--------------------------------------------------
+[INFO] [2025-05-19 12:28:53] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 12:28:53] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 12:29:13] [Login] User 14 (egide@gmail.com) successfully signed in with role ADMIN
+[INFO] [2025-05-19 12:29:13] [Login] Redirecting user 14 with role ADMIN to dashboard
+[INFO] [2025-05-19 12:29:38] [Login] User 27 (bakarekeandrew@gmail.com) successfully signed in with role STUDENT
+[INFO] [2025-05-19 12:29:49] [Login] User 31 (bakarekeandrewfils@gmail.com) successfully signed in with role STUDENT
+[INFO] [2025-05-19 12:31:28] [Login] User 27 (bakarekeandrew@gmail.com) successfully signed in with role STUDENT
+[INFO] [2025-05-19 12:36:16] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 12:36:16] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 12:38:17] [Login] User 14 (egide@gmail.com) successfully signed in with role ADMIN
+[INFO] [2025-05-19 12:38:17] [Login] Redirecting user 14 with role ADMIN to dashboard
+[INFO] [2025-05-19 17:11:27] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 17:11:27] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 17:11:40] [Login] User 14 (egide@gmail.com) successfully signed in with role ADMIN
+[INFO] [2025-05-19 17:11:40] [Login] Redirecting user 14 with role ADMIN to dashboard
+[INFO] [2025-05-19 17:12:00] [Login] User 27 (bakarekeandrew@gmail.com) successfully signed in with role STUDENT
+[INFO] [2025-05-19 17:16:20] [Login] User 14 (egide@gmail.com) successfully signed in with role ADMIN
+[INFO] [2025-05-19 17:16:20] [Login] Redirecting user 14 with role ADMIN to dashboard
+[INFO] [2025-05-19 17:40:33] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 17:40:33] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 17:41:38] [Login] User 14 (egide@gmail.com) successfully signed in with role ADMIN
+[INFO] [2025-05-19 17:41:38] [Login] Redirecting user 14 with role ADMIN to dashboard
+[INFO] [2025-05-19 18:03:20] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 18:03:20] [OtpService] Initialized with provided connection string
+[ERROR] [2025-05-19 18:03:32] [Login] Exception during login: Keyword not supported: 'min protocol'.
+--------------------------------------------------
+[ERROR] [2025-05-19 18:03:44] [Login] Exception during Google login: Keyword not supported: 'min protocol'.
+--------------------------------------------------
+[ERROR] [2025-05-19 18:03:44] [Login] Authentication error: Keyword not supported: 'min protocol'.
+--------------------------------------------------
+[ERROR] [2025-05-19 18:08:34] [Login] Authentication error: Keyword not supported: 'min protocol'.
+--------------------------------------------------
+[INFO] [2025-05-19 18:11:59] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 18:11:59] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 18:12:12] [Login] User 14 (egide@gmail.com) successfully signed in with role ADMIN
+[INFO] [2025-05-19 18:12:12] [Login] Redirecting user 14 with role ADMIN to dashboard
+[INFO] [2025-05-19 18:12:21] [Login] User 27 (bakarekeandrew@gmail.com) successfully signed in with role STUDENT
+[INFO] [2025-05-19 18:44:37] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 18:44:37] [OtpService] Initialized with provided connection string
+[ERROR] [2025-05-19 18:44:48] [Login] Exception during login: Keyword not supported: 'min protocol'.
+--------------------------------------------------
+[ERROR] [2025-05-19 18:45:12] [Login] Exception during Google login: Keyword not supported: 'min protocol'.
+--------------------------------------------------
+[ERROR] [2025-05-19 18:45:12] [Login] Authentication error: Keyword not supported: 'min protocol'.
+--------------------------------------------------
+[INFO] [2025-05-19 18:48:30] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 18:48:30] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 18:48:40] [Login] User 14 (egide@gmail.com) successfully signed in with role ADMIN
+[INFO] [2025-05-19 18:48:40] [Login] Redirecting user 14 with role ADMIN to dashboard
+[INFO] [2025-05-19 18:48:59] [Login] User 27 (bakarekeandrew@gmail.com) successfully signed in with role STUDENT
+[INFO] [2025-05-19 18:57:38] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 18:57:38] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 18:57:57] [Login] User 14 (egide@gmail.com) successfully signed in with role ADMIN
+[INFO] [2025-05-19 18:57:57] [Login] Redirecting user 14 with role ADMIN to dashboard
+[INFO] [2025-05-19 18:58:06] [Login] User 27 (bakarekeandrew@gmail.com) successfully signed in with role STUDENT
+[INFO] [2025-05-19 19:00:57] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 19:00:57] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 19:01:12] [Login] User 14 (egide@gmail.com) successfully signed in with role ADMIN
+[INFO] [2025-05-19 19:01:12] [Login] Redirecting user 14 with role ADMIN to dashboard
+[INFO] [2025-05-19 19:01:22] [Login] User 27 (bakarekeandrew@gmail.com) successfully signed in with role STUDENT
+[INFO] [2025-05-19 19:09:04] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 19:09:04] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 19:09:17] [Login] Database connection opened successfully. Connection state: Open
+[INFO] [2025-05-19 19:09:18] [Login] User 14 (egide@gmail.com) successfully signed in with role ADMIN
+[INFO] [2025-05-19 19:09:18] [Login] Redirecting user 14 with role ADMIN to dashboard
+[INFO] [2025-05-19 19:09:18] [Login] Final redirect target: /AdminDashboard
+[INFO] [2025-05-19 19:29:37] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 19:29:37] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 19:43:46] [OtpService] Initialized with provided connection string
+[INFO] [2025-05-19 19:43:46] [OtpService] Initialized with provided connection string

@@ -1,0 +1,120 @@
+:root {
+    /* Light theme (default) */
+    --primary-bg: #ffffff;
+    --secondary-bg: #f8f9fa;
+    --primary-text: #212529;
+    --secondary-text: #6c757d;
+    --border-color: #dee2e6;
+    --card-bg: #ffffff;
+    --hover-bg: #e9ecef;
+    --input-bg: #ffffff;
+    --input-border: #ced4da;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --table-header-bg: #f8f9fa;
+    --table-row-hover: #f8f9fa;
+    --nav-bg: #ffffff;
+    --nav-text: #212529;
+    --nav-hover: #e9ecef;
+    --btn-primary-bg: #0d6efd;
+    --btn-primary-text: #ffffff;
+    --btn-secondary-bg: #6c757d;
+    --btn-secondary-text: #ffffff;
+}
+
+[data-theme="dark"] {
+    --primary-bg: #1a1a1a;
+    --secondary-bg: #2d2d2d;
+    --primary-text: #ffffff;
+    --secondary-text: #adb5bd;
+    --border-color: #404040;
+    --card-bg: #2d2d2d;
+    --hover-bg: #404040;
+    --input-bg: #2d2d2d;
+    --input-border: #404040;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --table-header-bg: #2d2d2d;
+    --table-row-hover: #404040;
+    --nav-bg: #2d2d2d;
+    --nav-text: #ffffff;
+    --nav-hover: #404040;
+    --btn-primary-bg: #0d6efd;
+    --btn-primary-text: #ffffff;
+    --btn-secondary-bg: #6c757d;
+    --btn-secondary-text: #ffffff;
+}
+
+/* Apply theme variables to elements */
+body {
+    background-color: var(--primary-bg);
+    color: var(--primary-text);
+}
+
+.card {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+.navbar {
+    background-color: var(--nav-bg) !important;
+}
+
+.navbar .nav-link {
+    color: var(--nav-text) !important;
+}
+
+.navbar .nav-link:hover {
+    background-color: var(--nav-hover);
+}
+
+.table {
+    color: var(--primary-text);
+}
+
+.table thead th {
+    background-color: var(--table-header-bg);
+    border-color: var(--border-color);
+}
+
+.table tbody tr:hover {
+    background-color: var(--table-row-hover);
+}
+
+.form-control {
+    background-color: var(--input-bg);
+    border-color: var(--input-border);
+    color: var(--primary-text);
+}
+
+.form-control:focus {
+    background-color: var(--input-bg);
+    color: var(--primary-text);
+}
+
+.btn-primary {
+    background-color: var(--btn-primary-bg);
+    color: var(--btn-primary-text);
+}
+
+.btn-secondary {
+    background-color: var(--btn-secondary-bg);
+    color: var(--btn-secondary-text);
+}
+
+/* Theme toggle button styles */
+.theme-toggle {
+    background: none;
+    border: none;
+    color: var(--primary-text);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+}
+
+.theme-toggle:hover {
+    background-color: var(--hover-bg);
+}
+
+.theme-toggle i {
+    font-size: 1.2rem;
+} 

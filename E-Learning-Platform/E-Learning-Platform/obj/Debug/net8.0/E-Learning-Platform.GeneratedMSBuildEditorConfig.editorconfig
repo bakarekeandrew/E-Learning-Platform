@@ -24,12 +24,44 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5EYXNoYm9hcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Admin/RoleManagement.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cUm9sZU1hbmFnZW1lbnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Analytics/CoursePerformance.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5hbHl0aWNzXENvdXJzZVBlcmZvcm1hbmNlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Analytics/Overview.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5hbHl0aWNzXE92ZXJ2aWV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Analytics/UserEngagement.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5hbHl0aWNzXFVzZXJFbmdhZ2VtZW50LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/CourseInfo.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291cnNlSW5mby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/ForgotPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRm9yZ290UGFzc3dvcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Homepage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZXBhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Identity/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSWRlbnRpdHlcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Identity/Account/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSWRlbnRpdHlcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Index.cshtml]
@@ -40,16 +72,196 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zdHJ1Y3RvckRhc2hib2FyZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Instructor/Content/AddQuestion.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zdHJ1Y3RvclxDb250ZW50XEFkZFF1ZXN0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Instructor/Content/Assignments.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zdHJ1Y3RvclxDb250ZW50XEFzc2lnbm1lbnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Instructor/Content/CreateAssignment.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zdHJ1Y3RvclxDb250ZW50XENyZWF0ZUFzc2lnbm1lbnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Instructor/Content/CreateModule.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zdHJ1Y3RvclxDb250ZW50XENyZWF0ZU1vZHVsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Instructor/Content/CreateQuiz.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zdHJ1Y3RvclxDb250ZW50XENyZWF0ZVF1aXouY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Instructor/Content/EditAssignment.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zdHJ1Y3RvclxDb250ZW50XEVkaXRBc3NpZ25tZW50LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Instructor/Content/EditModule.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zdHJ1Y3RvclxDb250ZW50XEVkaXRNb2R1bGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Instructor/Content/EditQuestion.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zdHJ1Y3RvclxDb250ZW50XEVkaXRRdWVzdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Instructor/Content/Modules.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zdHJ1Y3RvclxDb250ZW50XE1vZHVsZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Instructor/Content/QuizQuestions.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zdHJ1Y3RvclxDb250ZW50XFF1aXpRdWVzdGlvbnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Instructor/Content/Quizzes.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zdHJ1Y3RvclxDb250ZW50XFF1aXp6ZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Instructor/Content/Submissions.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zdHJ1Y3RvclxDb250ZW50XFN1Ym1pc3Npb25zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Instructor/Courses/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zdHJ1Y3RvclxDb3Vyc2VzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Instructor/Courses/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zdHJ1Y3RvclxDb3Vyc2VzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Instructor/Courses/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zdHJ1Y3RvclxDb3Vyc2VzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Instructor/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zdHJ1Y3RvclxEYXNoYm9hcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Instructor/Students/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zdHJ1Y3RvclxTdHVkZW50c1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Instructor/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5zdHJ1Y3RvclxfTGF5b3V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Logout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9nb3V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/MfaVerification.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWZhVmVyaWZpY2F0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/PermissionsInfo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGVybWlzc2lvbnNJbmZvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Profile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZmlsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/ResetPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVzZXRQYXNzd29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Shared/_AdminLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9BZG1pbkxheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Shared/_AnalyticsLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9BbmFseXRpY3NMYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/SignupPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2lnbnVwUGFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Student/Catalog.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudFxDYXRhbG9nLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Student/Certificate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudFxDZXJ0aWZpY2F0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Student/Courses.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudFxDb3Vyc2VzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Student/Courses/AssignmentDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudFxDb3Vyc2VzXEFzc2lnbm1lbnREZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Student/Courses/Assignments.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudFxDb3Vyc2VzXEFzc2lnbm1lbnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Student/Courses/CourseDebugger.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudFxDb3Vyc2VzXENvdXJzZURlYnVnZ2VyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Student/Courses/Enroll.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudFxDb3Vyc2VzXEVucm9sbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Student/Courses/Quiz.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudFxDb3Vyc2VzXFF1aXouY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Student/Courses/QuizResult.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudFxDb3Vyc2VzXFF1aXpSZXN1bHQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Student/Courses/View.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudFxDb3Vyc2VzXFZpZXcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Student/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudFxEYXNoYm9hcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Student/Profile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudFxQcm9maWxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/Student/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3R1ZGVudFxfTGF5b3V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/UserEngagement.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlckVuZ2FnZW1lbnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/UserProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclByb2ZpbGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/UsersInfo.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNJbmZvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/_AuditLogPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0F1ZGl0TG9nUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/_UserListPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1VzZXJMaXN0UGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/HP/Desktop/Dot-net/E-Learning-Platform/E-Learning-Platform/E-Learning-Platform/Pages/_ViewImports.cshtml]

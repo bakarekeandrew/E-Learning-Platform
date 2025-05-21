@@ -1,0 +1,223 @@
+﻿@page "{courseId:int?}"
+@model E_Learning_Platform.Pages.Student.Courses.AssignmentsModel
+@{
+    ViewData["Title"] = Model.CourseId.HasValue ? $"Assignments: {Model.CourseTitle}" : "My Assignments";
+}
+
+<div class="assignments-container">
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger alert-dismissible fade show">
+            @Model.ErrorMessage
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <nav aria-label="breadcrumb" class="mb-3">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-page="/Student/Dashboard"><i class="bi bi-house-door"></i> Dashboard</a></li>
+                    <li class="breadcrumb-item"><a asp-page="/Student/Courses"><i class="bi bi-book"></i> My Courses</a></li>
+                    @if (Model.CourseId.HasValue)
+                    {
+                        <li class="breadcrumb-item"><a asp-page="/Student/Courses/View" asp-route-id="@Model.CourseId"><i class="bi bi-journal-text"></i> @Model.CourseTitle</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><i class="bi bi-list-task"></i> Assignments</li>
+                    }
+                    else
+                    {
+                        <li class="breadcrumb-item active" aria-current="page"><i class="bi bi-list-task"></i> All Assignments</li>
+                    }
+                </ol>
+            </nav>
+            <h1 class="h2 mb-1 text-primary">
+                @if (Model.CourseId.HasValue)
+                {
+                    <span>Assignments: @Model.CourseTitle</span>
+                }
+                else
+                {
+                    <span>My Assignments</span>
+                }
+            </h1>
+            <p class="text-muted">
+                <i class="bi bi-calendar-check"></i>
+                @if (Model.HasPendingAssignments)
+                {
+                    <span>You have @Model.PendingAssignments assignments pending submission</span>
+                }
+                else
+                {
+                    <span>All assignments up to date</span>
+                }
+            </p>
+        </div>
+
+        <div class="dropdown">
+            <button class="btn btn-outline-primary dropdown-toggle" type="button" id="assignmentFilterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-funnel"></i> Filter
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="assignmentFilterDropdown">
+                <li><a class="dropdown-item @(Model.Filter == "all" ? "active" : "")" href="?filter=all">All Assignments</a></li>
+                <li><a class="dropdown-item @(Model.Filter == "pending" ? "active" : "")" href="?filter=pending">Pending</a></li>
+                <li><a class="dropdown-item @(Model.Filter == "submitted" ? "active" : "")" href="?filter=submitted">Submitted</a></li>
+                <li><a class="dropdown-item @(Model.Filter == "graded" ? "active" : "")" href="?filter=graded">Graded</a></li>
+                <li><a class="dropdown-item @(Model.Filter == "upcoming" ? "active" : "")" href="?filter=upcoming">Due Soon</a></li>
+                <li><a class="dropdown-item @(Model.Filter == "overdue" ? "active" : "")" href="?filter=overdue">Overdue</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Assignments List -->
+    <div class="row">
+        @if (Model.Assignments != null && Model.Assignments.Any())
+        {
+            foreach (var assignment in Model.Assignments)
+            {
+                <div class="col-12 mb-4">
+                    <div class="card assignment-card shadow @GetCardClass(assignment)">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <h5 class="card-title text-primary mb-1">@assignment.Title</h5>
+                                    @if (!Model.CourseId.HasValue)
+                                    {
+                                        <p class="text-muted small mb-2">
+                                            <i class="bi bi-book"></i> @assignment.CourseTitle
+                                        </p>
+                                    }
+                                </div>
+                                <div class="text-end">
+                                    <div class="@GetBadgeClass(assignment)">
+                                        @GetStatusText(assignment)
+                                    </div>
+                                    <div class="text-muted small mt-1">
+                                        <i class="bi bi-trophy"></i> Max Score: @assignment.MaxScore
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p class="card-text">
+                                @if (assignment.Instructions.Length > 150)
+                                {
+                                    @assignment.Instructions.Substring(0, 150)
+                                    <text>...</text>
+                                }
+                                else
+                                {
+                                    @assignment.Instructions
+                                }
+                            </p>
+
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <div>
+                                    <i class="bi bi-calendar-event"></i>
+                                    <span class="@(assignment.IsOverdue && !assignment.IsSubmitted ? "text-danger fw-bold" : "")">
+                                        Due: @assignment.DueDate.ToString("MMM dd, yyyy h:mm tt")
+                                    </span>
+                                </div>
+                                <div>
+                                    <a href="/Student/Courses/AssignmentDetails?id=@assignment.AssignmentId"
+                                       class="btn @(assignment.IsOverdue && !assignment.IsSubmitted ? "btn-danger" : "btn-primary")">
+                                        <i class="bi @(assignment.IsSubmitted ? "bi-eye" : "bi-upload")"></i>
+                                        @(assignment.IsSubmitted ? "View Submission" : "Submit Assignment")
+                                    </a>
+                                </div>
+                            </div>
+
+                            @if (assignment.Feedback != null && assignment.IsGraded)
+                            {
+                                <div class="mt-3 p-3 bg-light rounded feedback-section">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <h6 class="mb-2"><i class="bi bi-chat-quote"></i> Feedback</h6>
+                                        <span class="badge bg-success">Grade: @assignment.Grade / @assignment.MaxScore</span>
+                                    </div>
+                                    <p class="mb-0 small">@assignment.Feedback</p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle"></i> No assignments found matching the selected filter.
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@functions {
+    public string GetCardClass(AssignmentsModel.AssignmentViewModel assignment)
+    {
+        if (assignment.IsGraded) return "border-success";
+        if (assignment.IsSubmitted) return "border-info";
+        if (assignment.IsOverdue) return "border-danger";
+        if (assignment.IsDueSoon) return "border-warning";
+        return "border-primary";
+    }
+
+    public string GetBadgeClass(AssignmentsModel.AssignmentViewModel assignment)
+    {
+        if (assignment.IsGraded) return "badge bg-success";
+        if (assignment.IsSubmitted) return "badge bg-info";
+        if (assignment.IsOverdue) return "badge bg-danger";
+        if (assignment.IsDueSoon) return "badge bg-warning text-dark";
+        return "badge bg-primary";
+    }
+
+    public string GetStatusText(AssignmentsModel.AssignmentViewModel assignment)
+    {
+        if (assignment.IsGraded) return "Graded";
+        if (assignment.IsSubmitted) return "Submitted";
+        if (assignment.IsOverdue) return "Overdue";
+        if (assignment.IsDueSoon) return "Due Soon";
+        return "Pending";
+    }
+}
+
+@section Styles {
+    <style>
+        .assignments-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding-bottom: 2rem;
+        }
+
+        .assignment-card {
+            transition: all 0.3s ease;
+        }
+
+            .assignment-card:hover {
+                transform: translateY(-3px);
+            }
+
+            .assignment-card.border-danger {
+                border-left: 4px solid #dc3545 !important;
+            }
+
+            .assignment-card.border-warning {
+                border-left: 4px solid #ffc107 !important;
+            }
+
+            .assignment-card.border-info {
+                border-left: 4px solid #0dcaf0 !important;
+            }
+
+            .assignment-card.border-success {
+                border-left: 4px solid #198754 !important;
+            }
+
+            .assignment-card.border-primary {
+                border-left: 4px solid #4e73df !important;
+            }
+
+        .feedback-section {
+            border-left: 3px solid #198754;
+        }
+    </style>
+}

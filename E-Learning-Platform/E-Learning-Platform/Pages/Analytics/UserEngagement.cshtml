@@ -1,0 +1,328 @@
+@page
+@model E_Learning_Platform.Pages.UserEngagementModel
+@{
+    ViewData["Title"] = "User Engagement Analytics";
+    Layout = "_AdminLayout";
+}
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 mb-0 text-gray-800">User Engagement Analytics</h1>
+        <a href="/AdminDashboard" class="btn btn-outline-primary"><i class="fas fa-arrow-left me-2"></i>Back to Dashboard</a>
+    </div>
+
+    <!-- Active Users Row -->
+    <div class="row">
+        <!-- Daily Active Users -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Daily Active Users</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.DailyActiveUsers</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Weekly Active Users -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Weekly Active Users</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.WeeklyActiveUsers</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar-week fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Monthly Active Users -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Monthly Active Users</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.MonthlyActiveUsers</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar-alt fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Retention Rate -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Retention Rate</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.RetentionRate.ToString("F1")%</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-chart-line fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Engagement Chart -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-white">
+                    <h5 class="m-0">Daily Active Users (Last 7 Days)</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="dailyActiveUsersChart" height="100"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Users Row -->
+    <div class="row">
+        <!-- New Users Today -->
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                New Users Today</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.NewUsersToday</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user-plus fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- New Users This Week -->
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                New Users This Week</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.NewUsersThisWeek</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- New Users This Month -->
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                New Users This Month</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.NewUsersThisMonth</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Engagement Metrics Row -->
+    <div class="row">
+        <!-- Average Session Duration -->
+        <div class="col-xl-6 col-md-6 mb-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Average Session Duration</h6>
+                </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        <h2 class="display-4">@Model.AverageSessionDuration.ToString("F1")</h2>
+                        <p class="text-muted">minutes per session</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Average Time Spent Per Course -->
+        <div class="col-xl-6 col-md-6 mb-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Average Time Spent Per Course</h6>
+                </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        <h2 class="display-4">@Model.AverageTimeSpentPerCourse.ToString("F1")</h2>
+                        <p class="text-muted">minutes per completed course</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Most Active Time Slot -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Most Active Time Slot</h6>
+                </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        <h2 class="display-4">@Model.MostActiveTimeSlot:00</h2>
+                        <p class="text-muted">hour of the day</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.min.js"></script>
+    <script>
+        let dailyActiveUsersChart;
+        let sessionDurationChart;
+        let contentViewsChart;
+
+        // Initialize SignalR connection
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/dashboardHub")
+            .withAutomaticReconnect()
+            .build();
+
+        // Join the user engagement group
+        connection.start().then(function () {
+            connection.invoke("JoinDashboardGroup", "userEngagement");
+        }).catch(function (err) {
+            console.error(err.toString());
+        });
+
+        // Handle real-time user engagement updates
+        connection.on("UserEngagementUpdated", function (data) {
+            updateUserEngagementData(data);
+        });
+
+        // Function to update user engagement data
+        function updateUserEngagementData(data) {
+            // Update metrics
+            document.getElementById('activeUsers').textContent = data.activeUsers;
+            document.getElementById('totalSessions').textContent = data.totalSessions;
+            document.getElementById('averageSessionDuration').textContent = data.averageSessionDuration.toFixed(1);
+            document.getElementById('totalInteractions').textContent = data.totalInteractions;
+
+            // Update charts
+            if (dailyActiveUsersChart) {
+                dailyActiveUsersChart.data.labels = data.timeLabels;
+                dailyActiveUsersChart.data.datasets[0].data = data.activeUsersData;
+                dailyActiveUsersChart.update();
+            }
+
+            if (sessionDurationChart) {
+                sessionDurationChart.data.labels = data.timeLabels;
+                sessionDurationChart.data.datasets[0].data = data.sessionDurationData;
+                sessionDurationChart.update();
+            }
+
+            if (contentViewsChart) {
+                contentViewsChart.data.labels = data.timeLabels;
+                contentViewsChart.data.datasets[0].data = data.contentViewsData;
+                contentViewsChart.update();
+            }
+
+            // Update popular content table
+            updatePopularContent(data.popularContent);
+        }
+
+        // Function to update popular content table
+        function updatePopularContent(content) {
+            const tbody = document.querySelector('#popularContent tbody');
+            tbody.innerHTML = '';
+            content.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.title}</td>
+                    <td>${item.viewCount}</td>
+                    <td>${item.averageTimeSpent.toFixed(1)} minutes</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Initialize charts
+        document.addEventListener('DOMContentLoaded', function() {
+            var ctx = document.getElementById('dailyActiveUsersChart').getContext('2d');
+            dailyActiveUsersChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: @Html.Raw(Json.Serialize(Model.DailyLabels)),
+                    datasets: [{
+                        label: 'Active Users',
+                        data: @Html.Raw(Json.Serialize(Model.DailyActiveUsersData)),
+                        borderColor: '#4e73df',
+                        backgroundColor: 'rgba(78, 115, 223, 0.1)',
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+} 

@@ -1,0 +1,73 @@
+﻿@page
+@model E_Learning_Platform.Pages.Instructor.Courses.CreateModel
+@{
+    ViewData["Title"] = "Create New Course";
+}
+
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <h5 class="mb-0">Create New Course</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="Course.Title" class="form-label">Course Title</label>
+                        <input asp-for="Course.Title" class="form-control" />
+                        <span asp-validation-for="Course.Title" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Course.Description" class="form-label">Description</label>
+                        <textarea asp-for="Course.Description" class="form-control" rows="5"></textarea>
+                        <span asp-validation-for="Course.Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Course.CategoryId" class="form-label">Category</label>
+                            <select asp-for="Course.CategoryId" class="form-select" asp-items="Model.Categories">
+                                <option value="">Select Category</option>
+                            </select>
+                            <span asp-validation-for="Course.CategoryId" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Course.Level" class="form-label">Level</label>
+                            <select asp-for="Course.Level" class="form-select">
+                                <option value="Beginner">Beginner</option>
+                                <option value="Intermediate">Intermediate</option>
+                                <option value="Advanced">Advanced</option>
+                            </select>
+                            <span asp-validation-for="Course.Level" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Course.ImageFile" class="form-label">Course Image</label>
+                        <input asp-for="Course.ImageFile" class="form-control" type="file" accept="image/*" />
+                        <span asp-validation-for="Course.ImageFile" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 form-check">
+                        <input asp-for="Course.IsActive" class="form-check-input" />
+                        <label asp-for="Course.IsActive" class="form-check-label">Publish this course</label>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Create Course</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

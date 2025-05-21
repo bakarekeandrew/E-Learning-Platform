@@ -1,0 +1,77 @@
+﻿@page
+@model E_Learning_Platform.Pages.Instructor.Content.CreateQuizModel
+@{
+    Layout = "/Pages/Instructor/_Layout.cshtml";
+    ViewData["Title"] = "Create Quiz";
+}
+
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <h5 class="mb-0">Create New Quiz</h5>
+                <p class="text-muted mb-0">For module: @Model.ModuleTitle</p>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="ModuleId" />
+
+                    <div class="mb-3">
+                        <label asp-for="Quiz.Title" class="form-label">Quiz Title</label>
+                        <input asp-for="Quiz.Title" class="form-control" />
+                        <span asp-validation-for="Quiz.Title" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Quiz.Description" class="form-label">Description</label>
+                        <textarea asp-for="Quiz.Description" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="Quiz.Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="Quiz.PassingScore" class="form-label">Passing Score (%)</label>
+                                <input asp-for="Quiz.PassingScore" class="form-control" type="number" min="1" max="100" />
+                                <span asp-validation-for="Quiz.PassingScore" class="text-danger"></span>
+                                <small class="form-text text-muted">Minimum score required to pass</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="Quiz.TimeLimitMinutes" class="form-label">Time Limit (minutes)</label>
+                                <input asp-for="Quiz.TimeLimitMinutes" class="form-control" type="number" min="0" />
+                                <span asp-validation-for="Quiz.TimeLimitMinutes" class="text-danger"></span>
+                                <small class="form-text text-muted">0 for no time limit</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Quiz.MaxAttempts" class="form-label">Maximum Attempts</label>
+                        <input asp-for="Quiz.MaxAttempts" class="form-control" type="number" min="1" />
+                        <span asp-validation-for="Quiz.MaxAttempts" class="text-danger"></span>
+                        <small class="form-text text-muted">Number of times students can take this quiz</small>
+                    </div>
+
+                    @* <div class="mb-3 form-check"> *@
+                    @*     <input asp-for="Quiz.IsActive" class="form-check-input" /> *@
+                    @*     <label asp-for="Quiz.IsActive" class="form-check-label">Make this quiz active immediately</label> *@
+                    @* </div> *@
+
+                    <div class="d-flex justify-content-between">
+                        <a asp-page="Quizzes" asp-route-moduleId="@Model.ModuleId" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Create Quiz</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

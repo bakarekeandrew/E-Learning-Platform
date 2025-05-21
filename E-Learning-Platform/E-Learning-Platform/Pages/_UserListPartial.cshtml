@@ -1,0 +1,120 @@
+@model E_Learning_Platform.Pages.UsersInfoModel
+
+<!-- Users Table -->
+<div class="table-responsive user-table mb-4 shadow-sm" id="usersTableContainer">
+    <table class="table table-hover align-middle">
+        <thead class="bg-light">
+            <tr>
+                <th width="40"><input type="checkbox" id="selectAllUsersPartial" class="form-check-input"></th> <!-- Ensure ID is unique if main page also has one -->
+                <th><i class="fas fa-user me-2"></i>Name</th>
+                <th><i class="fas fa-envelope me-2"></i>Email</th>
+                <th><i class="fas fa-user-tag me-2"></i>Role</th>
+                <th><i class="fas fa-circle me-2"></i>Status</th>
+                <th><i class="fas fa-calendar me-2"></i>Registered</th>
+                <th class="text-end"><i class="fas fa-cog me-2"></i>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Users.Any())
+            {
+                @foreach (var user in Model.Users)
+                {
+                    <tr data-user-id="@user.UserId">
+                        <td><input type="checkbox" class="user-checkbox form-check-input" value="@user.UserId"></td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="avatar-circle bg-primary text-white me-2">
+                                    @user.FullName.Substring(0, 1)
+                                </div>
+                                @user.FullName
+                            </div>
+                        </td>
+                        <td>@user.Email</td>
+                        <td>
+                            <span class="badge bg-primary role-badge"
+                                  data-bs-toggle="modal"
+                                  data-bs-target="#assignRoleModal"
+                                  data-user-id="@user.UserId"
+                                  data-current-role="@user.RoleName">
+                                <i class="fas fa-user-tag me-1"></i>@user.RoleName
+                            </span>
+                        </td>
+                        <td>
+                            @if (user.IsActive)
+                            {
+                                <span class="badge bg-success">
+                                    <i class="fas fa-check-circle me-1"></i>Active
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">
+                                    <i class="fas fa-times-circle me-1"></i>Inactive
+                                </span>
+                            }
+                        </td>
+                        <td>@user.DateRegistered.ToString("MMM dd, yyyy")</td>
+                        <td class="text-end action-buttons">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-outline-primary edit-user" data-id="@user.UserId">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-info view-permissions"
+                                        data-id="@user.UserId"
+                                        data-name="@user.FullName"
+                                        data-email="@user.Email"
+                                        data-role="@user.RoleName">
+                                    <i class="fas fa-shield-alt"></i>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-warning change-status"
+                                        data-id="@user.UserId"
+                                        data-name="@user.FullName"
+                                        data-status="@user.IsActive">
+                                    <i class="fas fa-user-cog"></i>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-danger delete-user" data-id="@user.UserId" data-name="@user.FullName">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="7" class="text-center py-5 text-muted">
+                        <i class="fas fa-users-slash fa-3x mb-3"></i>
+                        <p class="mb-0">No users found matching your criteria.</p>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Pagination -->
+<div class="d-flex justify-content-between align-items-center mb-5" id="usersPaginationContainer">
+    <div class="pagination-info text-muted">
+        <i class="fas fa-info-circle me-2"></i>
+        Showing @((Model.Pagination.CurrentPage - 1) * Model.Pagination.PageSize + 1)-@Math.Min(Model.Pagination.CurrentPage * Model.Pagination.PageSize, Model.Pagination.TotalItems) of @Model.Pagination.TotalItems users
+    </div>
+    <div>
+        @if (Model.Pagination.CurrentPage > 1)
+        {
+            <a class="btn btn-outline-secondary me-2 ajax-page-link"
+               data-page="@(Model.Pagination.CurrentPage - 1)"
+               href="#">
+                <i class="fas fa-chevron-left me-2"></i>Previous
+            </a>
+        }
+        @if (Model.Pagination.CurrentPage < Model.Pagination.TotalPages)
+        {
+            <a class="btn btn-primary ajax-page-link"
+               data-page="@(Model.Pagination.CurrentPage + 1)"
+               href="#">
+                Next<i class="fas fa-chevron-right ms-2"></i>
+            </a>
+        }
+    </div>
+</div> 
