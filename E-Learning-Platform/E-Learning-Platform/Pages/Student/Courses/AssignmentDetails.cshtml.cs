@@ -212,3 +212,52 @@ namespace E_Learning_Platform.Pages.Student.Courses
                     }
                     fileUrl = "/uploads/" + uniqueFileName;
                 }
+                // Check if submission exists
+                var existingSubmission = await connection.QueryFirstOrDefaultAsync<dynamic>(
+                    "SELECT SUBMISSION_ID FROM ASSIGNMENT_SUBMISSIONS WHERE ASSIGNMENT_ID = @AssignmentId AND USER_ID = @UserId",
+                    new { AssignmentId = Id, UserId = CurrentUserId });
+
+                if (existingSubmission != null)
+                {
+                    // Update existing submission
+                    await connection.ExecuteAsync(@"
+                        UPDATE ASSIGNMENT_SUBMISSIONS SET
+                            SUBMISSION_TEXT = @SubmissionText,
+                            FILE_URL = CASE WHEN @FileUrl IS NULL THEN FILE_URL ELSE @FileUrl END,
+                            SUBMITTED_ON = GETDATE(),
+                            STATUS = 'Submitted'
+                        WHERE SUBMISSION_ID = @SubmissionId",
+                        new
+                        {
+                            SubmissionText = Submission.SubmissionText,
+                            FileUrl = fileUrl,
+                            SubmissionId = existingSubmission.SUBMISSION_ID
+                        });
+                }
+                else
+                {
+                    // Create new submission
+                    await connection.ExecuteAsync(@"
+                        INSERT INTO ASSIGNMENT_SUBMISSIONS (
+                            ASSIGNMENT_ID,
+                            USER_ID,
+                            SUBMISSION_TEXT,
+                            FILE_URL,
+                            SUBMITTED_ON,
+                            STATUS
+                        ) VALUES (
+                            @AssignmentId,
+                            @UserId,
+                            @SubmissionText,
+                            @FileUrl,
+                            GETDATE(),
+                            'Submitted'
+                        )",
+                        new
+                        {
+                            AssignmentId = Id,
+                            UserId = CurrentUserId,
+                            SubmissionText = Submission.SubmissionText,
+                            FileUrl = fileUrl
+                        });
+                }
