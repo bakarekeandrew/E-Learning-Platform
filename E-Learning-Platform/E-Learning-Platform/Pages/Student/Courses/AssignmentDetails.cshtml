@@ -1,4 +1,61 @@
-﻿@page
+﻿@page "/Student/Courses/AssignmentDetails"
 @model E_Learning_Platform.Pages.Student.Courses.AssignmentDetailsModel
 @{
+    ViewData["Title"] = Model.Assignment?.Title ?? "Assignment Details";
 }
+
+<div class="container">
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger alert-dismissible fade show">
+            @Model.ErrorMessage
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+    {
+        <div class="alert alert-success alert-dismissible fade show">
+            @Model.SuccessMessage
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-page="/Student/Dashboard"><i class="bi bi-house-door"></i> Dashboard</a></li>
+            <li class="breadcrumb-item"><a asp-page="/Student/Courses"><i class="bi bi-book"></i> My Courses</a></li>
+            <li class="breadcrumb-item"><a asp-page="/Student/Courses/Assignments" asp-route-courseId="@Model.Assignment?.CourseId"><i class="bi bi-list-task"></i> Assignments</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.Assignment?.Title</li>
+        </ol>
+    </nav>
+
+    @if (Model.Assignment != null)
+    {
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h2 class="h4 mb-0">@Model.Assignment.Title</h2>
+            </div>
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h5 class="text-primary">Course</h5>
+                        <p>@Model.Assignment.CourseTitle</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="text-primary">Due Date</h5>
+                        <p class="@(Model.Assignment.DueDate < DateTime.Now && Model.Assignment.SubmissionId == 0 ? "text-danger fw-bold" : "")">
+                            @Model.Assignment.DueDate.ToString("MMMM dd, yyyy h:mm tt")
+                        </p>
+                    </div>
+                </div>
+
+                <h5 class="text-primary">Instructions</h5>
+                <div class="mb-4 p-3 bg-light rounded">
+                    @Html.Raw(Model.Assignment.Instructions.Replace("\n", "<br />"))
+                </div>
+
+                <h5 class="text-primary">Max Score</h5>
+                <p>@Model.Assignment.MaxScore points</p>
+            </div>
+        </div>
