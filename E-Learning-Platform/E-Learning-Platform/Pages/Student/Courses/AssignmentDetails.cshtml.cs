@@ -261,3 +261,39 @@ namespace E_Learning_Platform.Pages.Student.Courses
                             FileUrl = fileUrl
                         });
                 }
+                SuccessMessage = "Assignment submitted successfully!";
+                return RedirectToPage("/Student/Courses/Assignments", new { courseId = assignment.COURSE_ID });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error submitting assignment {AssignmentId} for user {UserId}", Id, CurrentUserId);
+                ErrorMessage = "An error occurred while submitting the assignment: " + ex.Message;
+                return await OnGetAsync(); // Reload the page with error
+            }
+        }
+
+        public class AssignmentDetails
+        {
+            public int AssignmentId { get; set; }
+            public string Title { get; set; }
+            public string Instructions { get; set; }
+            public DateTime DueDate { get; set; }
+            public int MaxScore { get; set; }
+            public int CourseId { get; set; }
+            public string CourseTitle { get; set; }
+            public int SubmissionId { get; set; }
+            public string SubmissionText { get; set; }
+            public string FileUrl { get; set; }
+            public DateTime? SubmittedOn { get; set; }
+            public decimal? Grade { get; set; }
+            public string Feedback { get; set; }
+            public string Status { get; set; }
+        }
+
+        public class AssignmentSubmission
+        {
+            public string SubmissionText { get; set; }
+            public string FileUrl { get; set; }
+        }
+    }
+}
