@@ -61,6 +61,7 @@ A modern, feature-rich E-Learning Platform built with ASP.NET Core that provides
 - **Authentication & Security**
   - ASP.NET Core Identity
   - Role-based authorization
+  - Permission-based access control
   - Secure session management
   - Data protection
 
