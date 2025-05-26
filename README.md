@@ -198,8 +198,6 @@ A modern, feature-rich E-Learning Platform built with ASP.NET Core 8.0 that prov
 4. Push to the branch
 5. Create a Pull Request
 
-## 📝 License
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## 🌟 Acknowledgments
 -All Contributors of this Project👏
