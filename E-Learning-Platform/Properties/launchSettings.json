@@ -4,18 +4,19 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:5000",
-      "sslPort": 443
+      "applicationUrl": "http://localhost:5057",
+      "sslPort": 7057
     }
   },
   "profiles": {
-    "http_and_https": {
+    "E_Learning_Platform": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:443;http://localhost:5000",
+      "applicationUrl": "https://localhost:7057;http://localhost:5057",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "https://localhost:7057;http://localhost:5057"
       }
     },
     "IIS Express": {

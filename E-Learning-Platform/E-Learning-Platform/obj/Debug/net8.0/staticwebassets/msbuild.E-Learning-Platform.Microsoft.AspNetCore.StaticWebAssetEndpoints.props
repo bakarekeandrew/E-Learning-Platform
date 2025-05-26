@@ -40,13 +40,13 @@
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\E-Learning-Platform.2nm27mtg7j.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"2nm27mtg7j"},{"Name":"integrity","Value":"sha256-Hi4LZq9wbH1MZAJ\u002BcVxBKetk6vMW8jm3OtAJz1VxCdQ="},{"Name":"label","Value":"_content/E-Learning-Platform/E-Learning-Platform.bundle.scp.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1137"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022Hi4LZq9wbH1MZAJ\u002BcVxBKetk6vMW8jm3OtAJz1VxCdQ=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 May 2025 09:15:17 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1137"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022Hi4LZq9wbH1MZAJ\u002BcVxBKetk6vMW8jm3OtAJz1VxCdQ=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 May 2025 10:03:37 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/E-Learning-Platform/E-Learning-Platform.bundle.scp.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\E-Learning-Platform.2nm27mtg7j.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-Hi4LZq9wbH1MZAJ\u002BcVxBKetk6vMW8jm3OtAJz1VxCdQ="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1137"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022Hi4LZq9wbH1MZAJ\u002BcVxBKetk6vMW8jm3OtAJz1VxCdQ=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 May 2025 09:15:17 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1137"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022Hi4LZq9wbH1MZAJ\u002BcVxBKetk6vMW8jm3OtAJz1VxCdQ=\u0022"},{"Name":"Last-Modified","Value":"Mon, 26 May 2025 10:03:37 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/E-Learning-Platform/favicon.61n19gt1b8.ico">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\favicon.ico'))</AssetFile>
