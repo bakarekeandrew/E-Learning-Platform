@@ -1,0 +1,124 @@
+@page
+@model E_Learning_Platform.Pages.UsersInfoModel
+@{
+    ViewData["Title"] = "Users Information";
+}
+
+<div class="container">
+    <h2>Users Information</h2>
+
+    @if (!Model.HasPermission("USER.VIEW"))
+    {
+        <div class="alert alert-danger">
+            You don't have permission to view user information.
+        </div>
+        return;
+    }
+
+    <div class="row mb-4">
+        <div class="col">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Users List</h5>
+                    @if (Model.HasPermission("USER.MANAGE"))
+                    {
+                        <a href="/Admin/ManagePermissions" class="btn btn-primary">Manage Permissions</a>
+                    }
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Full Name</th>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Permissions</th>
+                                    @if (Model.HasPermission("USER.MANAGE"))
+                                    {
+                                        <th>Actions</th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var user in Model.Users)
+                                {
+                                    <tr>
+                                        <td>@user.FULL_NAME</td>
+                                        <td>@user.USERNAME</td>
+                                        <td>@user.EMAIL</td>
+                                        <td>@user.ROLE_NAME</td>
+                                        <td>
+                                            <button type="button" class="btn btn-info btn-sm" 
+                                                    data-bs-toggle="modal" 
+                                                    data-bs-target="#permissionsModal@(user.USER_ID)">
+                                                View Permissions
+                                            </button>
+
+                                            <!-- Permissions Modal -->
+                                            <div class="modal fade" id="permissionsModal@(user.USER_ID)" tabindex="-1">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Permissions for @user.FULL_NAME</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            @if (user.Permissions?.Any() == true)
+                                                            {
+                                                                <ul class="list-group">
+                                                                    @foreach (var perm in user.Permissions)
+                                                                    {
+                                                                        <li class="list-group-item">
+                                                                            <strong>@perm.PERMISSION_NAME</strong>
+                                                                            <br />
+                                                                            <small>@perm.DESCRIPTION</small>
+                                                                            <br />
+                                                                            <small class="text-muted">
+                                                                                Assigned: @perm.ASSIGNED_DATE.ToShortDateString()
+                                                                                @if (perm.EXPIRATION_DATE.HasValue)
+                                                                                {
+                                                                                    <span>| Expires: @perm.EXPIRATION_DATE.Value.ToShortDateString()</span>
+                                                                                }
+                                                                            </small>
+                                                                        </li>
+                                                                    }
+                                                                </ul>
+                                                            }
+                                                            else
+                                                            {
+                                                                <p>No permissions assigned.</p>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        @if (Model.HasPermission("USER.MANAGE"))
+                                        {
+                                            <td>
+                                                <a href="/Admin/ManagePermissions?userId=@user.USER_ID" 
+                                                   class="btn btn-primary btn-sm">
+                                                    Manage Permissions
+                                                </a>
+                                            </td>
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Initialize any JavaScript functionality here
+        });
+    </script>
+} 

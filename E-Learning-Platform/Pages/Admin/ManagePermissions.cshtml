@@ -1,0 +1,120 @@
+@page
+@model E_Learning_Platform.Pages.Admin.ManagePermissionsModel
+@{
+    ViewData["Title"] = "Manage Permissions";
+}
+
+<div class="container">
+    <h2>Manage Permissions</h2>
+
+    @if (!Model.HasPermission("USER.MANAGE"))
+    {
+        <div class="alert alert-danger">
+            You don't have permission to manage users.
+        </div>
+        return;
+    }
+
+    <div class="row mb-4">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Assign Permissions</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" asp-page-handler="AssignPermission">
+                        <div class="form-group">
+                            <label for="userId">Select User</label>
+                            <select class="form-control" id="userId" name="userId" required>
+                                <option value="">-- Select User --</option>
+                                @foreach (var user in Model.Users)
+                                {
+                                    <option value="@user.USER_ID">@user.FULL_NAME (@user.USERNAME)</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="permissionId">Select Permission</label>
+                            <select class="form-control" id="permissionId" name="permissionId" required>
+                                <option value="">-- Select Permission --</option>
+                                @foreach (var category in Model.PermissionCategories)
+                                {
+                                    <optgroup label="@category.CATEGORY_NAME">
+                                        @foreach (var permission in Model.Permissions.Where(p => p.CATEGORY_ID == category.CATEGORY_ID))
+                                        {
+                                            <option value="@permission.PERMISSION_ID">@permission.PERMISSION_NAME - @permission.DESCRIPTION</option>
+                                        }
+                                    </optgroup>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="expirationDate">Expiration Date (Optional)</label>
+                            <input type="date" class="form-control" id="expirationDate" name="expirationDate">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Assign Permission</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Current Permissions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Permission</th>
+                                    <th>Category</th>
+                                    <th>Assigned Date</th>
+                                    <th>Expires</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var assignment in Model.PermissionAssignments)
+                                {
+                                    <tr>
+                                        <td>@assignment.UserName</td>
+                                        <td>@assignment.PermissionName</td>
+                                        <td>@assignment.CategoryName</td>
+                                        <td>@assignment.AssignedDate.ToShortDateString()</td>
+                                        <td>@(assignment.ExpirationDate?.ToShortDateString() ?? "Never")</td>
+                                        <td>
+                                            <form method="post" asp-page-handler="RevokePermission" style="display: inline;">
+                                                <input type="hidden" name="userId" value="@assignment.UserId">
+                                                <input type="hidden" name="permissionId" value="@assignment.PermissionId">
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to revoke this permission?')">
+                                                    Revoke
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#userId').select2();
+            $('#permissionId').select2();
+        });
+    </script>
+} 
