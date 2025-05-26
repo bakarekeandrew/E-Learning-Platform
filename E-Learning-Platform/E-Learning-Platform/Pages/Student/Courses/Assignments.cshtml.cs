@@ -1,33 +1,22 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
-using Dapper;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
+using Dapper;
 
 namespace E_Learning_Platform.Pages.Student.Courses
 {
-    [Authorize(Policy = "StudentOnly")]
-    public class AssignmentsModel : PageModel
+    public class AssignmentsModel : StudentPageModel
     {
-        private readonly string _connectionString;
-        private readonly ILogger<AssignmentsModel> _logger;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-
         public AssignmentsModel(
             ILogger<AssignmentsModel> logger,
-            IConfiguration configuration,
-            IHttpContextAccessor httpContextAccessor)
+            IConfiguration configuration)
+            : base(logger, configuration)
         {
-            _connectionString = "Data Source=ABAKAREKE_25497\\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True";
-            _logger = logger;
-            _httpContextAccessor = httpContextAccessor;
         }
 
         [FromRoute]
@@ -37,41 +26,17 @@ namespace E_Learning_Platform.Pages.Student.Courses
         public string Filter { get; set; } = "all";
 
         public string CourseTitle { get; set; }
-        public string ErrorMessage { get; set; }
-        public int CurrentUserId { get; set; }
         public List<AssignmentViewModel> Assignments { get; set; }
         public bool HasPendingAssignments => PendingAssignments > 0;
         public int PendingAssignments { get; set; }
-
-        // Get current user ID from claims or session
-        private int GetCurrentUserId()
-        {
-            // First try to get from claims
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
-                ?? User.FindFirst("UserId")?.Value;
-
-            if (!string.IsNullOrEmpty(userIdClaim) && int.TryParse(userIdClaim, out int userId))
-            {
-                return userId;
-            }
-
-            // Fallback to session
-            if (_httpContextAccessor.HttpContext.Session.TryGetValue("UserId", out byte[] userIdBytes))
-            {
-                return BitConverter.ToInt32(userIdBytes);
-            }
-
-            // If we can't get the user ID, throw an exception - user should be logged in at this point
-            throw new InvalidOperationException("User ID not found. User might not be properly authenticated.");
-        }
+        public string ErrorMessage { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
-            try
+            return await ExecuteDbOperationAsync(async () =>
             {
-                // Get current user ID from claims or session
-                CurrentUserId = GetCurrentUserId();
-                _logger.LogInformation($"Loading assignments for user ID: {CurrentUserId}");
+                var studentId = GetStudentId();
+                _logger.LogInformation("Loading assignments for student ID: {StudentId}", studentId);
 
                 using var connection = new SqlConnection(_connectionString);
                 await connection.OpenAsync();
@@ -80,7 +45,7 @@ namespace E_Learning_Platform.Pages.Student.Courses
                 var totalAssignments = await connection.ExecuteScalarAsync<int>(
                     "SELECT COUNT(*) FROM ASSIGNMENTS");
 
-                _logger.LogInformation($"Total assignments in database: {totalAssignments}");
+                _logger.LogInformation("Total assignments in database: {Count}", totalAssignments);
 
                 // If specific course is requested, verify user enrollment
                 if (CourseId.HasValue)
@@ -92,17 +57,17 @@ namespace E_Learning_Platform.Pages.Student.Courses
                              WHERE USER_ID = @UserId AND COURSE_ID = @CourseId) AS IsEnrolled
                         FROM COURSES c
                         WHERE c.COURSE_ID = @CourseId",
-                        new { UserId = CurrentUserId, CourseId });
+                        new { UserId = studentId, CourseId });
 
                     if (courseData == null)
                     {
-                        ErrorMessage = "Course not found.";
+                        ModelState.AddModelError("", "Course not found.");
                         return Page();
                     }
 
                     if (courseData.IsEnrolled == 0)
                     {
-                        ErrorMessage = "You are not enrolled in this course.";
+                        ModelState.AddModelError("", "You are not enrolled in this course.");
                         return Page();
                     }
 
@@ -112,9 +77,9 @@ namespace E_Learning_Platform.Pages.Student.Courses
                 // Modified query to check if we're getting enrollments
                 var enrollmentCount = await connection.ExecuteScalarAsync<int>(
                     "SELECT COUNT(*) FROM COURSE_ENROLLMENTS WHERE USER_ID = @UserId",
-                    new { UserId = CurrentUserId });
+                    new { UserId = studentId });
 
-                _logger.LogInformation($"User {CurrentUserId} has {enrollmentCount} course enrollments");
+                _logger.LogInformation("Student {StudentId} has {Count} course enrollments", studentId, enrollmentCount);
 
                 // Build base query for assignments
                 string assignmentQuery = @"
@@ -158,8 +123,8 @@ namespace E_Learning_Platform.Pages.Student.Courses
                         break;
                     case "graded":
                         filterCondition = CourseId.HasValue
-                            ? " AND s.GRADE IS NOT NULL"
-                            : " WHERE s.GRADE IS NOT NULL";
+                            ? " AND s.STATUS = 'Graded'"
+                            : " WHERE s.STATUS = 'Graded'";
                         break;
                     case "upcoming":
                         filterCondition = CourseId.HasValue
@@ -176,20 +141,21 @@ namespace E_Learning_Platform.Pages.Student.Courses
                 assignmentQuery += filterCondition;
                 assignmentQuery += " ORDER BY a.DUE_DATE ASC";
 
-                _logger.LogInformation($"Executing assignment query for user {CurrentUserId}");
+                _logger.LogInformation("Executing assignment query for student {StudentId}", studentId);
 
                 // Execute query
-                var assignments = await connection.QueryAsync<AssignmentViewModel>(assignmentQuery,
-                    new { UserId = CurrentUserId, CourseId });
+                var assignments = await connection.QueryAsync<AssignmentViewModel>(
+                    assignmentQuery,
+                    new { UserId = studentId, CourseId });
 
                 // Process assignments
                 Assignments = assignments?.ToList() ?? new List<AssignmentViewModel>();
-                _logger.LogInformation($"Found {Assignments.Count} assignments for user {CurrentUserId}");
+                _logger.LogInformation("Found {Count} assignments for student {StudentId}", Assignments.Count, studentId);
 
                 foreach (var assignment in Assignments)
                 {
                     assignment.IsSubmitted = assignment.SubmissionId.HasValue;
-                    assignment.IsGraded = assignment.Grade.HasValue;
+                    assignment.IsGraded = assignment.Status == "Graded";
                     assignment.IsOverdue = !assignment.IsSubmitted && assignment.DueDate < DateTime.Now;
                     assignment.IsDueSoon = !assignment.IsSubmitted && !assignment.IsOverdue &&
                                            assignment.DueDate <= DateTime.Now.AddDays(7);
@@ -202,32 +168,26 @@ namespace E_Learning_Platform.Pages.Student.Courses
                     JOIN COURSE_ENROLLMENTS ce ON a.COURSE_ID = ce.COURSE_ID AND ce.USER_ID = @UserId
                     LEFT JOIN ASSIGNMENT_SUBMISSIONS s ON a.ASSIGNMENT_ID = s.ASSIGNMENT_ID AND s.USER_ID = @UserId
                     WHERE s.SUBMISSION_ID IS NULL AND a.DUE_DATE > GETDATE()",
-                    new { UserId = CurrentUserId });
+                    new { UserId = studentId });
 
                 return Page();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error loading assignments for user {UserId}", CurrentUserId);
-                ErrorMessage = "An error occurred while loading assignments: " + ex.Message;
-                return Page();
-            }
+            }, "Error loading assignments");
         }
 
         public class AssignmentViewModel
         {
             public int AssignmentId { get; set; }
-            public string Title { get; set; }
-            public string Instructions { get; set; }
+            public required string Title { get; set; }
+            public required string Instructions { get; set; }
             public DateTime DueDate { get; set; }
             public int MaxScore { get; set; }
             public int CourseId { get; set; }
-            public string CourseTitle { get; set; }
+            public required string CourseTitle { get; set; }
             public int? SubmissionId { get; set; }
             public DateTime? SubmittedOn { get; set; }
             public decimal? Grade { get; set; }
-            public string Feedback { get; set; }
-            public string Status { get; set; }
+            public string Feedback { get; set; } = string.Empty;
+            public required string Status { get; set; }
 
             // Derived properties
             public bool IsSubmitted { get; set; }
@@ -238,7 +198,7 @@ namespace E_Learning_Platform.Pages.Student.Courses
 
         private class CourseData
         {
-            public string Title { get; set; }
+            public required string Title { get; set; }
             public int IsEnrolled { get; set; }
         }
     }

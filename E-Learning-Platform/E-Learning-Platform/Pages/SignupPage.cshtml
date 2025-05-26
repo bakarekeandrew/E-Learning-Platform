@@ -12,7 +12,7 @@
     <title>@ViewData["Title"] - E-Learning Platform</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             background-color: #f5f7fa;
             margin: 0;
             padding: 0;
@@ -139,7 +139,7 @@
 
         @if (!Model.ShowVerificationForm)
         {
-            <form method="post">
+            <form method="post" id="signupForm">
                 <div asp-validation-summary="All" class="validation-error"></div>
 
                 <div class="form-group">
@@ -171,15 +171,17 @@
         }
         else
         {
-            <div class="status-message alert-info">
-                We've sent a verification code to <strong>@Model.UserEmail</strong>. Please enter it below.
-            </div>
-
-            <form method="post" asp-page-handler="Verify">
+            <form method="post" asp-page-handler="Verify" id="verificationForm">
                 <div class="form-group">
-                    <label asp-for="VerificationCode"></label>
-                    <input asp-for="VerificationCode" />
+                    <label asp-for="VerificationCode">Verification Code</label>
+                    <input asp-for="VerificationCode" 
+                           type="text" 
+                           pattern="[0-9]{6}" 
+                           maxlength="6" 
+                           title="Please enter the 6-digit verification code"
+                           required />
                     <span asp-validation-for="VerificationCode" class="validation-error"></span>
+                    <small class="form-text text-muted">Enter the 6-digit code sent to your email</small>
                 </div>
 
                 <button type="submit" class="btn-primary">Verify Account</button>
@@ -191,8 +193,33 @@
         </div>
     </div>
 
-    @section Scripts {
-        <partial name="_ValidationScriptsPartial" />
-    }
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle verification code input
+            const verificationInput = document.querySelector('input[asp-for="VerificationCode"]');
+            if (verificationInput) {
+                verificationInput.addEventListener('input', function(e) {
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                });
+            }
+
+            // Handle form submission
+            const signupForm = document.getElementById('signupForm');
+            if (signupForm) {
+                signupForm.addEventListener('submit', function(e) {
+                    const password = document.querySelector('input[asp-for="Input.Password"]').value;
+                    const confirmPassword = document.querySelector('input[asp-for="Input.ConfirmPassword"]').value;
+
+                    if (password !== confirmPassword) {
+                        e.preventDefault();
+                        alert('Passwords do not match!');
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>

@@ -28,3 +28,183 @@
 2025-05-21 00:41:26 [Information] New Registrations Today: 0
 2025-05-21 00:41:26 [Information] Average Course Completion: 20
 2025-05-21 00:41:26 [Information] Certificates Issued: 1
+2025-05-21 15:46:22 [Information] [Login] Starting login process
+2025-05-21 15:46:22 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 15:46:23 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 15:46:23 [Information] [Login] Sign-in completed successfully
+2025-05-21 15:46:23 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 15:54:03 [Information] [Login] Starting login process
+2025-05-21 15:54:03 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 15:54:04 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 15:54:04 [Information] [Login] Sign-in completed successfully
+2025-05-21 15:54:04 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 17:09:01 [Information] [Login] Starting login process
+2025-05-21 17:09:01 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 17:09:02 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 17:09:02 [Information] [Login] Sign-in completed successfully
+2025-05-21 17:09:02 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 17:24:16 [Information] [Login] Starting login process
+2025-05-21 17:24:16 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 17:24:17 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 17:24:17 [Information] [Login] Sign-in completed successfully
+2025-05-21 17:24:17 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 17:31:27 [Information] [Login] Starting login process
+2025-05-21 17:31:27 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 17:31:28 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 17:31:28 [Information] [Login] Sign-in completed successfully
+2025-05-21 17:31:28 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 17:35:12 [Information] [Login] Starting login process
+2025-05-21 17:35:12 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 17:35:13 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 17:35:13 [Information] [Login] Sign-in completed successfully
+2025-05-21 17:35:13 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 17:44:21 [Information] [Login] Starting login process
+2025-05-21 17:44:21 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 17:44:22 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 17:44:22 [Information] [Login] Sign-in completed successfully
+2025-05-21 17:44:22 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 17:58:42 [Information] [Login] Starting login process
+2025-05-21 17:58:42 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 17:58:43 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 17:58:43 [Information] [Login] Sign-in completed successfully
+2025-05-21 17:58:43 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 18:21:26 [Information] [Login] Starting login process
+2025-05-21 18:21:26 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 18:21:27 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 18:21:27 [Information] [Login] Sign-in completed successfully
+2025-05-21 18:21:27 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 18:28:13 [Information] [Login] Starting login process
+2025-05-21 18:28:13 [Information] [Login] Attempting login for email: brian@gmail.com
+2025-05-21 18:28:13 [Information] [Login] Starting CompleteSignInAsync for user 15 (brian@gmail.com)
+2025-05-21 18:28:13 [Information] [Login] Sign-in completed successfully
+2025-05-21 18:28:13 [Information] [Login] Login successful. Redirecting to: /Student/Dashboard
+2025-05-21 18:37:18 [Information] [Login] Starting login process
+2025-05-21 18:37:18 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 18:37:19 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 18:37:19 [Information] [Login] Sign-in completed successfully
+2025-05-21 18:37:19 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 18:51:36 [Information] [Login] Starting login process
+2025-05-21 18:51:36 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 18:51:37 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 18:51:37 [Information] [Login] Sign-in completed successfully
+2025-05-21 18:51:37 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 19:11:16 [Information] [Login] Starting login process
+2025-05-21 19:11:16 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 19:11:17 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 19:11:17 [Information] [Login] Sign-in completed successfully
+2025-05-21 19:11:17 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 19:19:21 [Information] [Login] Starting login process
+2025-05-21 19:19:21 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 19:19:22 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 19:19:22 [Information] [Login] Sign-in completed successfully
+2025-05-21 19:19:22 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 19:42:42 [Information] [Login] Starting login process
+2025-05-21 19:42:42 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 19:42:43 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 19:42:43 [Information] [Login] Sign-in completed successfully
+2025-05-21 19:42:43 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 19:59:00 [Information] [Login] Starting login process
+2025-05-21 19:59:00 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 19:59:01 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 19:59:01 [Information] [Login] Sign-in completed successfully
+2025-05-21 19:59:01 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 20:10:52 [Information] [Login] Starting login process
+2025-05-21 20:10:52 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 20:10:53 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 20:10:53 [Information] [Login] Sign-in completed successfully
+2025-05-21 20:10:53 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 20:13:41 [Information] [Login] Starting login process
+2025-05-21 20:13:41 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 20:13:41 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 20:13:41 [Information] [Login] Sign-in completed successfully
+2025-05-21 20:13:41 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 20:18:06 [Information] [Login] Starting login process
+2025-05-21 20:18:06 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 20:18:07 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 20:18:07 [Information] [Login] Sign-in completed successfully
+2025-05-21 20:18:07 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 20:23:16 [Information] [Login] Starting login process
+2025-05-21 20:23:16 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 20:23:17 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 20:23:17 [Information] [Login] Sign-in completed successfully
+2025-05-21 20:23:17 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 20:46:15 [Information] [Login] Starting login process
+2025-05-21 20:46:15 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 20:46:15 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 20:46:15 [Information] [Login] Sign-in completed successfully
+2025-05-21 20:46:15 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 20:51:12 [Information] [Login] Starting login process
+2025-05-21 20:51:12 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 20:51:12 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 20:51:12 [Information] [Login] Sign-in completed successfully
+2025-05-21 20:51:12 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 20:56:23 [Information] [Login] Starting login process
+2025-05-21 20:56:23 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 20:56:24 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 20:56:24 [Information] [Login] Sign-in completed successfully
+2025-05-21 20:56:24 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 21:04:55 [Information] [Login] Starting login process
+2025-05-21 21:04:55 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 21:04:56 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 21:04:56 [Information] [Login] Sign-in completed successfully
+2025-05-21 21:04:56 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 21:18:32 [Information] [Login] Starting login process
+2025-05-21 21:18:32 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 21:18:33 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 21:18:33 [Information] [Login] Sign-in completed successfully
+2025-05-21 21:18:33 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 21:22:38 [Information] [Login] Starting login process
+2025-05-21 21:22:38 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 21:22:39 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 21:22:39 [Information] [Login] Sign-in completed successfully
+2025-05-21 21:22:39 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 21:27:31 [Information] [Login] Starting login process
+2025-05-21 21:27:31 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 21:27:32 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 21:27:32 [Information] [Login] Sign-in completed successfully
+2025-05-21 21:27:32 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 21:47:37 [Information] [Login] Starting login process
+2025-05-21 21:47:37 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 21:47:38 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 21:47:38 [Information] [Login] Sign-in completed successfully
+2025-05-21 21:47:38 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 21:53:03 [Information] [Login] Starting login process
+2025-05-21 21:53:03 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 21:53:03 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 21:53:03 [Information] [Login] Sign-in completed successfully
+2025-05-21 21:53:03 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 22:00:25 [Information] [Login] Starting login process
+2025-05-21 22:00:25 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 22:00:26 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 22:00:26 [Information] [Login] Sign-in completed successfully
+2025-05-21 22:00:26 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 22:07:28 [Information] [Login] Starting login process
+2025-05-21 22:07:28 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 22:07:29 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 22:07:29 [Information] [Login] Sign-in completed successfully
+2025-05-21 22:07:29 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 22:22:39 [Information] [Login] Starting login process
+2025-05-21 22:22:39 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 22:22:40 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 22:22:40 [Information] [Login] Sign-in completed successfully
+2025-05-21 22:22:40 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 22:37:30 [Information] [Login] Starting login process
+2025-05-21 22:37:30 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 22:37:31 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 22:37:31 [Information] [Login] Sign-in completed successfully
+2025-05-21 22:37:31 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 22:42:56 [Information] [Login] Starting login process
+2025-05-21 22:42:56 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 22:42:57 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 22:42:57 [Information] [Login] Sign-in completed successfully
+2025-05-21 22:42:57 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 22:46:27 [Information] [Login] Starting login process
+2025-05-21 22:46:27 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 22:46:27 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 22:46:27 [Information] [Login] Sign-in completed successfully
+2025-05-21 22:46:27 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-21 23:19:08 [Information] [Login] Starting login process
+2025-05-21 23:19:08 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-21 23:19:09 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-21 23:19:09 [Information] [Login] Sign-in completed successfully
+2025-05-21 23:19:09 [Information] [Login] Login successful. Redirecting to: /AdminDashboard

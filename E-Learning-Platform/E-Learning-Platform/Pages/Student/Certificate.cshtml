@@ -1,7 +1,8 @@
-﻿@page
+﻿@page "{courseId:int}"
 @model E_Learning_Platform.Pages.Student.CertificateModel
 @{
-    Layout = null;
+    Layout = "/Pages/Student/_Layout.cshtml";
+    ViewData["Title"] = "Course Certificate";
 }
 
 <!DOCTYPE html>
@@ -15,9 +16,19 @@
 <body class="bg-light">
     <div class="container my-5">
         <div class="text-end mb-3">
-            <a asp-page="/Student/Courses/View/@Model.CourseId" class="btn btn-outline-primary me-2">
+            <a asp-page="/Student/Courses/View" asp-route-id="@Model.CourseId" class="btn btn-outline-primary me-2">
                 <i class="bi bi-arrow-left"></i> Back to Course
             </a>
+
+            @if (Model.IsEligibleForCertificate && Model.UserCertificate == null)
+            {
+                <form method="post" asp-page-handler="GenerateCertificate" class="d-inline">
+                    <input type="hidden" name="courseId" value="@Model.CourseId" />
+                    <button type="submit" class="btn btn-success me-2">
+                        <i class="bi bi-award"></i> Generate Certificate
+                    </button>
+                </form>
+            }
 
             <a asp-page-handler="DownloadPdf"
                asp-route-courseId="@Model.CourseId"
@@ -29,7 +40,7 @@
             <button onclick="window.print()"
                     class="btn btn-primary @(Model.UserCertificate == null ? "disabled" : "")"
                     title="@(Model.UserCertificate == null ? "Certificate not yet generated" : "Print Certificate")"
-            @(Model.UserCertificate == null ? "disabled" : "")>
+                    @(Model.UserCertificate == null ? "disabled" : "")>
                 <i class="bi bi-printer"></i> Print Certificate
             </button>
         </div>
@@ -42,84 +53,95 @@
             </div>
         }
 
-        <div class="certificate-container bg-white p-5 shadow-sm" id="certificateContent">
-            <div class="border border-3 border-dark p-5">
-                <div class="text-center">
-                    <h1 class="display-4 mb-4">Certificate of Completion</h1>
-                    <!-- Certificate Seal -->
-                    <div class="certificate-seal-container mb-4">
-                        <img src="/img/certified_seal.png" alt="Official Seal" class="certificate-seal" />
-                    </div>
+        @if (Model.IsEligibleForCertificate && Model.UserCertificate == null)
+        {
+            <div class="alert alert-success">
+                <i class="bi bi-check-circle me-2"></i>
+                Congratulations! You are eligible to receive your certificate. Click the "Generate Certificate" button above to generate it.
+            </div>
+        }
 
-                    <h2 class="mb-4">This is to certify that</h2>
-                    <h3 class="student-name mb-4">@Model.StudentName</h3>
+        @if (!Model.IsEligibleForCertificate)
+        {
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle me-2"></i>
+                <h5>Certificate Requirements:</h5>
+                <ul class="mb-0">
+                    <li>Complete all modules (@Model.CompletedModules/@Model.TotalModules completed)</li>
+                    <li>Pass assignments with at least 50% average grade (Current: @Model.AverageGrade.ToString("F1")%)</li>
+                    <li>Pass at least one quiz (@Model.PassedQuizzes passed out of @Model.QuizAttemptCount attempts)</li>
+                </ul>
+            </div>
+        }
 
-                    <p class="lead mb-4">has successfully completed the course</p>
-                    <h3 class="course-title mb-4">@(Model.Course?.Title ?? "Course Title")</h3>
-
-                    <p class="completion-date mb-4">
-                        Completed on @Model.CompletionDate.ToString("MMMM dd, yyyy")
-                    </p>
-
-                    <div class="row mt-5">
-                        <div class="col-6 text-center">
-                            <div class="signature-container">
-                                <img src="/img/Director_signature.png" alt="Instructor Signature" class="signature-image" />
-                            </div>
-                            <div class="signature-line"></div>
-                            <p class="mb-0">@(Model.Course?.Instructor ?? "Instructor")</p>
-                            <p>Course Instructor</p>
+        @if (Model.UserCertificate != null)
+        {
+            <div class="certificate-container bg-white p-5 shadow-sm" id="certificateContent">
+                <div class="border border-3 border-dark p-5">
+                    <div class="text-center">
+                        <h1 class="display-4 mb-4">Certificate of Completion</h1>
+                        <!-- Certificate Seal -->
+                        <div class="certificate-seal-container mb-4">
+                            <img src="/img/certified_seal.png" alt="Official Seal" class="certificate-seal" />
                         </div>
-                        <div class="col-6 text-center">
-                            <div class="signature-container">
-                                <img src="/img/Director_signature.png" alt="Director Signature" class="signature-image" />
-                            </div>
-                            <div class="signature-line"></div>
-                            <p class="mb-0">Platform Director</p>
-                            <p>E-Learning Platform</p>
-                        </div>
-                    </div>
 
-                    <div class="certificate-footer mt-5">
-                        @if (Model.UserCertificate != null)
-                        {
+                        <h2 class="mb-4">This is to certify that</h2>
+                        <h3 class="student-name mb-4">@Model.StudentName</h3>
+
+                        <p class="lead mb-4">has successfully completed the course</p>
+                        <h3 class="course-title mb-4">@(Model.Course?.Title ?? "Course Title")</h3>
+
+                        <p class="completion-date mb-4">
+                            Completed on @Model.CompletionDate.ToString("MMMM dd, yyyy")
+                        </p>
+
+                        <div class="row mt-5">
+                            <div class="col-6 text-center">
+                                <div class="signature-container">
+                                    <img src="/img/Director_signature.png" alt="Instructor Signature" class="signature-image" />
+                                </div>
+                                <div class="signature-line"></div>
+                                <p class="mb-0">@(Model.Course?.Instructor ?? "Instructor")</p>
+                                <p>Course Instructor</p>
+                            </div>
+                            <div class="col-6 text-center">
+                                <div class="signature-container">
+                                    <img src="/img/Director_signature.png" alt="Director Signature" class="signature-image" />
+                                </div>
+                                <div class="signature-line"></div>
+                                <p class="mb-0">Platform Director</p>
+                                <p>E-Learning Platform</p>
+                            </div>
+                        </div>
+
+                        <div class="certificate-footer mt-5">
                             <div class="verification-section">
                                 <p class="mb-2">Certificate Verification ID:</p>
                                 <h4 class="verification-code mb-2">@Model.UserCertificate.VerificationCode</h4>
                                 <p class="small text-muted">Verify at: verify.elearning.com/@Model.UserCertificate.VerificationCode</p>
                             </div>
-                        }
-                        else
-                        {
-                            <div class="alert alert-info">
-                                <i class="bi bi-info-circle me-2"></i>
-                                Certificate will be generated upon course completion.
-                            </div>
-                        }
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        }
     </div>
 
     <style>
         @@media print {
-            body
+            body {
+                background-color: white !important;
+            }
 
-        {
-            background-color: white !important;
-        }
+            .btn, .alert {
+                display: none !important;
+            }
 
-        .btn, .alert {
-            display: none !important;
-        }
-
-        .certificate-container {
-            box-shadow: none !important;
-            margin: 0 !important;
-            padding: 0 !important;
-        }
-
+            .certificate-container {
+                box-shadow: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
         }
 
         .certificate-container {

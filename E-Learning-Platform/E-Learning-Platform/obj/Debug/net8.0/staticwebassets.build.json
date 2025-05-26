@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "+44/Paze26jCo4LNq1YVCWPD9rlmIvOswR62rB938J4=",
+  "Hash": "QsaUnxPUdT/aCHSyp3U+z5GcSUbbHk22UrXjQ7FsQ+8=",
   "Source": "E-Learning-Platform",
   "BasePath": "_content/E-Learning-Platform",
   "Mode": "Default",
@@ -59,6 +59,27 @@
       "OriginalItemSpec": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\E-Learning-Platform.bundle.scp.css"
     },
     {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\css\\admin-dashboard.css",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "css/admin-dashboard#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "quyx054ox9",
+      "Integrity": "sqJUwGQ1y5VIgyfOiEpz2Ga/gqVty/1c16C709+VoW8=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\admin-dashboard.css"
+    },
+    {
       "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\css\\site.css",
       "SourceId": "E-Learning-Platform",
       "SourceType": "Discovered",
@@ -78,6 +99,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\css\\themes.css",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "css/themes#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "me0lw4oo8k",
+      "Integrity": "stoqwnQZbjOwV580bxgfH70mWb9PYjf+1jZVuBvAZ3w=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\themes.css"
     },
     {
       "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\favicon.ico",
@@ -101,6 +143,615 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\images\\certificate-seal.png",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "images/certificate-seal#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "yu78tspv7y",
+      "Integrity": "Nqnn8clbgv+5l0PgxcTOldg8mkMKrFn4TvPL+rYUUGg=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\certificate-seal.png"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\images\\courses\\2ee6ac28-5832-4270-a70d-641c31a87a35_learn4.PNG",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "images/courses/2ee6ac28-5832-4270-a70d-641c31a87a35_learn4#[.{fingerprint}]?.PNG",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "5z3iu74vxk",
+      "Integrity": "oT7PduogWdc8tnbbhZO3JrQzuK9lBvT2Z7MI0JpQroI=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\courses\\2ee6ac28-5832-4270-a70d-641c31a87a35_learn4.PNG"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\images\\courses\\36be12ae-4df0-49a1-a557-00fcca07bd91_profile.jpeg",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "images/courses/36be12ae-4df0-49a1-a557-00fcca07bd91_profile#[.{fingerprint}]?.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "lypm84mtyq",
+      "Integrity": "E5tFpXCV7/OJl6OLXiMh3pBRYhE4rfL/NJkC+P44Uvw=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\courses\\36be12ae-4df0-49a1-a557-00fcca07bd91_profile.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\images\\courses\\4f0faab4-a548-4bec-b850-aa3d97f4802e_learn6.PNG",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "images/courses/4f0faab4-a548-4bec-b850-aa3d97f4802e_learn6#[.{fingerprint}]?.PNG",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "crqomrmqtd",
+      "Integrity": "eJ8TIAhqJSZjiQpGQ1IVt20KR7hNT8NRwwMjLKCWDO8=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\courses\\4f0faab4-a548-4bec-b850-aa3d97f4802e_learn6.PNG"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\images\\courses\\949f0b59-9ef6-402b-9070-fe5f1b3d06f2_learn7.PNG",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "images/courses/949f0b59-9ef6-402b-9070-fe5f1b3d06f2_learn7#[.{fingerprint}]?.PNG",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "pgr6bskn9f",
+      "Integrity": "d1SNLF/uK+2sn9mgLDGNNutmLrZsKOTewqJoWNDsQ9k=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\courses\\949f0b59-9ef6-402b-9070-fe5f1b3d06f2_learn7.PNG"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\images\\courses\\952b3dff-5228-4812-8053-6ba9ef0999d6_learn6.PNG",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "images/courses/952b3dff-5228-4812-8053-6ba9ef0999d6_learn6#[.{fingerprint}]?.PNG",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "crqomrmqtd",
+      "Integrity": "eJ8TIAhqJSZjiQpGQ1IVt20KR7hNT8NRwwMjLKCWDO8=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\courses\\952b3dff-5228-4812-8053-6ba9ef0999d6_learn6.PNG"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\images\\courses\\b2b1cedf-231d-4f67-98f0-0d0de91f4f88_learn6.PNG",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "images/courses/b2b1cedf-231d-4f67-98f0-0d0de91f4f88_learn6#[.{fingerprint}]?.PNG",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "crqomrmqtd",
+      "Integrity": "eJ8TIAhqJSZjiQpGQ1IVt20KR7hNT8NRwwMjLKCWDO8=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\courses\\b2b1cedf-231d-4f67-98f0-0d0de91f4f88_learn6.PNG"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\images\\courses\\c35d9566-835f-4d1a-b9d3-185c10e6e5e4_profile.jpeg",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "images/courses/c35d9566-835f-4d1a-b9d3-185c10e6e5e4_profile#[.{fingerprint}]?.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "lypm84mtyq",
+      "Integrity": "E5tFpXCV7/OJl6OLXiMh3pBRYhE4rfL/NJkC+P44Uvw=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\courses\\c35d9566-835f-4d1a-b9d3-185c10e6e5e4_profile.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\images\\courses\\f136fd31-2ff8-4a04-a379-806860e70469_profile.jpeg",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "images/courses/f136fd31-2ff8-4a04-a379-806860e70469_profile#[.{fingerprint}]?.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "lypm84mtyq",
+      "Integrity": "E5tFpXCV7/OJl6OLXiMh3pBRYhE4rfL/NJkC+P44Uvw=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\courses\\f136fd31-2ff8-4a04-a379-806860e70469_profile.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\about.jpg",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "img/about#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "ssjhy9mw4h",
+      "Integrity": "hPsAKuE4jQykQcHubxN1mUntFOYajGKNlvNNbVgvg6A=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\about.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\apple-touch-icon.png",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "img/apple-touch-icon#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "ebstsuhsdv",
+      "Integrity": "ZuclL/mv0sScqP0F9wi8MwpCvq8a9/wqtpmMs9xlS9o=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\apple-touch-icon.png"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\background.jpg",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "img/background#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "lm6zhzjq61",
+      "Integrity": "sybEoEQPX62FMnkyaSzY2eFKAOomz2FXdC5e6M9gUqE=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\background.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\certificatee.jpeg",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "img/certificatee#[.{fingerprint}]?.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "gqt3xurtna",
+      "Integrity": "uF0tMsl8jGLB/cu5WWRxtCIeWKwAIaiYmxMJ+mLuKnw=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\certificatee.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\certified_seal.png",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "img/certified_seal#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "bepeeks4dp",
+      "Integrity": "7SnakS939QP5BO4h+fw2M+XVKtfXxPYXZ/+3q6GBqB0=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\certified_seal.png"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\Director_signature.png",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "img/Director_signature#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "j6x0vuoaya",
+      "Integrity": "BaHDDaZ58oz9JkMiRmkUvgWAbi0fUTS0o7GbrbYqA00=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\Director_signature.png"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\favicon.png",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "img/favicon#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "y4cw5z7loy",
+      "Integrity": "jrn/yLNpadSoLTZjH7dYxLe3WN5PZKpbSInN9yPl3rs=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\favicon.png"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\features.png",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "img/features#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "0egafuvwhz",
+      "Integrity": "iPcwUWRfzCnDJbI7PZas9204o3GGTgQq/8TUfGe9+aM=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\features.png"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\features-2.png",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "img/features-2#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "i0dum9t3ma",
+      "Integrity": "njhJ+EN/veakcQCPSBkivlnZZtcjsf5D/OqsjvZRZHQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\features-2.png"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\features-3.png",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "img/features-3#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "9nvv6yb2le",
+      "Integrity": "C5Dmdy1W2WagYUCCSeBUo4RgcYC+gOb7PB+FTxdSgh4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\features-3.png"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\footer-bg.png",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "img/footer-bg#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "hhsu14d5zs",
+      "Integrity": "S9OXiP7V2tfFAue8LFUm7/SVPCumNaIhf5EYZG+kL+o=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\footer-bg.png"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\logo.png",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "img/logo#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "2nb3zcas6u",
+      "Integrity": "rrB2406xyjc0+q5kXCpI3z8iMmYpF/JuLxJxwHHX0no=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\logo.png"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\paccy.jfif",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "img/paccy#[.{fingerprint}]?.jfif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "s47fnom0mu",
+      "Integrity": "3AiBJwENbnBf0tC5m5fWBpVUH1PxogZL9Q/rbOYpUOQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\paccy.jfif"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\prince.png",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "img/prince#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "h8achyi87h",
+      "Integrity": "0VdCHPvCAekiKMbpQtrkxlSQbKgb6dw2RdzbKWNWR0s=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\prince.png"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\team-shape.svg",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "img/team-shape#[.{fingerprint}]?.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "al65g3cee0",
+      "Integrity": "nuw3vcXvdKxnENWuF0py/QRNX/42oFe52Ag5KUIopk0=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\team-shape.svg"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\user.png",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "img/user#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "5xgtlai15p",
+      "Integrity": "6fc/DpHtDSVg5YZo7TYtPfdj09S8oPrC6QLwPmFEWIo=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\user.png"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\values-1.png",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "img/values-1#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "qk1m9jpzgn",
+      "Integrity": "hik4c16Ol5ihN0cDy5TP/n/K8C9n8hRTBxelbTIFHp4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\values-1.png"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\values-2.png",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "img/values-2#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "41m72rlnwr",
+      "Integrity": "SAl4mbCh9/1JBiPTHrOYqESzmmNYM8c4xHi1gnj/Hjw=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\values-2.png"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\values-3.png",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "img/values-3#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "0g85z525zr",
+      "Integrity": "AK9RGbdW4OjJekUlQj15rLW/U4aztDiOfjbYCchKbA4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\values-3.png"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\js\\dashboard.js",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "js/dashboard#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "865egrub64",
+      "Integrity": "UPIVp4gDVx6mYFKM5l+lSMBXMJ9QuxGJ9DQrSFQt9FQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\dashboard.js"
+    },
+    {
       "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\js\\site.js",
       "SourceId": "E-Learning-Platform",
       "SourceType": "Discovered",
@@ -120,6 +771,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\site.js"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\js\\theme.js",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "js/theme#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "e7i0se21lz",
+      "Integrity": "1q+vknUZ9e2xQ5Bf75BrPKvgMc6FAOWbWlGTwdXVpcg=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\theme.js"
     },
     {
       "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
@@ -1317,9 +1989,175 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\lib\\microsoft\\signalr\\dist\\browser\\signalr.min.js",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "lib/microsoft/signalr/dist/browser/signalr.min#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "m3i9f6419i",
+      "Integrity": "4opyCjWbN8sBV1jVQ/kIcw7Vu+R42wlQa7aIfxgxNTg=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\lib\\microsoft\\signalr\\dist\\browser\\signalr.min.js"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\lib\\microsoft\\signalr\\dist\\browser\\signalr.min.js.map",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "lib/microsoft/signalr/dist/browser/signalr.min.js#[.{fingerprint}]?.map",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "tezurnafit",
+      "Integrity": "xSXhYMDV/fIm6t0QDMu1MCjiHzvk0+9NV1VwB4One8E=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\lib\\microsoft\\signalr\\dist\\browser\\signalr.min.js.map"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\uploads\\76ca5c0d-4cb9-4efa-8a11-29e1fcfaf6de_Garbage_collection.pptx",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "uploads/76ca5c0d-4cb9-4efa-8a11-29e1fcfaf6de_Garbage_collection#[.{fingerprint}]?.pptx",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "hk6569y0fu",
+      "Integrity": "gVqkkDMzurpCb3o1jOLbwKSreDGhSJzBghycr3ANDEk=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\76ca5c0d-4cb9-4efa-8a11-29e1fcfaf6de_Garbage_collection.pptx"
+    },
+    {
+      "Identity": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\uploads\\dfa077d2-fcb5-4c75-adb6-9dd77f764bb0_Garbage_collection.pptx",
+      "SourceId": "E-Learning-Platform",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\",
+      "BasePath": "_content/E-Learning-Platform",
+      "RelativePath": "uploads/dfa077d2-fcb5-4c75-adb6-9dd77f764bb0_Garbage_collection#[.{fingerprint}]?.pptx",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "hk6569y0fu",
+      "Integrity": "gVqkkDMzurpCb3o1jOLbwKSreDGhSJzBghycr3ANDEk=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\dfa077d2-fcb5-4c75-adb6-9dd77f764bb0_Garbage_collection.pptx"
     }
   ],
   "Endpoints": [
+    {
+      "Route": "css/admin-dashboard.css",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\css\\admin-dashboard.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "20266"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"sqJUwGQ1y5VIgyfOiEpz2Ga/gqVty/1c16C709+VoW8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-sqJUwGQ1y5VIgyfOiEpz2Ga/gqVty/1c16C709+VoW8="
+        }
+      ]
+    },
+    {
+      "Route": "css/admin-dashboard.quyx054ox9.css",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\css\\admin-dashboard.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "20266"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"sqJUwGQ1y5VIgyfOiEpz2Ga/gqVty/1c16C709+VoW8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "quyx054ox9"
+        },
+        {
+          "Name": "label",
+          "Value": "css/admin-dashboard.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-sqJUwGQ1y5VIgyfOiEpz2Ga/gqVty/1c16C709+VoW8="
+        }
+      ]
+    },
     {
       "Route": "css/site.c2tiyv64ts.css",
       "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\css\\site.css",
@@ -1403,6 +2241,88 @@
       ]
     },
     {
+      "Route": "css/themes.css",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\css\\themes.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2694"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"stoqwnQZbjOwV580bxgfH70mWb9PYjf+1jZVuBvAZ3w=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-stoqwnQZbjOwV580bxgfH70mWb9PYjf+1jZVuBvAZ3w="
+        }
+      ]
+    },
+    {
+      "Route": "css/themes.me0lw4oo8k.css",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\css\\themes.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2694"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"stoqwnQZbjOwV580bxgfH70mWb9PYjf+1jZVuBvAZ3w=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "me0lw4oo8k"
+        },
+        {
+          "Name": "label",
+          "Value": "css/themes.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-stoqwnQZbjOwV580bxgfH70mWb9PYjf+1jZVuBvAZ3w="
+        }
+      ]
+    },
+    {
       "Route": "E-Learning-Platform.2nm27mtg7j.bundle.scp.css",
       "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\E-Learning-Platform.bundle.scp.css",
       "Selectors": [],
@@ -1425,7 +2345,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 08 Apr 2025 10:03:31 GMT"
+          "Value": "Mon, 26 May 2025 09:15:17 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1470,7 +2390,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 08 Apr 2025 10:03:31 GMT"
+          "Value": "Mon, 26 May 2025 09:15:17 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1515,7 +2435,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 08 Apr 2025 10:03:31 GMT"
+          "Value": "Mon, 26 May 2025 09:15:17 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1552,7 +2472,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 08 Apr 2025 10:03:31 GMT"
+          "Value": "Mon, 26 May 2025 09:15:17 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1649,6 +2569,2384 @@
       ]
     },
     {
+      "Route": "images/certificate-seal.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\images\\certificate-seal.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Nqnn8clbgv+5l0PgxcTOldg8mkMKrFn4TvPL+rYUUGg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Nqnn8clbgv+5l0PgxcTOldg8mkMKrFn4TvPL+rYUUGg="
+        }
+      ]
+    },
+    {
+      "Route": "images/certificate-seal.yu78tspv7y.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\images\\certificate-seal.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Nqnn8clbgv+5l0PgxcTOldg8mkMKrFn4TvPL+rYUUGg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "yu78tspv7y"
+        },
+        {
+          "Name": "label",
+          "Value": "images/certificate-seal.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Nqnn8clbgv+5l0PgxcTOldg8mkMKrFn4TvPL+rYUUGg="
+        }
+      ]
+    },
+    {
+      "Route": "images/courses/2ee6ac28-5832-4270-a70d-641c31a87a35_learn4.5z3iu74vxk.PNG",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\images\\courses\\2ee6ac28-5832-4270-a70d-641c31a87a35_learn4.PNG",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "57929"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"oT7PduogWdc8tnbbhZO3JrQzuK9lBvT2Z7MI0JpQroI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5z3iu74vxk"
+        },
+        {
+          "Name": "label",
+          "Value": "images/courses/2ee6ac28-5832-4270-a70d-641c31a87a35_learn4.PNG"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-oT7PduogWdc8tnbbhZO3JrQzuK9lBvT2Z7MI0JpQroI="
+        }
+      ]
+    },
+    {
+      "Route": "images/courses/2ee6ac28-5832-4270-a70d-641c31a87a35_learn4.PNG",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\images\\courses\\2ee6ac28-5832-4270-a70d-641c31a87a35_learn4.PNG",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "57929"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"oT7PduogWdc8tnbbhZO3JrQzuK9lBvT2Z7MI0JpQroI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-oT7PduogWdc8tnbbhZO3JrQzuK9lBvT2Z7MI0JpQroI="
+        }
+      ]
+    },
+    {
+      "Route": "images/courses/36be12ae-4df0-49a1-a557-00fcca07bd91_profile.jpeg",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\images\\courses\\36be12ae-4df0-49a1-a557-00fcca07bd91_profile.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "166609"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"E5tFpXCV7/OJl6OLXiMh3pBRYhE4rfL/NJkC+P44Uvw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-E5tFpXCV7/OJl6OLXiMh3pBRYhE4rfL/NJkC+P44Uvw="
+        }
+      ]
+    },
+    {
+      "Route": "images/courses/36be12ae-4df0-49a1-a557-00fcca07bd91_profile.lypm84mtyq.jpeg",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\images\\courses\\36be12ae-4df0-49a1-a557-00fcca07bd91_profile.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "166609"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"E5tFpXCV7/OJl6OLXiMh3pBRYhE4rfL/NJkC+P44Uvw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "lypm84mtyq"
+        },
+        {
+          "Name": "label",
+          "Value": "images/courses/36be12ae-4df0-49a1-a557-00fcca07bd91_profile.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-E5tFpXCV7/OJl6OLXiMh3pBRYhE4rfL/NJkC+P44Uvw="
+        }
+      ]
+    },
+    {
+      "Route": "images/courses/4f0faab4-a548-4bec-b850-aa3d97f4802e_learn6.crqomrmqtd.PNG",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\images\\courses\\4f0faab4-a548-4bec-b850-aa3d97f4802e_learn6.PNG",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "39431"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"eJ8TIAhqJSZjiQpGQ1IVt20KR7hNT8NRwwMjLKCWDO8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "crqomrmqtd"
+        },
+        {
+          "Name": "label",
+          "Value": "images/courses/4f0faab4-a548-4bec-b850-aa3d97f4802e_learn6.PNG"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-eJ8TIAhqJSZjiQpGQ1IVt20KR7hNT8NRwwMjLKCWDO8="
+        }
+      ]
+    },
+    {
+      "Route": "images/courses/4f0faab4-a548-4bec-b850-aa3d97f4802e_learn6.PNG",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\images\\courses\\4f0faab4-a548-4bec-b850-aa3d97f4802e_learn6.PNG",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "39431"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"eJ8TIAhqJSZjiQpGQ1IVt20KR7hNT8NRwwMjLKCWDO8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-eJ8TIAhqJSZjiQpGQ1IVt20KR7hNT8NRwwMjLKCWDO8="
+        }
+      ]
+    },
+    {
+      "Route": "images/courses/949f0b59-9ef6-402b-9070-fe5f1b3d06f2_learn7.pgr6bskn9f.PNG",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\images\\courses\\949f0b59-9ef6-402b-9070-fe5f1b3d06f2_learn7.PNG",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "25082"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"d1SNLF/uK+2sn9mgLDGNNutmLrZsKOTewqJoWNDsQ9k=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "pgr6bskn9f"
+        },
+        {
+          "Name": "label",
+          "Value": "images/courses/949f0b59-9ef6-402b-9070-fe5f1b3d06f2_learn7.PNG"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-d1SNLF/uK+2sn9mgLDGNNutmLrZsKOTewqJoWNDsQ9k="
+        }
+      ]
+    },
+    {
+      "Route": "images/courses/949f0b59-9ef6-402b-9070-fe5f1b3d06f2_learn7.PNG",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\images\\courses\\949f0b59-9ef6-402b-9070-fe5f1b3d06f2_learn7.PNG",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "25082"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"d1SNLF/uK+2sn9mgLDGNNutmLrZsKOTewqJoWNDsQ9k=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-d1SNLF/uK+2sn9mgLDGNNutmLrZsKOTewqJoWNDsQ9k="
+        }
+      ]
+    },
+    {
+      "Route": "images/courses/952b3dff-5228-4812-8053-6ba9ef0999d6_learn6.crqomrmqtd.PNG",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\images\\courses\\952b3dff-5228-4812-8053-6ba9ef0999d6_learn6.PNG",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "39431"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"eJ8TIAhqJSZjiQpGQ1IVt20KR7hNT8NRwwMjLKCWDO8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "crqomrmqtd"
+        },
+        {
+          "Name": "label",
+          "Value": "images/courses/952b3dff-5228-4812-8053-6ba9ef0999d6_learn6.PNG"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-eJ8TIAhqJSZjiQpGQ1IVt20KR7hNT8NRwwMjLKCWDO8="
+        }
+      ]
+    },
+    {
+      "Route": "images/courses/952b3dff-5228-4812-8053-6ba9ef0999d6_learn6.PNG",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\images\\courses\\952b3dff-5228-4812-8053-6ba9ef0999d6_learn6.PNG",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "39431"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"eJ8TIAhqJSZjiQpGQ1IVt20KR7hNT8NRwwMjLKCWDO8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-eJ8TIAhqJSZjiQpGQ1IVt20KR7hNT8NRwwMjLKCWDO8="
+        }
+      ]
+    },
+    {
+      "Route": "images/courses/b2b1cedf-231d-4f67-98f0-0d0de91f4f88_learn6.crqomrmqtd.PNG",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\images\\courses\\b2b1cedf-231d-4f67-98f0-0d0de91f4f88_learn6.PNG",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "39431"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"eJ8TIAhqJSZjiQpGQ1IVt20KR7hNT8NRwwMjLKCWDO8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "crqomrmqtd"
+        },
+        {
+          "Name": "label",
+          "Value": "images/courses/b2b1cedf-231d-4f67-98f0-0d0de91f4f88_learn6.PNG"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-eJ8TIAhqJSZjiQpGQ1IVt20KR7hNT8NRwwMjLKCWDO8="
+        }
+      ]
+    },
+    {
+      "Route": "images/courses/b2b1cedf-231d-4f67-98f0-0d0de91f4f88_learn6.PNG",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\images\\courses\\b2b1cedf-231d-4f67-98f0-0d0de91f4f88_learn6.PNG",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "39431"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"eJ8TIAhqJSZjiQpGQ1IVt20KR7hNT8NRwwMjLKCWDO8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-eJ8TIAhqJSZjiQpGQ1IVt20KR7hNT8NRwwMjLKCWDO8="
+        }
+      ]
+    },
+    {
+      "Route": "images/courses/c35d9566-835f-4d1a-b9d3-185c10e6e5e4_profile.jpeg",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\images\\courses\\c35d9566-835f-4d1a-b9d3-185c10e6e5e4_profile.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "166609"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"E5tFpXCV7/OJl6OLXiMh3pBRYhE4rfL/NJkC+P44Uvw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-E5tFpXCV7/OJl6OLXiMh3pBRYhE4rfL/NJkC+P44Uvw="
+        }
+      ]
+    },
+    {
+      "Route": "images/courses/c35d9566-835f-4d1a-b9d3-185c10e6e5e4_profile.lypm84mtyq.jpeg",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\images\\courses\\c35d9566-835f-4d1a-b9d3-185c10e6e5e4_profile.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "166609"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"E5tFpXCV7/OJl6OLXiMh3pBRYhE4rfL/NJkC+P44Uvw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "lypm84mtyq"
+        },
+        {
+          "Name": "label",
+          "Value": "images/courses/c35d9566-835f-4d1a-b9d3-185c10e6e5e4_profile.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-E5tFpXCV7/OJl6OLXiMh3pBRYhE4rfL/NJkC+P44Uvw="
+        }
+      ]
+    },
+    {
+      "Route": "images/courses/f136fd31-2ff8-4a04-a379-806860e70469_profile.jpeg",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\images\\courses\\f136fd31-2ff8-4a04-a379-806860e70469_profile.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "166609"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"E5tFpXCV7/OJl6OLXiMh3pBRYhE4rfL/NJkC+P44Uvw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-E5tFpXCV7/OJl6OLXiMh3pBRYhE4rfL/NJkC+P44Uvw="
+        }
+      ]
+    },
+    {
+      "Route": "images/courses/f136fd31-2ff8-4a04-a379-806860e70469_profile.lypm84mtyq.jpeg",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\images\\courses\\f136fd31-2ff8-4a04-a379-806860e70469_profile.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "166609"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"E5tFpXCV7/OJl6OLXiMh3pBRYhE4rfL/NJkC+P44Uvw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "lypm84mtyq"
+        },
+        {
+          "Name": "label",
+          "Value": "images/courses/f136fd31-2ff8-4a04-a379-806860e70469_profile.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-E5tFpXCV7/OJl6OLXiMh3pBRYhE4rfL/NJkC+P44Uvw="
+        }
+      ]
+    },
+    {
+      "Route": "img/about.jpg",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\about.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "193104"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"hPsAKuE4jQykQcHubxN1mUntFOYajGKNlvNNbVgvg6A=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-hPsAKuE4jQykQcHubxN1mUntFOYajGKNlvNNbVgvg6A="
+        }
+      ]
+    },
+    {
+      "Route": "img/about.ssjhy9mw4h.jpg",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\about.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "193104"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"hPsAKuE4jQykQcHubxN1mUntFOYajGKNlvNNbVgvg6A=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "ssjhy9mw4h"
+        },
+        {
+          "Name": "label",
+          "Value": "img/about.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-hPsAKuE4jQykQcHubxN1mUntFOYajGKNlvNNbVgvg6A="
+        }
+      ]
+    },
+    {
+      "Route": "img/apple-touch-icon.ebstsuhsdv.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\apple-touch-icon.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1738"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ZuclL/mv0sScqP0F9wi8MwpCvq8a9/wqtpmMs9xlS9o=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "ebstsuhsdv"
+        },
+        {
+          "Name": "label",
+          "Value": "img/apple-touch-icon.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ZuclL/mv0sScqP0F9wi8MwpCvq8a9/wqtpmMs9xlS9o="
+        }
+      ]
+    },
+    {
+      "Route": "img/apple-touch-icon.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\apple-touch-icon.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1738"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ZuclL/mv0sScqP0F9wi8MwpCvq8a9/wqtpmMs9xlS9o=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ZuclL/mv0sScqP0F9wi8MwpCvq8a9/wqtpmMs9xlS9o="
+        }
+      ]
+    },
+    {
+      "Route": "img/background.jpg",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\background.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "20322"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"sybEoEQPX62FMnkyaSzY2eFKAOomz2FXdC5e6M9gUqE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-sybEoEQPX62FMnkyaSzY2eFKAOomz2FXdC5e6M9gUqE="
+        }
+      ]
+    },
+    {
+      "Route": "img/background.lm6zhzjq61.jpg",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\background.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "20322"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"sybEoEQPX62FMnkyaSzY2eFKAOomz2FXdC5e6M9gUqE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "lm6zhzjq61"
+        },
+        {
+          "Name": "label",
+          "Value": "img/background.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-sybEoEQPX62FMnkyaSzY2eFKAOomz2FXdC5e6M9gUqE="
+        }
+      ]
+    },
+    {
+      "Route": "img/certificatee.gqt3xurtna.jpeg",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\certificatee.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "73510"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"uF0tMsl8jGLB/cu5WWRxtCIeWKwAIaiYmxMJ+mLuKnw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "gqt3xurtna"
+        },
+        {
+          "Name": "label",
+          "Value": "img/certificatee.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-uF0tMsl8jGLB/cu5WWRxtCIeWKwAIaiYmxMJ+mLuKnw="
+        }
+      ]
+    },
+    {
+      "Route": "img/certificatee.jpeg",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\certificatee.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "73510"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"uF0tMsl8jGLB/cu5WWRxtCIeWKwAIaiYmxMJ+mLuKnw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-uF0tMsl8jGLB/cu5WWRxtCIeWKwAIaiYmxMJ+mLuKnw="
+        }
+      ]
+    },
+    {
+      "Route": "img/certified_seal.bepeeks4dp.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\certified_seal.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "127054"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"7SnakS939QP5BO4h+fw2M+XVKtfXxPYXZ/+3q6GBqB0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "bepeeks4dp"
+        },
+        {
+          "Name": "label",
+          "Value": "img/certified_seal.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-7SnakS939QP5BO4h+fw2M+XVKtfXxPYXZ/+3q6GBqB0="
+        }
+      ]
+    },
+    {
+      "Route": "img/certified_seal.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\certified_seal.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "127054"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"7SnakS939QP5BO4h+fw2M+XVKtfXxPYXZ/+3q6GBqB0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-7SnakS939QP5BO4h+fw2M+XVKtfXxPYXZ/+3q6GBqB0="
+        }
+      ]
+    },
+    {
+      "Route": "img/Director_signature.j6x0vuoaya.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\Director_signature.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "40044"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"BaHDDaZ58oz9JkMiRmkUvgWAbi0fUTS0o7GbrbYqA00=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "j6x0vuoaya"
+        },
+        {
+          "Name": "label",
+          "Value": "img/Director_signature.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-BaHDDaZ58oz9JkMiRmkUvgWAbi0fUTS0o7GbrbYqA00="
+        }
+      ]
+    },
+    {
+      "Route": "img/Director_signature.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\Director_signature.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "40044"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"BaHDDaZ58oz9JkMiRmkUvgWAbi0fUTS0o7GbrbYqA00=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-BaHDDaZ58oz9JkMiRmkUvgWAbi0fUTS0o7GbrbYqA00="
+        }
+      ]
+    },
+    {
+      "Route": "img/favicon.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\favicon.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "491"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"jrn/yLNpadSoLTZjH7dYxLe3WN5PZKpbSInN9yPl3rs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-jrn/yLNpadSoLTZjH7dYxLe3WN5PZKpbSInN9yPl3rs="
+        }
+      ]
+    },
+    {
+      "Route": "img/favicon.y4cw5z7loy.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\favicon.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "491"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"jrn/yLNpadSoLTZjH7dYxLe3WN5PZKpbSInN9yPl3rs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "y4cw5z7loy"
+        },
+        {
+          "Name": "label",
+          "Value": "img/favicon.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-jrn/yLNpadSoLTZjH7dYxLe3WN5PZKpbSInN9yPl3rs="
+        }
+      ]
+    },
+    {
+      "Route": "img/features.0egafuvwhz.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\features.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "55886"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"iPcwUWRfzCnDJbI7PZas9204o3GGTgQq/8TUfGe9+aM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "0egafuvwhz"
+        },
+        {
+          "Name": "label",
+          "Value": "img/features.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-iPcwUWRfzCnDJbI7PZas9204o3GGTgQq/8TUfGe9+aM="
+        }
+      ]
+    },
+    {
+      "Route": "img/features.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\features.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "55886"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"iPcwUWRfzCnDJbI7PZas9204o3GGTgQq/8TUfGe9+aM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-iPcwUWRfzCnDJbI7PZas9204o3GGTgQq/8TUfGe9+aM="
+        }
+      ]
+    },
+    {
+      "Route": "img/features-2.i0dum9t3ma.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\features-2.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "44762"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"njhJ+EN/veakcQCPSBkivlnZZtcjsf5D/OqsjvZRZHQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "i0dum9t3ma"
+        },
+        {
+          "Name": "label",
+          "Value": "img/features-2.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-njhJ+EN/veakcQCPSBkivlnZZtcjsf5D/OqsjvZRZHQ="
+        }
+      ]
+    },
+    {
+      "Route": "img/features-2.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\features-2.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "44762"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"njhJ+EN/veakcQCPSBkivlnZZtcjsf5D/OqsjvZRZHQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-njhJ+EN/veakcQCPSBkivlnZZtcjsf5D/OqsjvZRZHQ="
+        }
+      ]
+    },
+    {
+      "Route": "img/features-3.9nvv6yb2le.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\features-3.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "33389"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"C5Dmdy1W2WagYUCCSeBUo4RgcYC+gOb7PB+FTxdSgh4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "9nvv6yb2le"
+        },
+        {
+          "Name": "label",
+          "Value": "img/features-3.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-C5Dmdy1W2WagYUCCSeBUo4RgcYC+gOb7PB+FTxdSgh4="
+        }
+      ]
+    },
+    {
+      "Route": "img/features-3.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\features-3.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "33389"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"C5Dmdy1W2WagYUCCSeBUo4RgcYC+gOb7PB+FTxdSgh4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-C5Dmdy1W2WagYUCCSeBUo4RgcYC+gOb7PB+FTxdSgh4="
+        }
+      ]
+    },
+    {
+      "Route": "img/footer-bg.hhsu14d5zs.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\footer-bg.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "10959"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"S9OXiP7V2tfFAue8LFUm7/SVPCumNaIhf5EYZG+kL+o=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "hhsu14d5zs"
+        },
+        {
+          "Name": "label",
+          "Value": "img/footer-bg.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-S9OXiP7V2tfFAue8LFUm7/SVPCumNaIhf5EYZG+kL+o="
+        }
+      ]
+    },
+    {
+      "Route": "img/footer-bg.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\footer-bg.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "10959"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"S9OXiP7V2tfFAue8LFUm7/SVPCumNaIhf5EYZG+kL+o=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-S9OXiP7V2tfFAue8LFUm7/SVPCumNaIhf5EYZG+kL+o="
+        }
+      ]
+    },
+    {
+      "Route": "img/logo.2nb3zcas6u.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\logo.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1071"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"rrB2406xyjc0+q5kXCpI3z8iMmYpF/JuLxJxwHHX0no=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "2nb3zcas6u"
+        },
+        {
+          "Name": "label",
+          "Value": "img/logo.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-rrB2406xyjc0+q5kXCpI3z8iMmYpF/JuLxJxwHHX0no="
+        }
+      ]
+    },
+    {
+      "Route": "img/logo.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\logo.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1071"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"rrB2406xyjc0+q5kXCpI3z8iMmYpF/JuLxJxwHHX0no=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-rrB2406xyjc0+q5kXCpI3z8iMmYpF/JuLxJxwHHX0no="
+        }
+      ]
+    },
+    {
+      "Route": "img/paccy.jfif",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\paccy.jfif",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "22115"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/pjpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"3AiBJwENbnBf0tC5m5fWBpVUH1PxogZL9Q/rbOYpUOQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-3AiBJwENbnBf0tC5m5fWBpVUH1PxogZL9Q/rbOYpUOQ="
+        }
+      ]
+    },
+    {
+      "Route": "img/paccy.s47fnom0mu.jfif",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\paccy.jfif",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "22115"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/pjpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"3AiBJwENbnBf0tC5m5fWBpVUH1PxogZL9Q/rbOYpUOQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "s47fnom0mu"
+        },
+        {
+          "Name": "label",
+          "Value": "img/paccy.jfif"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-3AiBJwENbnBf0tC5m5fWBpVUH1PxogZL9Q/rbOYpUOQ="
+        }
+      ]
+    },
+    {
+      "Route": "img/prince.h8achyi87h.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\prince.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "193715"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"0VdCHPvCAekiKMbpQtrkxlSQbKgb6dw2RdzbKWNWR0s=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "h8achyi87h"
+        },
+        {
+          "Name": "label",
+          "Value": "img/prince.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-0VdCHPvCAekiKMbpQtrkxlSQbKgb6dw2RdzbKWNWR0s="
+        }
+      ]
+    },
+    {
+      "Route": "img/prince.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\prince.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "193715"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"0VdCHPvCAekiKMbpQtrkxlSQbKgb6dw2RdzbKWNWR0s=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-0VdCHPvCAekiKMbpQtrkxlSQbKgb6dw2RdzbKWNWR0s="
+        }
+      ]
+    },
+    {
+      "Route": "img/team-shape.al65g3cee0.svg",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\team-shape.svg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "552"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/svg+xml"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"nuw3vcXvdKxnENWuF0py/QRNX/42oFe52Ag5KUIopk0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "al65g3cee0"
+        },
+        {
+          "Name": "label",
+          "Value": "img/team-shape.svg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-nuw3vcXvdKxnENWuF0py/QRNX/42oFe52Ag5KUIopk0="
+        }
+      ]
+    },
+    {
+      "Route": "img/team-shape.svg",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\team-shape.svg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "552"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/svg+xml"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"nuw3vcXvdKxnENWuF0py/QRNX/42oFe52Ag5KUIopk0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-nuw3vcXvdKxnENWuF0py/QRNX/42oFe52Ag5KUIopk0="
+        }
+      ]
+    },
+    {
+      "Route": "img/user.5xgtlai15p.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\user.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "21518"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"6fc/DpHtDSVg5YZo7TYtPfdj09S8oPrC6QLwPmFEWIo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5xgtlai15p"
+        },
+        {
+          "Name": "label",
+          "Value": "img/user.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-6fc/DpHtDSVg5YZo7TYtPfdj09S8oPrC6QLwPmFEWIo="
+        }
+      ]
+    },
+    {
+      "Route": "img/user.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\user.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "21518"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"6fc/DpHtDSVg5YZo7TYtPfdj09S8oPrC6QLwPmFEWIo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-6fc/DpHtDSVg5YZo7TYtPfdj09S8oPrC6QLwPmFEWIo="
+        }
+      ]
+    },
+    {
+      "Route": "img/values-1.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\values-1.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "20762"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"hik4c16Ol5ihN0cDy5TP/n/K8C9n8hRTBxelbTIFHp4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-hik4c16Ol5ihN0cDy5TP/n/K8C9n8hRTBxelbTIFHp4="
+        }
+      ]
+    },
+    {
+      "Route": "img/values-1.qk1m9jpzgn.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\values-1.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "20762"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"hik4c16Ol5ihN0cDy5TP/n/K8C9n8hRTBxelbTIFHp4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "qk1m9jpzgn"
+        },
+        {
+          "Name": "label",
+          "Value": "img/values-1.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-hik4c16Ol5ihN0cDy5TP/n/K8C9n8hRTBxelbTIFHp4="
+        }
+      ]
+    },
+    {
+      "Route": "img/values-2.41m72rlnwr.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\values-2.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "22703"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"SAl4mbCh9/1JBiPTHrOYqESzmmNYM8c4xHi1gnj/Hjw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "41m72rlnwr"
+        },
+        {
+          "Name": "label",
+          "Value": "img/values-2.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-SAl4mbCh9/1JBiPTHrOYqESzmmNYM8c4xHi1gnj/Hjw="
+        }
+      ]
+    },
+    {
+      "Route": "img/values-2.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\values-2.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "22703"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"SAl4mbCh9/1JBiPTHrOYqESzmmNYM8c4xHi1gnj/Hjw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-SAl4mbCh9/1JBiPTHrOYqESzmmNYM8c4xHi1gnj/Hjw="
+        }
+      ]
+    },
+    {
+      "Route": "img/values-3.0g85z525zr.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\values-3.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "20066"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"AK9RGbdW4OjJekUlQj15rLW/U4aztDiOfjbYCchKbA4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "0g85z525zr"
+        },
+        {
+          "Name": "label",
+          "Value": "img/values-3.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-AK9RGbdW4OjJekUlQj15rLW/U4aztDiOfjbYCchKbA4="
+        }
+      ]
+    },
+    {
+      "Route": "img/values-3.png",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\img\\values-3.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "20066"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"AK9RGbdW4OjJekUlQj15rLW/U4aztDiOfjbYCchKbA4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-AK9RGbdW4OjJekUlQj15rLW/U4aztDiOfjbYCchKbA4="
+        }
+      ]
+    },
+    {
+      "Route": "js/dashboard.865egrub64.js",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\js\\dashboard.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4004"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"UPIVp4gDVx6mYFKM5l+lSMBXMJ9QuxGJ9DQrSFQt9FQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 14:54:13 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "865egrub64"
+        },
+        {
+          "Name": "label",
+          "Value": "js/dashboard.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-UPIVp4gDVx6mYFKM5l+lSMBXMJ9QuxGJ9DQrSFQt9FQ="
+        }
+      ]
+    },
+    {
+      "Route": "js/dashboard.js",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\js\\dashboard.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4004"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"UPIVp4gDVx6mYFKM5l+lSMBXMJ9QuxGJ9DQrSFQt9FQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 14:54:13 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-UPIVp4gDVx6mYFKM5l+lSMBXMJ9QuxGJ9DQrSFQt9FQ="
+        }
+      ]
+    },
+    {
       "Route": "js/site.js",
       "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\js\\site.js",
       "Selectors": [],
@@ -1727,6 +5025,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-hRQyftXiu1lLX2P9Ly9xa4gHJgLeR1uGN5qegUobtGo="
+        }
+      ]
+    },
+    {
+      "Route": "js/theme.e7i0se21lz.js",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\js\\theme.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1780"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"1q+vknUZ9e2xQ5Bf75BrPKvgMc6FAOWbWlGTwdXVpcg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "e7i0se21lz"
+        },
+        {
+          "Name": "label",
+          "Value": "js/theme.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-1q+vknUZ9e2xQ5Bf75BrPKvgMc6FAOWbWlGTwdXVpcg="
+        }
+      ]
+    },
+    {
+      "Route": "js/theme.js",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\js\\theme.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1780"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"1q+vknUZ9e2xQ5Bf75BrPKvgMc6FAOWbWlGTwdXVpcg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-1q+vknUZ9e2xQ5Bf75BrPKvgMc6FAOWbWlGTwdXVpcg="
         }
       ]
     },
@@ -6401,6 +9781,334 @@
         {
           "Name": "integrity",
           "Value": "sha256-16aFlqtpsG9RyieKZUUUjkJpqTgcJtWXwT312I4Iz1s="
+        }
+      ]
+    },
+    {
+      "Route": "lib/microsoft/signalr/dist/browser/signalr.min.js",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\lib\\microsoft\\signalr\\dist\\browser\\signalr.min.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "47647"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4opyCjWbN8sBV1jVQ/kIcw7Vu+R42wlQa7aIfxgxNTg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 24 May 2025 08:15:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-4opyCjWbN8sBV1jVQ/kIcw7Vu+R42wlQa7aIfxgxNTg="
+        }
+      ]
+    },
+    {
+      "Route": "lib/microsoft/signalr/dist/browser/signalr.min.js.map",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\lib\\microsoft\\signalr\\dist\\browser\\signalr.min.js.map",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "268003"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/plain"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"xSXhYMDV/fIm6t0QDMu1MCjiHzvk0+9NV1VwB4One8E=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 24 May 2025 08:15:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-xSXhYMDV/fIm6t0QDMu1MCjiHzvk0+9NV1VwB4One8E="
+        }
+      ]
+    },
+    {
+      "Route": "lib/microsoft/signalr/dist/browser/signalr.min.js.tezurnafit.map",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\lib\\microsoft\\signalr\\dist\\browser\\signalr.min.js.map",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "268003"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/plain"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"xSXhYMDV/fIm6t0QDMu1MCjiHzvk0+9NV1VwB4One8E=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 24 May 2025 08:15:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "tezurnafit"
+        },
+        {
+          "Name": "label",
+          "Value": "lib/microsoft/signalr/dist/browser/signalr.min.js.map"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-xSXhYMDV/fIm6t0QDMu1MCjiHzvk0+9NV1VwB4One8E="
+        }
+      ]
+    },
+    {
+      "Route": "lib/microsoft/signalr/dist/browser/signalr.min.m3i9f6419i.js",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\lib\\microsoft\\signalr\\dist\\browser\\signalr.min.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "47647"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4opyCjWbN8sBV1jVQ/kIcw7Vu+R42wlQa7aIfxgxNTg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 24 May 2025 08:15:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "m3i9f6419i"
+        },
+        {
+          "Name": "label",
+          "Value": "lib/microsoft/signalr/dist/browser/signalr.min.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-4opyCjWbN8sBV1jVQ/kIcw7Vu+R42wlQa7aIfxgxNTg="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/76ca5c0d-4cb9-4efa-8a11-29e1fcfaf6de_Garbage_collection.hk6569y0fu.pptx",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\uploads\\76ca5c0d-4cb9-4efa-8a11-29e1fcfaf6de_Garbage_collection.pptx",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2127026"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"gVqkkDMzurpCb3o1jOLbwKSreDGhSJzBghycr3ANDEk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "hk6569y0fu"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/76ca5c0d-4cb9-4efa-8a11-29e1fcfaf6de_Garbage_collection.pptx"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-gVqkkDMzurpCb3o1jOLbwKSreDGhSJzBghycr3ANDEk="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/76ca5c0d-4cb9-4efa-8a11-29e1fcfaf6de_Garbage_collection.pptx",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\uploads\\76ca5c0d-4cb9-4efa-8a11-29e1fcfaf6de_Garbage_collection.pptx",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2127026"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"gVqkkDMzurpCb3o1jOLbwKSreDGhSJzBghycr3ANDEk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-gVqkkDMzurpCb3o1jOLbwKSreDGhSJzBghycr3ANDEk="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/dfa077d2-fcb5-4c75-adb6-9dd77f764bb0_Garbage_collection.hk6569y0fu.pptx",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\uploads\\dfa077d2-fcb5-4c75-adb6-9dd77f764bb0_Garbage_collection.pptx",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2127026"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"gVqkkDMzurpCb3o1jOLbwKSreDGhSJzBghycr3ANDEk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "hk6569y0fu"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/dfa077d2-fcb5-4c75-adb6-9dd77f764bb0_Garbage_collection.pptx"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-gVqkkDMzurpCb3o1jOLbwKSreDGhSJzBghycr3ANDEk="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/dfa077d2-fcb5-4c75-adb6-9dd77f764bb0_Garbage_collection.pptx",
+      "AssetFile": "C:\\Users\\HP\\Desktop\\Dot-net\\E-Learning-Platform\\E-Learning-Platform\\E-Learning-Platform\\wwwroot\\uploads\\dfa077d2-fcb5-4c75-adb6-9dd77f764bb0_Garbage_collection.pptx",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2127026"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"gVqkkDMzurpCb3o1jOLbwKSreDGhSJzBghycr3ANDEk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 21 May 2025 10:47:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-gVqkkDMzurpCb3o1jOLbwKSreDGhSJzBghycr3ANDEk="
         }
       ]
     }

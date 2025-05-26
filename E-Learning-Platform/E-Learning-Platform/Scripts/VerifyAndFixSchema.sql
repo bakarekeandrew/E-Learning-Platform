@@ -1,0 +1,123 @@
+-- First, let's check if the tables exist and create them if they don't
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[USERS]') AND type in (N'U'))
+BEGIN
+    CREATE TABLE [dbo].[USERS] (
+        [USER_ID] INT IDENTITY(1,1) PRIMARY KEY,
+        [FULL_NAME] NVARCHAR(200) NOT NULL,
+        [ROLE_ID] INT NOT NULL,
+        [EMAIL] NVARCHAR(255) NOT NULL UNIQUE,
+        [PASSWORD_HASH] NVARCHAR(255) NOT NULL,
+        [DATE_REGISTERED] DATETIME NOT NULL DEFAULT(GETDATE()),
+        [LAST_LOGIN] DATETIME NULL,
+        [USERNAME] NVARCHAR(100) NOT NULL UNIQUE,
+        [NORMALIZED_USERNAME] NVARCHAR(100) NOT NULL UNIQUE,
+        [MFA_ENABLED] BIT NOT NULL DEFAULT(0),
+        [IS_ACTIVE] BIT NOT NULL DEFAULT(1)
+    );
+    PRINT 'USERS table created successfully.';
+END
+ELSE
+BEGIN
+    PRINT 'USERS table already exists.';
+END
+
+-- Now check if NOTIFICATIONS table exists and create it if it doesn't
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[NOTIFICATIONS]') AND type in (N'U'))
+BEGIN
+    CREATE TABLE [dbo].[NOTIFICATIONS] (
+        [NOTIFICATION_ID] INT IDENTITY(1,1) PRIMARY KEY,
+        [USER_ID] INT NOT NULL,
+        [TITLE] NVARCHAR(200) NOT NULL,
+        [MESSAGE] NVARCHAR(1000) NOT NULL,
+        [TYPE] NVARCHAR(50) NOT NULL,
+        [IS_READ] BIT NOT NULL DEFAULT(0),
+        [CREATED_AT] DATETIME NOT NULL DEFAULT(GETDATE()),
+        CONSTRAINT [FK_NOTIFICATIONS_USERS] FOREIGN KEY ([USER_ID]) REFERENCES [USERS]([USER_ID])
+    );
+
+    CREATE NONCLUSTERED INDEX [IX_NOTIFICATIONS_USER_ID] ON [dbo].[NOTIFICATIONS]([USER_ID]);
+    CREATE NONCLUSTERED INDEX [IX_NOTIFICATIONS_IS_READ] ON [dbo].[NOTIFICATIONS]([IS_READ]);
+    CREATE NONCLUSTERED INDEX [IX_NOTIFICATIONS_CREATED_AT] ON [dbo].[NOTIFICATIONS]([CREATED_AT] DESC);
+
+    PRINT 'NOTIFICATIONS table created successfully.';
+END
+ELSE
+BEGIN
+    -- Check if the foreign key constraint exists
+    IF NOT EXISTS (
+        SELECT * FROM sys.foreign_keys 
+        WHERE object_id = OBJECT_ID(N'[dbo].[FK_NOTIFICATIONS_USERS]')
+    )
+    BEGIN
+        -- Add the foreign key constraint
+        ALTER TABLE [dbo].[NOTIFICATIONS]
+        ADD CONSTRAINT [FK_NOTIFICATIONS_USERS] 
+        FOREIGN KEY ([USER_ID]) REFERENCES [USERS]([USER_ID]);
+        
+        PRINT 'Foreign key constraint added to NOTIFICATIONS table.';
+    END
+    ELSE
+    BEGIN
+        PRINT 'Foreign key constraint already exists.';
+    END
+
+    -- Check if indexes exist and create them if they don't
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = 'IX_NOTIFICATIONS_USER_ID')
+    BEGIN
+        CREATE NONCLUSTERED INDEX [IX_NOTIFICATIONS_USER_ID] ON [dbo].[NOTIFICATIONS]([USER_ID]);
+        PRINT 'Created index IX_NOTIFICATIONS_USER_ID';
+    END
+
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = 'IX_NOTIFICATIONS_IS_READ')
+    BEGIN
+        CREATE NONCLUSTERED INDEX [IX_NOTIFICATIONS_IS_READ] ON [dbo].[NOTIFICATIONS]([IS_READ]);
+        PRINT 'Created index IX_NOTIFICATIONS_IS_READ';
+    END
+
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = 'IX_NOTIFICATIONS_CREATED_AT')
+    BEGIN
+        CREATE NONCLUSTERED INDEX [IX_NOTIFICATIONS_CREATED_AT] ON [dbo].[NOTIFICATIONS]([CREATED_AT] DESC);
+        PRINT 'Created index IX_NOTIFICATIONS_CREATED_AT';
+    END
+END
+
+-- Verify the tables have the correct columns
+PRINT 'Verifying table columns...';
+
+-- Check USERS table columns
+SELECT 
+    'USERS' as TableName,
+    COLUMN_NAME,
+    DATA_TYPE,
+    CHARACTER_MAXIMUM_LENGTH,
+    IS_NULLABLE
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'USERS'
+ORDER BY ORDINAL_POSITION;
+
+-- Check NOTIFICATIONS table columns
+SELECT 
+    'NOTIFICATIONS' as TableName,
+    COLUMN_NAME,
+    DATA_TYPE,
+    CHARACTER_MAXIMUM_LENGTH,
+    IS_NULLABLE
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'NOTIFICATIONS'
+ORDER BY ORDINAL_POSITION;
+
+-- Check if there are any orphaned notifications
+SELECT COUNT(*) as OrphanedNotifications
+FROM NOTIFICATIONS n
+LEFT JOIN USERS u ON n.USER_ID = u.USER_ID
+WHERE u.USER_ID IS NULL;
+
+-- Check if there are any notifications for user 10
+SELECT *
+FROM NOTIFICATIONS
+WHERE USER_ID = 10;
+
+-- Check if user 10 exists
+SELECT *
+FROM USERS
+WHERE USER_ID = 10; 

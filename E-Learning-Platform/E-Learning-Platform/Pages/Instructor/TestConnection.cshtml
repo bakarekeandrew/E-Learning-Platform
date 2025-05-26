@@ -1,0 +1,48 @@
+@page
+@model E_Learning_Platform.Pages.Instructor.TestConnectionModel
+@{
+    ViewData["Title"] = "Test Connection";
+}
+
+<div class="container mt-4">
+    <h2>System Status Check</h2>
+    
+    <div class="card mb-3">
+        <div class="card-header">Session Status</div>
+        <div class="card-body">
+            <pre>@Model.SessionStatus</pre>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">Claims Information</div>
+        <div class="card-body">
+            <pre>@Model.ClaimsDetails</pre>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">Authentication Status</div>
+        <div class="card-body">
+            <p class="@(User.Identity?.IsAuthenticated == true ? "text-success" : "text-danger")">
+                @Model.AuthStatus
+            </p>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">Database Information</div>
+        <div class="card-body">
+            <p class="@(Model.DatabaseStatus?.StartsWith("Database connection successful") == true ? "text-success" : "text-danger")">
+                @Model.DatabaseStatus
+            </p>
+            <pre>@Model.UserDetails</pre>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="/Instructor/Courses" class="btn btn-primary">Go to Courses</a>
+        <a href="/Instructor/Content/Modules" class="btn btn-secondary">Go to Modules</a>
+        <a href="/Login" class="btn btn-warning">Back to Login</a>
+    </div>
+</div> 

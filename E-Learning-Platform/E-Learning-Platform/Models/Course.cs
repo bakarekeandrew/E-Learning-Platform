@@ -15,7 +15,6 @@ namespace E_Learning_Platform.Models
         public bool IsActive { get; set; }
         public DateTime CreatedDate { get; set; }
         public List<Enrollment> Enrollments { get; set; }
-        public List<CourseRating> Ratings { get; set; }
         public List<LearningOutcome> LearningOutcomes { get; set; }
     }
 } 

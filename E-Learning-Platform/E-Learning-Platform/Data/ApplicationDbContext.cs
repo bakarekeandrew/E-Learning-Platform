@@ -11,14 +11,15 @@ namespace E_Learning_Platform.Data
         {
         }
 
-        public DbSet<User> Users { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; }
         public DbSet<CourseProgress> CourseProgress { get; set; }
         public DbSet<Certificate> Certificates { get; set; }
         public DbSet<UserActivity> UserActivities { get; set; }
         public DbSet<UserSession> UserSessions { get; set; }
-        public DbSet<CourseRating> CourseRatings { get; set; }
+
+        // Rename Users to AppUsers to avoid conflict with base class
+        public DbSet<User> AppUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -47,15 +48,6 @@ namespace E_Learning_Platform.Data
             // Configure CourseProgress entity
             builder.Entity<CourseProgress>()
                 .HasKey(cp => cp.ProgressId);
-
-            // Configure CourseRating entity
-            builder.Entity<CourseRating>()
-                .HasKey(cr => cr.RatingId);
-
-            builder.Entity<CourseRating>()
-                .HasOne(cr => cr.Course)
-                .WithMany(c => c.Ratings)
-                .HasForeignKey(cr => cr.CourseId);
 
             // Configure UserActivity entity
             builder.Entity<UserActivity>()

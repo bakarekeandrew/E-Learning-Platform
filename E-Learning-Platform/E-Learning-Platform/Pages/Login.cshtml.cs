@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 using Dapper;
+using E_Learning_Platform.Services;
 using Microsoft.AspNetCore.Http;
-using E_Learning_Platform.Pages.Services;
 using Microsoft.Extensions.Configuration;
 
 namespace E_Learning_Platform.Pages
@@ -34,7 +34,7 @@ namespace E_Learning_Platform.Pages
         private readonly OtpService _otpService;
         private readonly EmailService _emailService;
         private readonly IUserService _userService;
-        private readonly LoggingService _logger;
+        private readonly ILoggingService _logger;
         private readonly IConfiguration _configuration;
         private readonly string _connectionString;
 
@@ -44,22 +44,39 @@ namespace E_Learning_Platform.Pages
 
         public LoginModel(
             IUserService userService,
-            LoggingService logger,
-            OtpService otpService,
-            EmailService emailService,
+            ILoggingService logger,
+            IOtpService otpService,
+            IEmailService emailService,
             IConfiguration configuration)
         {
-            _userService = userService;
-            _logger = logger;
-            _otpService = otpService;
-            _emailService = emailService;
-            _configuration = configuration;
-            _connectionString = configuration.GetConnectionString("DefaultConnection");
+            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _otpService = (OtpService)otpService ?? throw new ArgumentNullException(nameof(otpService));
+            _emailService = (EmailService)emailService ?? throw new ArgumentNullException(nameof(emailService));
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            _connectionString = configuration.GetConnectionString("DefaultConnection") ?? 
+                throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
         }
 
         public void OnGet(string returnUrl = null, string error = null, string signupSuccess = null)
         {
-            ReturnUrl = returnUrl ?? Url.Content("~/");
+            // Clean and validate the returnUrl to prevent open redirect vulnerabilities
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            {
+                // If we're already on the login page, don't keep adding it to the return URL
+                if (!returnUrl.Contains("/Login", StringComparison.OrdinalIgnoreCase))
+                {
+                    ReturnUrl = returnUrl;
+                }
+                else
+                {
+                    ReturnUrl = Url.Content("~/");
+                }
+            }
+            else
+            {
+                ReturnUrl = Url.Content("~/");
+            }
             
             if (!string.IsNullOrEmpty(error))
             {
@@ -87,19 +104,25 @@ namespace E_Learning_Platform.Pages
                 var errors = string.Join(", ", ModelState.Values
                     .SelectMany(v => v.Errors)
                     .Select(e => e.ErrorMessage));
-                _logger.LogWarning("Login", $"Invalid model state: {errors}");
+                _logger.LogWarning("Login", "Invalid model state: {Errors}", errors);
                 return Page();
             }
 
             try
             {
-                _logger.LogInfo("Login", $"Attempting login for email: {Input.Email}");
+                _logger.LogInfo("Login", "Attempting login for email: {Email}", Input.Email);
                 
                 using var connection = new SqlConnection(_connectionString);
                 await connection.OpenAsync();
                 
-                var user = await connection.QueryFirstOrDefaultAsync(
-                    @"SELECT U.USER_ID, U.FULL_NAME, U.PASSWORD_HASH, U.MFA_ENABLED, R.ROLE_NAME 
+                // Get basic user information
+                var user = await connection.QueryFirstOrDefaultAsync<dynamic>(
+                    @"SELECT 
+                        U.USER_ID, 
+                        U.FULL_NAME, 
+                        U.PASSWORD_HASH, 
+                        U.MFA_ENABLED, 
+                        R.ROLE_NAME
                       FROM USERS U 
                       JOIN ROLES R ON U.ROLE_ID = R.ROLE_ID 
                       WHERE U.EMAIL = @Email",
@@ -107,7 +130,7 @@ namespace E_Learning_Platform.Pages
 
                 if (user == null)
                 {
-                    _logger.LogWarning("Login", $"User not found: {Input.Email}");
+                    _logger.LogWarning("Login", "User not found: {Email}", Input.Email);
                     ModelState.AddModelError(string.Empty, "Invalid email or password");
                     return Page();
                 }
@@ -115,7 +138,7 @@ namespace E_Learning_Platform.Pages
                 bool isPasswordValid = BCrypt.Net.BCrypt.Verify(Input.Password, user.PASSWORD_HASH);
                 if (!isPasswordValid)
                 {
-                    _logger.LogWarning("Login", $"Invalid password for user: {Input.Email}");
+                    _logger.LogWarning("Login", "Invalid password for user: {Email}", Input.Email);
                     ModelState.AddModelError(string.Empty, "Invalid email or password");
                     return Page();
                 }
@@ -127,12 +150,12 @@ namespace E_Learning_Platform.Pages
                     _otpService.SaveOtp(user.USER_ID, otp);
                     await _emailService.SendOtpEmailAsync(Input.Email, otp);
 
-
                     TempData["PendingUserId"] = user.USER_ID;
                     TempData["PendingEmail"] = Input.Email;
                     TempData["PendingUserRole"] = user.ROLE_NAME;
                     TempData["PendingUserName"] = user.FULL_NAME;
                     TempData["RememberMe"] = Input.RememberMe;
+                    TempData["ReturnUrl"] = ReturnUrl;
 
                     return RedirectToPage("/MfaVerification");
                 }
@@ -144,20 +167,26 @@ namespace E_Learning_Platform.Pages
                     roleName: user.ROLE_NAME,
                     rememberMe: Input.RememberMe);
 
-                var redirectPage = user.ROLE_NAME switch
+                // Determine landing page based on role
+                var landingPage = user.ROLE_NAME switch
                 {
                     "ADMIN" => "/AdminDashboard",
                     "INSTRUCTOR" => "/Instructor/Dashboard",
                     "STUDENT" => "/Student/Dashboard",
-                    _ => "/Index"
+                    _ => "/HomePage"
                 };
 
-                _logger.LogInfo("Login", $"Login successful. Redirecting to: {redirectPage}");
-                return Redirect(redirectPage);
+                if (!string.IsNullOrEmpty(ReturnUrl) && Url.IsLocalUrl(ReturnUrl))
+                {
+                    return LocalRedirect(ReturnUrl);
+                }
+
+                _logger.LogInfo("Login", "Login successful. Redirecting to: {LandingPage}", landingPage);
+                return LocalRedirect(landingPage);
             }
             catch (Exception ex)
             {
-                _logger.LogError("Login", $"Exception during login: {ex.Message}\nStack trace: {ex.StackTrace}");
+                _logger.LogError("Login", "Exception during login", ex);
                 ModelState.AddModelError(string.Empty, "An error occurred during login. Please try again.");
                 return Page();
             }
@@ -187,7 +216,7 @@ namespace E_Learning_Platform.Pages
         {
             try
             {
-                _logger.LogInfo("Login", $"Starting CompleteSignInAsync for user {userId} ({email})");
+                _logger.LogInfo("Login", "Starting CompleteSignInAsync for user {UserId} ({Email})", userId, email);
                 
                 // Clear any existing authentication
                 await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -198,7 +227,7 @@ namespace E_Learning_Platform.Pages
                 HttpContext.Session.SetString("UserRole", roleName);
                 HttpContext.Session.SetString("UserName", fullName);
 
-                // Create claims
+                // Create basic claims
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
@@ -213,8 +242,7 @@ namespace E_Learning_Platform.Pages
                 {
                     IsPersistent = rememberMe,
                     ExpiresUtc = DateTimeOffset.UtcNow.AddHours(12),
-                    AllowRefresh = true,
-                    RedirectUri = "/"
+                    AllowRefresh = true
                 };
 
                 await HttpContext.SignInAsync(
@@ -226,7 +254,7 @@ namespace E_Learning_Platform.Pages
             }
             catch (Exception ex)
             {
-                _logger.LogError("Login", $"Error in CompleteSignInAsync: {ex.Message}\nStack trace: {ex.StackTrace}");
+                _logger.LogError("Login", "Error in CompleteSignInAsync: {Error}\nStack trace: {StackTrace}", ex.Message, ex.StackTrace);
                 throw;
             }
         }

@@ -8,6 +8,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
 
 namespace E_Learning_Platform.Pages.Instructor.Courses
 {
@@ -15,13 +16,15 @@ namespace E_Learning_Platform.Pages.Instructor.Courses
     public class CreateModel : PageModel
     {
         private readonly string _connectionString;
+        private readonly ILogger<CreateModel> _logger;
 
-        public CreateModel()
+        public CreateModel(ILogger<CreateModel> logger)
         {
             _connectionString = "Data Source=ABAKAREKE_25497\\SQLEXPRESS;" +
                               "Initial Catalog=ONLINE_LEARNING_PLATFORM;" +
                               "Integrated Security=True;" +
                               "TrustServerCertificate=True";
+            _logger = logger;
         }
 
         [BindProperty]
@@ -29,6 +32,7 @@ namespace E_Learning_Platform.Pages.Instructor.Courses
 
         public SelectList Categories { get; set; }
         public SelectList Levels { get; set; }
+        public string ErrorMessage { get; set; }
 
         public class CourseInput
         {
@@ -130,7 +134,8 @@ namespace E_Learning_Platform.Pages.Instructor.Courses
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", $"An error occurred while saving the course: {ex.Message}");
+                _logger.LogError(ex, "Error creating course");
+                ErrorMessage = $"An error occurred while creating the course: {ex.Message}";
                 await LoadCategories();
                 LoadLevels();
                 return Page();

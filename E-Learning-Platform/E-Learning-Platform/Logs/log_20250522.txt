@@ -1,0 +1,728 @@
+2025-05-22 00:09:36 [Information] [Login] Starting login process
+2025-05-22 00:09:36 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-22 00:09:38 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-22 00:09:38 [Information] [Login] Sign-in completed successfully
+2025-05-22 00:09:38 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-22 01:00:43 [Information] [Login] Starting login process
+2025-05-22 01:00:43 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-22 01:00:44 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-22 01:00:44 [Information] [Login] Sign-in completed successfully
+2025-05-22 01:00:44 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-22 09:57:32 [Information] [Login] Starting login process
+2025-05-22 09:57:32 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-22 09:57:33 [Warning] [Login] Invalid password for user: egide@gmail.com
+2025-05-22 09:57:45 [Information] [Login] Starting login process
+2025-05-22 09:57:45 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-22 09:57:45 [Warning] [Login] Invalid password for user: egide@gmail.com
+2025-05-22 09:58:01 [Information] [Login] Starting login process
+2025-05-22 09:58:01 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-22 09:58:01 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-22 09:58:01 [Information] [Login] Sign-in completed successfully
+2025-05-22 09:58:01 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-22 10:00:19 [Information] [Login] Starting login process
+2025-05-22 10:00:19 [Information] [Login] Attempting login for email: admin@gmail.com
+2025-05-22 10:00:19 [Error] [Login] Exception during login: Invalid salt version
+Stack trace:    at BCrypt.Net.BCrypt.HashPassword(String inputKey, String salt, Boolean enhancedEntropy, HashType hashType)
+   at CallSite.Target(Closure, CallSite, Type, String, Object)
+   at E_Learning_Platform.Pages.LoginModel.OnPostAsync() in C:\Users\HP\Desktop\Dot-net\E-Learning-Platform\E-Learning-Platform\E-Learning-Platform\Pages\Login.cshtml.cs:line 115
+2025-05-22 10:00:28 [Information] [Login] Starting login process
+2025-05-22 10:00:28 [Information] [Login] Attempting login for email: admin@gmail.com
+2025-05-22 10:00:28 [Error] [Login] Exception during login: Invalid salt version
+Stack trace:    at BCrypt.Net.BCrypt.HashPassword(String inputKey, String salt, Boolean enhancedEntropy, HashType hashType)
+   at CallSite.Target(Closure, CallSite, Type, String, Object)
+   at E_Learning_Platform.Pages.LoginModel.OnPostAsync() in C:\Users\HP\Desktop\Dot-net\E-Learning-Platform\E-Learning-Platform\E-Learning-Platform\Pages\Login.cshtml.cs:line 115
+2025-05-22 10:00:47 [Information] [Login] Starting login process
+2025-05-22 10:00:47 [Information] [Login] Attempting login for email: andrew@gmail.com
+2025-05-22 10:00:47 [Error] [Login] Exception during login: Invalid salt version
+Stack trace:    at BCrypt.Net.BCrypt.HashPassword(String inputKey, String salt, Boolean enhancedEntropy, HashType hashType)
+   at CallSite.Target(Closure, CallSite, Type, String, Object)
+   at E_Learning_Platform.Pages.LoginModel.OnPostAsync() in C:\Users\HP\Desktop\Dot-net\E-Learning-Platform\E-Learning-Platform\E-Learning-Platform\Pages\Login.cshtml.cs:line 115
+2025-05-22 10:08:15 [Information] [Login] Starting login process
+2025-05-22 10:08:15 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-22 10:08:16 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-22 10:08:16 [Information] [Login] Sign-in completed successfully
+2025-05-22 10:08:16 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-22 10:10:51 [Information] [Login] Starting login process
+2025-05-22 10:10:51 [Information] [Login] Attempting login for email: pie@gmail.com
+2025-05-22 10:10:51 [Error] [Login] Exception during login: Invalid salt version
+Stack trace:    at BCrypt.Net.BCrypt.HashPassword(String inputKey, String salt, Boolean enhancedEntropy, HashType hashType)
+   at CallSite.Target(Closure, CallSite, Type, String, Object)
+   at E_Learning_Platform.Pages.LoginModel.OnPostAsync() in C:\Users\HP\Desktop\Dot-net\E-Learning-Platform\E-Learning-Platform\E-Learning-Platform\Pages\Login.cshtml.cs:line 131
+2025-05-22 10:11:01 [Information] [Login] Starting login process
+2025-05-22 10:11:01 [Information] [Login] Attempting login for email: pie@gmail.com
+2025-05-22 10:11:01 [Error] [Login] Exception during login: Invalid salt version
+Stack trace:    at BCrypt.Net.BCrypt.HashPassword(String inputKey, String salt, Boolean enhancedEntropy, HashType hashType)
+   at CallSite.Target(Closure, CallSite, Type, String, Object)
+   at E_Learning_Platform.Pages.LoginModel.OnPostAsync() in C:\Users\HP\Desktop\Dot-net\E-Learning-Platform\E-Learning-Platform\E-Learning-Platform\Pages\Login.cshtml.cs:line 131
+2025-05-22 10:26:35 [Information] [Login] Starting login process
+2025-05-22 10:26:35 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-22 10:26:36 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-22 10:26:36 [Information] [Login] Sign-in completed successfully
+2025-05-22 10:26:36 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-22 10:37:19 [Information] [Login] Starting login process
+2025-05-22 10:37:19 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-22 10:37:20 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-22 10:37:20 [Information] [Login] Sign-in completed successfully
+2025-05-22 10:37:20 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-22 10:46:54 [Information] [Login] Starting login process
+2025-05-22 10:46:54 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-22 10:46:54 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-22 10:46:54 [Information] [Login] Sign-in completed successfully
+2025-05-22 10:46:54 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-22 10:57:29 [Information] [Login] Starting login process
+2025-05-22 10:57:29 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-22 10:57:29 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-22 10:57:29 [Information] [Login] Sign-in completed successfully
+2025-05-22 10:57:29 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-22 11:42:30 [Information] [Login] Starting login process
+2025-05-22 11:42:30 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-22 11:42:31 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-22 11:42:31 [Information] [Login] Sign-in completed successfully
+2025-05-22 11:42:31 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-22 12:04:42 [Information] [Login] Starting login process
+2025-05-22 12:04:42 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-22 12:04:43 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-22 12:04:43 [Information] [Login] Sign-in completed successfully
+2025-05-22 12:04:43 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-22 12:07:54 [Information] [Login] Starting login process
+2025-05-22 12:07:54 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-22 12:07:54 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-22 12:07:54 [Information] [Login] Sign-in completed successfully
+2025-05-22 12:07:54 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-22 12:16:13 [Information] [Login] Starting login process
+2025-05-22 12:16:13 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-22 12:16:14 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-22 12:16:14 [Information] [Login] Sign-in completed successfully
+2025-05-22 12:16:14 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-22 12:28:52 [Information] [Login] Starting login process
+2025-05-22 12:28:52 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-22 12:28:52 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-22 12:28:52 [Information] [Login] Sign-in completed successfully
+2025-05-22 12:28:52 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-22 12:39:15 [Information] [Login] Starting login process
+2025-05-22 12:39:15 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-22 12:39:16 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-22 12:39:16 [Information] [Login] Sign-in completed successfully
+2025-05-22 12:39:16 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-22 12:45:14 [Information] [Login] Starting login process
+2025-05-22 12:45:14 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-22 12:45:14 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-22 12:45:14 [Information] [Login] Sign-in completed successfully
+2025-05-22 12:45:14 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-22 12:46:58 [Information] [Login] Starting login process
+2025-05-22 12:46:58 [Information] [Login] Attempting login for email: bigwi@gmail.com
+2025-05-22 12:46:58 [Error] [Login] Exception during login: Invalid salt version
+Stack trace:    at BCrypt.Net.BCrypt.HashPassword(String inputKey, String salt, Boolean enhancedEntropy, HashType hashType)
+   at CallSite.Target(Closure, CallSite, Type, String, Object)
+   at E_Learning_Platform.Pages.LoginModel.OnPostAsync() in C:\Users\HP\Desktop\Dot-net\E-Learning-Platform\E-Learning-Platform\E-Learning-Platform\Pages\Login.cshtml.cs:line 131
+2025-05-22 12:47:56 [Information] [Login] Starting login process
+2025-05-22 12:47:56 [Information] [Login] Attempting login for email: bigwi@gmail.com
+2025-05-22 12:47:56 [Error] [Login] Exception during login: Invalid salt version
+Stack trace:    at BCrypt.Net.BCrypt.HashPassword(String inputKey, String salt, Boolean enhancedEntropy, HashType hashType)
+   at CallSite.Target(Closure, CallSite, Type, String, Object)
+   at E_Learning_Platform.Pages.LoginModel.OnPostAsync() in C:\Users\HP\Desktop\Dot-net\E-Learning-Platform\E-Learning-Platform\E-Learning-Platform\Pages\Login.cshtml.cs:line 131
+2025-05-22 12:47:59 [Information] [SignupPageModel] Loading signup page
+2025-05-22 12:48:52 [Information] [SignupPageModel] Signup form submitted
+2025-05-22 12:48:52 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 12:48:52 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 12:48:52 [Information] [SignupPageModel] Email exists check result: False
+2025-05-22 12:48:52 [Information] [SignupPageModel] Generated OTP: 680638
+2025-05-22 12:48:52 [Information] [SignupPageModel] Password hashed successfully
+2025-05-22 12:48:52 [Information] [SignupPageModel] Found Student role ID: 3
+2025-05-22 12:48:52 [Information] [SignupPageModel] Database connection opened
+2025-05-22 12:48:53 [Error] SignupPageModel
+2025-05-22 12:55:02 [Information] [SignupPageModel] Loading signup page
+2025-05-22 12:56:46 [Information] [SignupPageModel] Loading signup page
+2025-05-22 12:57:25 [Information] [SignupPageModel] Signup form submitted
+2025-05-22 12:57:25 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 12:57:25 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 12:57:25 [Information] [SignupPageModel] Email exists check result: False
+2025-05-22 12:57:25 [Information] [SignupPageModel] Generated OTP: 167210
+2025-05-22 12:57:25 [Information] [SignupPageModel] Password hashed successfully
+2025-05-22 12:57:25 [Information] [SignupPageModel] Found Student role ID: 3
+2025-05-22 12:57:25 [Information] [SignupPageModel] Database connection opened
+2025-05-22 12:57:25 [Error] SignupPageModel
+2025-05-22 13:02:23 [Information] [SignupPageModel] Loading signup page
+2025-05-22 13:02:48 [Information] [SignupPageModel] Signup form submitted
+2025-05-22 13:02:48 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 13:02:48 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 13:02:48 [Information] [SignupPageModel] Email exists check result: False
+2025-05-22 13:02:48 [Information] [SignupPageModel] Generated OTP: 870432
+2025-05-22 13:02:49 [Information] [SignupPageModel] Password hashed successfully
+2025-05-22 13:02:49 [Information] [SignupPageModel] Found Student role ID: 3
+2025-05-22 13:02:49 [Information] [SignupPageModel] Database connection opened
+2025-05-22 13:02:49 [Error] SignupPageModel
+2025-05-22 13:40:28 [Information] [SignupPageModel] Loading signup page
+2025-05-22 13:41:02 [Information] [SignupPageModel] Signup form submitted
+2025-05-22 13:41:02 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 13:41:02 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 13:41:02 [Information] [SignupPageModel] Email exists check result: False
+2025-05-22 13:41:02 [Information] [SignupPageModel] Generated OTP: 616419
+2025-05-22 13:41:02 [Information] [SignupPageModel] Password hashed successfully
+2025-05-22 13:41:03 [Information] [SignupPageModel] Found Student role ID: 3
+2025-05-22 13:41:03 [Information] [SignupPageModel] Database connection opened
+2025-05-22 13:41:03 [Error] SignupPageModel
+2025-05-22 13:43:33 [Information] [SignupPageModel] Loading signup page
+2025-05-22 13:44:06 [Information] [SignupPageModel] Signup form submitted
+2025-05-22 13:44:06 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 13:44:06 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 13:44:06 [Information] [SignupPageModel] Email exists check result: False
+2025-05-22 13:44:06 [Information] [SignupPageModel] Generated OTP: 578646
+2025-05-22 13:44:06 [Information] [SignupPageModel] Password hashed successfully
+2025-05-22 13:44:06 [Information] [SignupPageModel] Found Student role ID: 3
+2025-05-22 13:44:06 [Information] [SignupPageModel] Database connection opened
+2025-05-22 13:44:06 [Error] SignupPageModel
+2025-05-22 13:55:05 [Information] [SignupPageModel] Loading signup page
+2025-05-22 13:55:25 [Information] [SignupPageModel] Signup form submitted
+2025-05-22 13:55:25 [Information] [SignupPageModel] Input model validation failed
+2025-05-22 13:55:44 [Information] [SignupPageModel] Signup form submitted
+2025-05-22 13:55:44 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 13:55:44 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 13:55:44 [Information] [SignupPageModel] Email exists check result: False
+2025-05-22 13:55:44 [Information] [SignupPageModel] Generated OTP: 125355
+2025-05-22 13:55:44 [Information] [SignupPageModel] Password hashed successfully
+2025-05-22 13:55:44 [Information] [SignupPageModel] Found Student role ID: 3
+2025-05-22 13:55:44 [Information] [SignupPageModel] Database connection opened
+2025-05-22 13:55:44 [Information] [SignupPageModel] Temporary user created with ID: 8
+2025-05-22 13:55:44 [Information] [SignupPageModel] Sending OTP email to: bakarekeandrewfils@gmail.com
+2025-05-22 13:55:48 [Information] [SignupPageModel] OTP email sent successfully
+2025-05-22 13:56:50 [Information] [SignupPageModel] Starting OTP verification process
+2025-05-22 13:56:50 [Information] [SignupPageModel] Retrieved from session - TempUserId: 8
+2025-05-22 13:56:50 [Information] [SignupPageModel] Verifying OTP for temp user: 8
+2025-05-22 13:56:51 [Error] [SignupPageModel] Database error during OTP verification: Incorrect syntax near the keyword 'CURRENT_TIME'.
+2025-05-22 13:56:51 [Error] [SignupPageModel] SQL Error Number: 156
+2025-05-22 13:57:03 [Information] [SignupPageModel] Starting OTP verification process
+2025-05-22 13:57:03 [Information] [SignupPageModel] Retrieved from session - TempUserId: 8
+2025-05-22 13:57:03 [Information] [SignupPageModel] Verifying OTP for temp user: 8
+2025-05-22 13:57:03 [Error] [SignupPageModel] Database error during OTP verification: Incorrect syntax near the keyword 'CURRENT_TIME'.
+2025-05-22 13:57:03 [Error] [SignupPageModel] SQL Error Number: 156
+2025-05-22 14:08:08 [Information] [SignupPageModel] Loading signup page
+2025-05-22 14:08:35 [Information] [SignupPageModel] Signup form submitted
+2025-05-22 14:08:35 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 14:08:35 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 14:08:35 [Information] [SignupPageModel] Email exists check result: False
+2025-05-22 14:08:35 [Information] [SignupPageModel] Generated OTP: 678395
+2025-05-22 14:08:35 [Information] [SignupPageModel] Password hashed successfully
+2025-05-22 14:08:36 [Information] [SignupPageModel] Found Student role ID: 3
+2025-05-22 14:08:36 [Information] [SignupPageModel] Database connection opened
+2025-05-22 14:08:36 [Information] [SignupPageModel] Temporary user created with ID: 9
+2025-05-22 14:08:36 [Information] [SignupPageModel] Sending OTP email to: bakarekeandrewfils@gmail.com
+2025-05-22 14:08:39 [Information] [SignupPageModel] OTP email sent successfully
+2025-05-22 14:09:28 [Information] [SignupPageModel] Starting OTP verification process
+2025-05-22 14:09:28 [Information] [SignupPageModel] Retrieved from session - TempUserId: 9
+2025-05-22 14:09:28 [Information] [SignupPageModel] Verifying OTP for temp user: 9
+2025-05-22 14:09:28 [Error] [SignupPageModel] Database error during OTP verification: Incorrect syntax near the keyword 'CURRENT_TIME'.
+2025-05-22 14:11:56 [Information] [SignupPageModel] Loading signup page
+2025-05-22 14:12:26 [Information] [SignupPageModel] Signup form submitted
+2025-05-22 14:12:26 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 14:12:26 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 14:12:26 [Information] [SignupPageModel] Email exists check result: False
+2025-05-22 14:12:26 [Information] [SignupPageModel] Generated OTP: 656212
+2025-05-22 14:12:27 [Information] [SignupPageModel] Password hashed successfully
+2025-05-22 14:12:27 [Information] [SignupPageModel] Found Student role ID: 3
+2025-05-22 14:12:27 [Information] [SignupPageModel] Database connection opened
+2025-05-22 14:12:27 [Information] [SignupPageModel] Temporary user created with ID: 10
+2025-05-22 14:12:27 [Information] [SignupPageModel] Sending OTP email to: bakarekeandrewfils@gmail.com
+2025-05-22 14:12:30 [Information] [SignupPageModel] OTP email sent successfully
+2025-05-22 14:13:00 [Information] [SignupPageModel] Starting OTP verification process
+2025-05-22 14:13:00 [Information] [SignupPageModel] Retrieved from session - TempUserId: 10
+2025-05-22 14:13:00 [Information] [SignupPageModel] Verifying OTP for temp user: 10
+2025-05-22 14:13:00 [Error] [SignupPageModel] Database error during OTP verification: Incorrect syntax near the keyword 'CURRENT_TIME'.
+2025-05-22 14:22:31 [Information] [SignupPageModel] Loading signup page
+2025-05-22 14:22:49 [Information] [SignupPageModel] Signup form submitted
+2025-05-22 14:22:49 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 14:22:49 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 14:22:49 [Information] [SignupPageModel] Email exists check result: False
+2025-05-22 14:22:49 [Information] [SignupPageModel] Generated OTP: 658833
+2025-05-22 14:22:49 [Information] [SignupPageModel] Password hashed successfully
+2025-05-22 14:22:49 [Information] [SignupPageModel] Found Student role ID: 3
+2025-05-22 14:22:49 [Information] [SignupPageModel] Database connection opened
+2025-05-22 14:22:49 [Information] [SignupPageModel] Temporary user created with ID: 11
+2025-05-22 14:22:49 [Information] [SignupPageModel] Sending OTP email to: bakarekeandrewfils@gmail.com
+2025-05-22 14:22:52 [Information] [SignupPageModel] OTP email sent successfully
+2025-05-22 14:23:35 [Information] [SignupPageModel] Starting OTP verification process
+2025-05-22 14:23:35 [Information] [SignupPageModel] Retrieved temp user data for bakarekeandrewfils@gmail.com
+2025-05-22 14:23:35 [Information] [SignupPageModel] Created new user with ID: 32
+2025-05-22 14:23:35 [Error] [SignupPageModel] Database error: Cannot insert the value NULL into column 'OLD_ROLE_ID', table 'ONLINE_LEARNING_PLATFORM.dbo.ROLE_CHANGE_AUDIT'; column does not allow nulls. INSERT fails.
+The statement has been terminated. (Error 515)
+2025-05-22 14:27:46 [Information] [SignupPageModel] Loading signup page
+2025-05-22 14:28:11 [Information] [SignupPageModel] Signup form submitted
+2025-05-22 14:28:11 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 14:28:11 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 14:28:11 [Information] [SignupPageModel] Email exists check result: False
+2025-05-22 14:28:11 [Information] [SignupPageModel] Generated OTP: 811023
+2025-05-22 14:28:12 [Information] [SignupPageModel] Password hashed successfully
+2025-05-22 14:28:12 [Information] [SignupPageModel] Found Student role ID: 3
+2025-05-22 14:28:12 [Information] [SignupPageModel] Database connection opened
+2025-05-22 14:28:12 [Information] [SignupPageModel] Temporary user created with ID: 12
+2025-05-22 14:28:12 [Information] [SignupPageModel] Sending OTP email to: bakarekeandrewfils@gmail.com
+2025-05-22 14:28:15 [Information] [SignupPageModel] OTP email sent successfully
+2025-05-22 14:28:33 [Information] [SignupPageModel] Starting OTP verification process
+2025-05-22 14:28:33 [Information] [SignupPageModel] Validating OTP for tempUserId: 12
+2025-05-22 14:28:33 [Information] [SignupPageModel] Database connection opened successfully
+2025-05-22 14:28:33 [Information] [SignupPageModel] Transaction started
+2025-05-22 14:28:33 [Information] [SignupPageModel] Retrieving temp user data
+2025-05-22 14:28:33 [Information] [SignupPageModel] Retrieved temp user data for bakarekeandrewfils@gmail.com with role 3
+2025-05-22 14:28:33 [Information] [SignupPageModel] Inserting new user
+2025-05-22 14:28:33 [Information] [SignupPageModel] Created new user with ID: 33
+2025-05-22 14:28:33 [Information] [SignupPageModel] Adding role audit entry
+2025-05-22 14:28:33 [Error] [SignupPageModel] SQL Error during user creation:
+Message: Cannot insert the value NULL into column 'OLD_ROLE_ID', table 'ONLINE_LEARNING_PLATFORM.dbo.ROLE_CHANGE_AUDIT'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+Number: 515
+State: 2
+Procedure: 
+2025-05-22 14:28:33 [Information] [SignupPageModel] Transaction rolled back
+2025-05-22 14:34:26 [Information] [SignupPageModel] Loading signup page
+2025-05-22 14:34:56 [Information] [SignupPageModel] Signup form submitted
+2025-05-22 14:34:56 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 14:34:56 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 14:34:56 [Information] [SignupPageModel] Email exists check result: False
+2025-05-22 14:34:56 [Information] [SignupPageModel] Generated OTP: 902745
+2025-05-22 14:34:57 [Information] [SignupPageModel] Password hashed successfully
+2025-05-22 14:34:57 [Information] [SignupPageModel] Found Student role ID: 3
+2025-05-22 14:34:57 [Information] [SignupPageModel] Database connection opened
+2025-05-22 14:34:57 [Information] [SignupPageModel] Temporary user created with ID: 13
+2025-05-22 14:34:57 [Information] [SignupPageModel] Sending OTP email to: bakarekeandrewfils@gmail.com
+2025-05-22 14:35:01 [Information] [SignupPageModel] OTP email sent successfully
+2025-05-22 14:35:21 [Information] [SignupPageModel] Starting OTP verification process
+2025-05-22 14:35:21 [Information] [SignupPageModel] Validating OTP for tempUserId: 13
+2025-05-22 14:35:21 [Information] [SignupPageModel] Database connection opened successfully
+2025-05-22 14:35:21 [Information] [SignupPageModel] Transaction started
+2025-05-22 14:35:21 [Information] [SignupPageModel] Retrieving temp user data
+2025-05-22 14:35:21 [Information] [SignupPageModel] Retrieved temp user data for bakarekeandrewfils@gmail.com with role 3
+2025-05-22 14:35:21 [Information] [SignupPageModel] Generated username: bakarekeandrewfils, normalized: BAKAREKEANDREWFILS
+2025-05-22 14:35:21 [Information] [SignupPageModel] Inserting new user
+2025-05-22 14:35:21 [Information] [SignupPageModel] About to insert user with values - FullName: 'saint', Email: 'bakarekeandrewfils@gmail.com', Username: 'bakarekeandrewfils', RoleId: 3
+2025-05-22 14:35:21 [Information] [SignupPageModel] Created new user with ID: 34
+2025-05-22 14:35:21 [Information] [SignupPageModel] Adding role audit entry
+2025-05-22 14:35:21 [Error] [SignupPageModel] SQL Error during user creation:
+Message: Cannot insert the value NULL into column 'OLD_ROLE_ID', table 'ONLINE_LEARNING_PLATFORM.dbo.ROLE_CHANGE_AUDIT'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+Number: 515
+State: 2
+Procedure: 
+LineNumber: 1
+2025-05-22 14:35:21 [Information] [SignupPageModel] Transaction rolled back
+2025-05-22 14:38:36 [Information] [SignupPageModel] Loading signup page
+2025-05-22 14:38:47 [Information] [SignupPageModel] Signup form submitted
+2025-05-22 14:38:47 [Information] [SignupPageModel] Input model validation failed
+2025-05-22 14:39:07 [Information] [SignupPageModel] Signup form submitted
+2025-05-22 14:39:07 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 14:39:07 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 14:39:07 [Information] [SignupPageModel] Email exists check result: False
+2025-05-22 14:39:07 [Information] [SignupPageModel] Generated OTP: 484267
+2025-05-22 14:39:08 [Information] [SignupPageModel] Password hashed successfully
+2025-05-22 14:39:08 [Information] [SignupPageModel] Found Student role ID: 3
+2025-05-22 14:39:08 [Information] [SignupPageModel] Database connection opened
+2025-05-22 14:39:08 [Information] [SignupPageModel] Temporary user created with ID: 14
+2025-05-22 14:39:08 [Information] [SignupPageModel] Sending OTP email to: bakarekeandrewfils@gmail.com
+2025-05-22 14:39:11 [Information] [SignupPageModel] OTP email sent successfully
+2025-05-22 14:39:31 [Information] [SignupPageModel] Starting OTP verification process
+2025-05-22 14:39:31 [Information] [SignupPageModel] Validating OTP for tempUserId: 14
+2025-05-22 14:39:31 [Information] [SignupPageModel] Database connection opened successfully
+2025-05-22 14:39:31 [Information] [SignupPageModel] Transaction started
+2025-05-22 14:39:31 [Information] [SignupPageModel] Retrieving temp user data
+2025-05-22 14:39:31 [Information] [SignupPageModel] Retrieved and validated temp user data for bakarekeandrewfils@gmail.com with role 3
+2025-05-22 14:39:31 [Information] [SignupPageModel] Inserting new user
+2025-05-22 14:39:31 [Information] [SignupPageModel] Created new user with ID: 35
+2025-05-22 14:39:31 [Information] [SignupPageModel] Adding role audit entry
+2025-05-22 14:39:31 [Error] [SignupPageModel] SQL Error during user creation:
+Message: Cannot insert the value NULL into column 'OLD_ROLE_ID', table 'ONLINE_LEARNING_PLATFORM.dbo.ROLE_CHANGE_AUDIT'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+Number: 515
+State: 2
+Procedure: 
+2025-05-22 14:39:31 [Information] [SignupPageModel] Transaction rolled back
+2025-05-22 14:50:07 [Information] [SignupPageModel] Loading signup page
+2025-05-22 14:50:48 [Information] [SignupPageModel] Signup form submitted
+2025-05-22 14:50:48 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 14:50:48 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 14:50:48 [Information] [SignupPageModel] Email exists check result: False
+2025-05-22 14:50:48 [Information] [SignupPageModel] Generated OTP: 371829
+2025-05-22 14:50:49 [Information] [SignupPageModel] Password hashed successfully
+2025-05-22 14:50:49 [Information] [SignupPageModel] Found Student role ID: 3
+2025-05-22 14:50:49 [Information] [SignupPageModel] Database connection opened
+2025-05-22 14:50:49 [Information] [SignupPageModel] Temporary user created with ID: 15
+2025-05-22 14:50:49 [Information] [SignupPageModel] Sending OTP email to: bakarekeandrewfils@gmail.com
+2025-05-22 14:50:52 [Information] [SignupPageModel] OTP email sent successfully
+2025-05-22 14:51:12 [Information] [SignupPageModel] Starting OTP verification process
+2025-05-22 14:51:12 [Information] [SignupPageModel] Validating OTP for tempUserId: 15
+2025-05-22 14:51:12 [Information] [SignupPageModel] Database connection opened successfully
+2025-05-22 14:51:12 [Information] [SignupPageModel] Transaction started
+2025-05-22 14:51:12 [Information] [SignupPageModel] Retrieving temp user data
+2025-05-22 14:51:12 [Information] [SignupPageModel] Retrieved temp user data for bakarekeandrewfils@gmail.com with role 3
+2025-05-22 14:51:12 [Information] [SignupPageModel] Validating retrieved data - FullName: 'saint', Email: 'bakarekeandrewfils@gmail.com', PasswordHash length: 60, RoleId: 3
+2025-05-22 14:51:12 [Information] [SignupPageModel] Generated username: bakarekeandrewfils, normalized: BAKAREKEANDREWFILS
+2025-05-22 14:51:12 [Information] [SignupPageModel] Inserting new user
+2025-05-22 14:51:12 [Information] [SignupPageModel] About to insert user with values - FullName: 'saint', Email: 'bakarekeandrewfils@gmail.com', Username: 'bakarekeandrewfils', RoleId: 3
+2025-05-22 14:51:12 [Information] [SignupPageModel] Created new user with ID: 36
+2025-05-22 14:51:12 [Information] [SignupPageModel] Adding role audit entry
+2025-05-22 14:51:13 [Error] [SignupPageModel] SQL Error during user creation:
+Message: Cannot insert the value NULL into column 'OLD_ROLE_ID', table 'ONLINE_LEARNING_PLATFORM.dbo.ROLE_CHANGE_AUDIT'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+Number: 515
+State: 2
+Procedure: 
+LineNumber: 1
+2025-05-22 14:51:13 [Information] [SignupPageModel] Transaction rolled back
+2025-05-22 14:51:26 [Information] [SignupPageModel] Starting OTP verification process
+2025-05-22 14:51:26 [Information] [SignupPageModel] Validating OTP for tempUserId: 15
+2025-05-22 14:51:26 [Information] [SignupPageModel] Database connection opened successfully
+2025-05-22 14:51:26 [Information] [SignupPageModel] Transaction started
+2025-05-22 14:51:26 [Information] [SignupPageModel] Retrieving temp user data
+2025-05-22 14:51:26 [Information] [SignupPageModel] Retrieved temp user data for bakarekeandrewfils@gmail.com with role 3
+2025-05-22 14:51:26 [Information] [SignupPageModel] Validating retrieved data - FullName: 'saint', Email: 'bakarekeandrewfils@gmail.com', PasswordHash length: 60, RoleId: 3
+2025-05-22 14:51:26 [Information] [SignupPageModel] Generated username: bakarekeandrewfils, normalized: BAKAREKEANDREWFILS
+2025-05-22 14:51:26 [Information] [SignupPageModel] Inserting new user
+2025-05-22 14:51:26 [Information] [SignupPageModel] About to insert user with values - FullName: 'saint', Email: 'bakarekeandrewfils@gmail.com', Username: 'bakarekeandrewfils', RoleId: 3
+2025-05-22 14:51:26 [Information] [SignupPageModel] Created new user with ID: 37
+2025-05-22 14:51:26 [Information] [SignupPageModel] Adding role audit entry
+2025-05-22 14:51:26 [Error] [SignupPageModel] SQL Error during user creation:
+Message: Cannot insert the value NULL into column 'OLD_ROLE_ID', table 'ONLINE_LEARNING_PLATFORM.dbo.ROLE_CHANGE_AUDIT'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+Number: 515
+State: 2
+Procedure: 
+LineNumber: 1
+2025-05-22 14:51:27 [Information] [SignupPageModel] Transaction rolled back
+2025-05-22 14:55:41 [Information] [SignupPageModel] Starting OTP verification process
+2025-05-22 14:55:42 [Information] [SignupPageModel] Loading signup page
+2025-05-22 14:56:52 [Information] [SignupPageModel] Loading signup page
+2025-05-22 14:57:10 [Information] [SignupPageModel] Signup form submitted
+2025-05-22 14:57:10 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 14:57:10 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 14:57:10 [Information] [SignupPageModel] Email exists check result: False
+2025-05-22 14:57:10 [Information] [SignupPageModel] Generated OTP: 488297
+2025-05-22 14:57:11 [Information] [SignupPageModel] Password hashed successfully
+2025-05-22 14:57:11 [Information] [SignupPageModel] Found Student role ID: 3
+2025-05-22 14:57:11 [Information] [SignupPageModel] Database connection opened
+2025-05-22 14:57:11 [Information] [SignupPageModel] Temporary user created with ID: 16
+2025-05-22 14:57:11 [Information] [SignupPageModel] Sending OTP email to: bakarekeandrewfils@gmail.com
+2025-05-22 14:57:15 [Information] [SignupPageModel] OTP email sent successfully
+2025-05-22 14:57:42 [Information] [SignupPageModel] Starting OTP verification process
+2025-05-22 14:57:42 [Information] [SignupPageModel] Validating OTP for tempUserId: 16
+2025-05-22 14:57:42 [Information] [SignupPageModel] Database connection opened successfully
+2025-05-22 14:57:42 [Information] [SignupPageModel] Transaction started
+2025-05-22 14:57:42 [Information] [SignupPageModel] Retrieving temp user data
+2025-05-22 14:57:42 [Information] [SignupPageModel] Retrieved temp user data for bakarekeandrewfils@gmail.com with role 3
+2025-05-22 14:57:42 [Information] [SignupPageModel] Validating retrieved data - FullName: 'saint', Email: 'bakarekeandrewfils@gmail.com', PasswordHash length: 60, RoleId: 3
+2025-05-22 14:57:42 [Information] [SignupPageModel] Generated username: bakarekeandrewfils, normalized: BAKAREKEANDREWFILS
+2025-05-22 14:57:42 [Information] [SignupPageModel] Inserting new user
+2025-05-22 14:57:42 [Information] [SignupPageModel] About to insert user with values - FullName: 'saint', Email: 'bakarekeandrewfils@gmail.com', Username: 'bakarekeandrewfils', RoleId: 3
+2025-05-22 14:57:42 [Information] [SignupPageModel] Created new user with ID: 38
+2025-05-22 14:57:42 [Information] [SignupPageModel] Adding role audit entry
+2025-05-22 14:57:42 [Error] [SignupPageModel] SQL Error during user creation:
+Message: Cannot insert the value NULL into column 'OLD_ROLE_ID', table 'ONLINE_LEARNING_PLATFORM.dbo.ROLE_CHANGE_AUDIT'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+Number: 515
+State: 2
+Procedure: 
+LineNumber: 1
+2025-05-22 14:57:42 [Information] [SignupPageModel] Transaction rolled back
+2025-05-22 15:07:43 [Information] [SignupPageModel] Loading signup page
+2025-05-22 15:08:42 [Information] [SignupPageModel] Signup form submitted
+2025-05-22 15:08:42 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 15:08:42 [Information] [SignupPageModel] Checking if email exists: bakarekeandrewfils@gmail.com
+2025-05-22 15:08:42 [Information] [SignupPageModel] Email exists check result: False
+2025-05-22 15:08:42 [Information] [SignupPageModel] Generated OTP: 963417
+2025-05-22 15:08:42 [Information] [SignupPageModel] Password hashed successfully
+2025-05-22 15:08:42 [Information] [SignupPageModel] Found Student role ID: 3
+2025-05-22 15:08:42 [Information] [SignupPageModel] Database connection opened
+2025-05-22 15:08:42 [Information] [SignupPageModel] Temporary user created with ID: 17
+2025-05-22 15:08:42 [Information] [SignupPageModel] Sending OTP email to: bakarekeandrewfils@gmail.com
+2025-05-22 15:08:46 [Information] [SignupPageModel] OTP email sent successfully
+2025-05-22 15:09:03 [Information] [SignupPageModel] Starting OTP verification process
+2025-05-22 15:09:03 [Information] [SignupPageModel] Validating OTP for tempUserId: 17
+2025-05-22 15:09:03 [Information] [SignupPageModel] Database connection opened successfully
+2025-05-22 15:09:03 [Information] [SignupPageModel] Transaction started
+2025-05-22 15:09:03 [Information] [SignupPageModel] Retrieving temp user data
+2025-05-22 15:09:03 [Information] [SignupPageModel] Retrieved temp user data for bakarekeandrewfils@gmail.com with role 3
+2025-05-22 15:09:03 [Information] [SignupPageModel] Validating retrieved data - FullName: 'saint', Email: 'bakarekeandrewfils@gmail.com', PasswordHash length: 60, RoleId: 3
+2025-05-22 15:09:03 [Information] [SignupPageModel] Generated username: bakarekeandrewfils, normalized: BAKAREKEANDREWFILS
+2025-05-22 15:09:03 [Information] [SignupPageModel] Created new user with ID: 39
+2025-05-22 15:09:03 [Error] [SignupPageModel] SQL Error during user creation:
+Message: Cannot insert the value NULL into column 'OLD_ROLE_ID', table 'ONLINE_LEARNING_PLATFORM.dbo.ROLE_CHANGE_AUDIT'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+Number: 515
+State: 2
+Procedure: 
+LineNumber: 1
+2025-05-22 15:09:03 [Information] [SignupPageModel] Transaction rolled back
+2025-05-22 15:09:11 [Information] [SignupPageModel] Loading signup page
+2025-05-22 15:11:39 [Information] [SignupPageModel] Signup form submitted
+2025-05-22 15:11:39 [Information] [SignupPageModel] Checking if email exists: bakareke@auca.ac.rw
+2025-05-22 15:11:39 [Information] [SignupPageModel] Checking if email exists: bakareke@auca.ac.rw
+2025-05-22 15:11:39 [Information] [SignupPageModel] Email exists check result: False
+2025-05-22 15:11:39 [Information] [SignupPageModel] Generated OTP: 317452
+2025-05-22 15:11:39 [Information] [SignupPageModel] Password hashed successfully
+2025-05-22 15:11:39 [Information] [SignupPageModel] Found Student role ID: 3
+2025-05-22 15:11:39 [Information] [SignupPageModel] Database connection opened
+2025-05-22 15:11:39 [Information] [SignupPageModel] Temporary user created with ID: 18
+2025-05-22 15:11:39 [Information] [SignupPageModel] Sending OTP email to: bakareke@auca.ac.rw
+2025-05-22 15:11:42 [Information] [SignupPageModel] OTP email sent successfully
+2025-05-22 15:13:40 [Information] [SignupPageModel] Loading signup page
+2025-05-22 15:14:12 [Information] [SignupPageModel] Signup form submitted
+2025-05-22 15:14:12 [Information] [SignupPageModel] Checking if email exists: andrew.bakareke@auca.ac.rw
+2025-05-22 15:14:12 [Information] [SignupPageModel] Checking if email exists: andrew.bakareke@auca.ac.rw
+2025-05-22 15:14:12 [Information] [SignupPageModel] Email exists check result: False
+2025-05-22 15:14:12 [Information] [SignupPageModel] Generated OTP: 313998
+2025-05-22 15:14:12 [Information] [SignupPageModel] Password hashed successfully
+2025-05-22 15:14:12 [Information] [SignupPageModel] Found Student role ID: 3
+2025-05-22 15:14:12 [Information] [SignupPageModel] Database connection opened
+2025-05-22 15:14:12 [Information] [SignupPageModel] Temporary user created with ID: 19
+2025-05-22 15:14:12 [Information] [SignupPageModel] Sending OTP email to: andrew.bakareke@auca.ac.rw
+2025-05-22 15:14:16 [Information] [SignupPageModel] OTP email sent successfully
+2025-05-22 15:14:31 [Information] [SignupPageModel] Starting OTP verification process
+2025-05-22 15:14:31 [Information] [SignupPageModel] Validating OTP for tempUserId: 19
+2025-05-22 15:14:31 [Information] [SignupPageModel] Database connection opened successfully
+2025-05-22 15:14:31 [Information] [SignupPageModel] Transaction started
+2025-05-22 15:14:31 [Information] [SignupPageModel] Retrieving temp user data
+2025-05-22 15:14:31 [Information] [SignupPageModel] Retrieved temp user data for andrew.bakareke@auca.ac.rw with role 3
+2025-05-22 15:14:31 [Information] [SignupPageModel] Validating retrieved data - FullName: 'saint', Email: 'andrew.bakareke@auca.ac.rw', PasswordHash length: 60, RoleId: 3
+2025-05-22 15:14:31 [Information] [SignupPageModel] Generated username: andrew.bakareke, normalized: ANDREW.BAKAREKE
+2025-05-22 15:14:31 [Information] [SignupPageModel] Created new user with ID: 40
+2025-05-22 15:14:31 [Error] [SignupPageModel] SQL Error during user creation:
+Message: Cannot insert the value NULL into column 'OLD_ROLE_ID', table 'ONLINE_LEARNING_PLATFORM.dbo.ROLE_CHANGE_AUDIT'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+Number: 515
+State: 2
+Procedure: 
+LineNumber: 1
+2025-05-22 15:14:31 [Information] [SignupPageModel] Transaction rolled back
+2025-05-22 15:23:03 [Information] [SignupPageModel] Starting OTP verification process
+2025-05-22 15:23:03 [Information] [SignupPageModel] Loading signup page
+2025-05-22 15:25:40 [Information] [SignupPageModel] Loading signup page
+2025-05-22 15:26:02 [Information] [SignupPageModel] Signup form submitted
+2025-05-22 15:26:02 [Information] [SignupPageModel] Checking if email exists: andrew.bakareke@auca.ac.rw
+2025-05-22 15:26:02 [Information] [SignupPageModel] Checking if email exists: andrew.bakareke@auca.ac.rw
+2025-05-22 15:26:02 [Information] [SignupPageModel] Email exists check result: False
+2025-05-22 15:26:02 [Information] [SignupPageModel] Generated OTP: 916335
+2025-05-22 15:26:03 [Information] [SignupPageModel] Password hashed successfully
+2025-05-22 15:26:03 [Information] [SignupPageModel] Found Student role ID: 3
+2025-05-22 15:26:03 [Information] [SignupPageModel] Database connection opened
+2025-05-22 15:26:03 [Information] [SignupPageModel] Temporary user created with ID: 20
+2025-05-22 15:26:03 [Information] [SignupPageModel] Sending OTP email to: andrew.bakareke@auca.ac.rw
+2025-05-22 15:26:06 [Information] [SignupPageModel] OTP email sent successfully
+2025-05-22 15:26:24 [Information] [SignupPageModel] Starting OTP verification process
+2025-05-22 15:26:24 [Information] [SignupPageModel] Validating OTP for tempUserId: 20
+2025-05-22 15:26:24 [Information] [SignupPageModel] Database connection opened successfully
+2025-05-22 15:26:24 [Information] [SignupPageModel] Transaction started
+2025-05-22 15:26:24 [Information] [SignupPageModel] Retrieving temp user data for ID: 20
+2025-05-22 15:26:24 [Information] [SignupPageModel] Column TEMP_USER_ID: 20
+2025-05-22 15:26:24 [Information] [SignupPageModel] Column FULL_NAME: saint
+2025-05-22 15:26:24 [Information] [SignupPageModel] Column EMAIL: andrew.bakareke@auca.ac.rw
+2025-05-22 15:26:24 [Information] [SignupPageModel] Column PASSWORD_HASH: $2a$11$FYvDrkzMM4brpxyNyNq9Ye274.ajv/iHnPAOO8KPhqg9eUiHGmrGC
+2025-05-22 15:26:24 [Information] [SignupPageModel] Column ROLE_ID: 3
+2025-05-22 15:26:24 [Information] [SignupPageModel] Column OTP_CODE: 916335
+2025-05-22 15:26:24 [Information] [SignupPageModel] Column OTP_EXPIRY: 5/22/2025 3:36:03 PM
+2025-05-22 15:26:24 [Information] [SignupPageModel] Column CREATED_AT: 5/22/2025 3:26:03 PM
+2025-05-22 15:26:24 [Information] [SignupPageModel] Validated temp user data:
+TempUserId: 20
+FullName: saint
+Email: andrew.bakareke@auca.ac.rw
+PasswordHash length: 60
+RoleId: 3
+OTP Code: 916335
+OTP Expiry: 5/22/2025 3:36:03 PM
+Created At: 5/22/2025 3:26:03 PM
+2025-05-22 15:26:24 [Information] [SignupPageModel] Generated username: andrew.bakareke, normalized: ANDREW.BAKAREKE
+2025-05-22 15:26:24 [Information] [SignupPageModel] Created new user with ID: 41
+2025-05-22 15:26:24 [Information] [SignupPageModel] About to insert user with values:
+FullName: 'saint' (Length: 5)
+Email: 'andrew.bakareke@auca.ac.rw' (Length: 26)
+PasswordHash: '[REDACTED]' (Length: 60)
+Username: 'andrew.bakareke' (Length: 15)
+RoleId: 3
+2025-05-22 15:26:24 [Error] [SignupPageModel] SQL Error during user creation:
+Message: Cannot insert the value NULL into column 'OLD_ROLE_ID', table 'ONLINE_LEARNING_PLATFORM.dbo.ROLE_CHANGE_AUDIT'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+Number: 515
+State: 2
+Procedure: 
+LineNumber: 1
+2025-05-22 15:26:24 [Information] [SignupPageModel] Transaction rolled back
+2025-05-22 15:35:55 [Information] [SignupPageModel] Loading signup page
+2025-05-22 15:36:55 [Information] [SignupPageModel] Signup form submitted
+2025-05-22 15:36:55 [Information] [SignupPageModel] Checking if email exists: andrew.bakareke@auca.ac.rw
+2025-05-22 15:36:55 [Information] [SignupPageModel] Checking if email exists: andrew.bakareke@auca.ac.rw
+2025-05-22 15:36:55 [Information] [SignupPageModel] Email exists check result: False
+2025-05-22 15:36:55 [Information] [SignupPageModel] Generated OTP: 557340
+2025-05-22 15:36:56 [Information] [SignupPageModel] Password hashed successfully. Hash length: 60
+2025-05-22 15:36:56 [Information] [SignupPageModel] Found Student role ID: 3
+2025-05-22 15:36:56 [Information] [SignupPageModel] Database connection opened
+2025-05-22 15:36:56 [Information] [SignupPageModel] Temporary user created with ID: 21
+2025-05-22 15:36:56 [Information] [SignupPageModel] Sending OTP email to: andrew.bakareke@auca.ac.rw
+2025-05-22 15:37:00 [Information] [SignupPageModel] OTP email sent successfully
+2025-05-22 15:37:48 [Information] [SignupPageModel] Starting OTP verification process
+2025-05-22 15:37:48 [Information] [SignupPageModel] Validating OTP for tempUserId: 21
+2025-05-22 15:37:48 [Information] [SignupPageModel] Database connection opened successfully
+2025-05-22 15:37:48 [Information] [SignupPageModel] Transaction started
+2025-05-22 15:37:48 [Information] [SignupPageModel] Retrieving temp user data
+2025-05-22 15:37:48 [Information] [SignupPageModel] Retrieved temp user data for andrew.bakareke@auca.ac.rw with role 3
+2025-05-22 15:37:48 [Information] [SignupPageModel] === PRE-INSERT VALIDATION ===
+2025-05-22 15:37:48 [Information] [SignupPageModel] FullName: 'manzi' | Length: 5 | Max: 255
+2025-05-22 15:37:48 [Information] [SignupPageModel] Email: 'andrew.bakareke@auca.ac.rw' | Length: 26 | Max: 255
+2025-05-22 15:37:48 [Information] [SignupPageModel] PasswordHash: [HASH] | Length: 60 | Max: 255
+2025-05-22 15:37:48 [Information] [SignupPageModel] Username: 'andrew.bakareke' | Length: 15 | Max: 256
+2025-05-22 15:37:48 [Information] [SignupPageModel] NormalizedUsername: 'ANDREW.BAKAREKE' | Length: 15 | Max: 256
+2025-05-22 15:37:48 [Information] [SignupPageModel] RoleId: 3
+2025-05-22 15:37:48 [Information] [SignupPageModel] Generated username: andrew.bakareke, normalized: ANDREW.BAKAREKE
+2025-05-22 15:37:48 [Information] [SignupPageModel] About to execute INSERT command
+2025-05-22 15:37:49 [Information] [SignupPageModel] User created successfully with ID: 42
+2025-05-22 15:37:49 [Error] [SignupPageModel] SQL Error during user creation:
+Message: Cannot insert the value NULL into column 'OLD_ROLE_ID', table 'ONLINE_LEARNING_PLATFORM.dbo.ROLE_CHANGE_AUDIT'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+Number: 515
+State: 2
+Procedure: 
+LineNumber: 1
+2025-05-22 15:37:49 [Information] [SignupPageModel] Transaction rolled back
+2025-05-22 15:42:31 [Information] [SignupPageModel] Loading signup page
+2025-05-22 15:43:30 [Information] [SignupPageModel] Signup form submitted
+2025-05-22 15:43:30 [Information] [SignupPageModel] Checking if email exists: andrew.bakareke@auca.ac.rw
+2025-05-22 15:43:30 [Information] [SignupPageModel] Checking if email exists: andrew.bakareke@auca.ac.rw
+2025-05-22 15:43:30 [Information] [SignupPageModel] Email exists check result: False
+2025-05-22 15:43:30 [Information] [SignupPageModel] Generated OTP: 198101
+2025-05-22 15:43:30 [Information] [SignupPageModel] Password hashed successfully. Hash length: 60
+2025-05-22 15:43:30 [Information] [SignupPageModel] Found Student role ID: 3
+2025-05-22 15:43:30 [Information] [SignupPageModel] Database connection opened
+2025-05-22 15:43:30 [Information] [SignupPageModel] Temporary user created with ID: 22
+2025-05-22 15:43:30 [Information] [SignupPageModel] Sending OTP email to: andrew.bakareke@auca.ac.rw
+2025-05-22 15:43:34 [Information] [SignupPageModel] OTP email sent successfully
+2025-05-22 15:43:57 [Information] [SignupPageModel] Starting OTP verification process
+2025-05-22 15:43:57 [Information] [SignupPageModel] Validating OTP for tempUserId: 22
+2025-05-22 15:43:57 [Information] [SignupPageModel] Database connection opened successfully
+2025-05-22 15:43:57 [Information] [SignupPageModel] Transaction started
+2025-05-22 15:43:57 [Information] [SignupPageModel] Retrieving temp user data
+2025-05-22 15:43:57 [Information] [SignupPageModel] Retrieved temp user data for andrew.bakareke@auca.ac.rw with role 3
+2025-05-22 15:43:57 [Information] [SignupPageModel] === PRE-INSERT VALIDATION ===
+2025-05-22 15:43:57 [Information] [SignupPageModel] FullName: 'bonfils' | Length: 7 | Max: 255
+2025-05-22 15:43:57 [Information] [SignupPageModel] Email: 'andrew.bakareke@auca.ac.rw' | Length: 26 | Max: 255
+2025-05-22 15:43:57 [Information] [SignupPageModel] PasswordHash: [HASH] | Length: 60 | Max: 255
+2025-05-22 15:43:57 [Information] [SignupPageModel] Username: 'andrew.bakareke' | Length: 15 | Max: 256
+2025-05-22 15:43:57 [Information] [SignupPageModel] NormalizedUsername: 'ANDREW.BAKAREKE' | Length: 15 | Max: 256
+2025-05-22 15:43:57 [Information] [SignupPageModel] RoleId: 3
+2025-05-22 15:43:57 [Information] [SignupPageModel] Generated username: andrew.bakareke, normalized: ANDREW.BAKAREKE
+2025-05-22 15:43:57 [Information] [SignupPageModel] About to execute INSERT command
+2025-05-22 15:43:57 [Information] [SignupPageModel] User created successfully with ID: 43
+2025-05-22 15:43:57 [Error] [SignupPageModel] SQL Error during user creation:
+Message: Cannot insert the value NULL into column 'OLD_ROLE_ID', table 'ONLINE_LEARNING_PLATFORM.dbo.ROLE_CHANGE_AUDIT'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+Number: 515
+State: 2
+Procedure: 
+LineNumber: 1
+2025-05-22 15:43:57 [Information] [SignupPageModel] Transaction rolled back
+2025-05-22 15:49:31 [Information] [SignupPageModel] Loading signup page
+2025-05-22 15:50:03 [Information] [SignupPageModel] === STARTING INITIAL SIGNUP PROCESS ===
+2025-05-22 15:50:03 [Information] [SignupPageModel] Input validation state: False
+2025-05-22 15:50:03 [Error] [SignupPageModel] Model validation error: The Verification Code field is required.
+2025-05-22 15:50:03 [Information] [SignupPageModel] === VALIDATING INPUT DATA ===
+2025-05-22 15:50:03 [Information] [SignupPageModel] FullName: 'bonfils' | Length: 7
+2025-05-22 15:50:03 [Information] [SignupPageModel] Email: 'andrew.bakareke@auca.ac.rw' | Length: 26
+2025-05-22 15:50:03 [Information] [SignupPageModel] Password Length: 13
+2025-05-22 15:50:03 [Information] [SignupPageModel] === CHECKING FOR EXISTING EMAIL ===
+2025-05-22 15:50:03 [Information] [SignupPageModel] Checking if email exists: andrew.bakareke@auca.ac.rw
+2025-05-22 15:50:03 [Information] [SignupPageModel] Email exists check result: False
+2025-05-22 15:50:03 [Information] [SignupPageModel] === GENERATING OTP AND PASSWORD HASH ===
+2025-05-22 15:50:03 [Information] [SignupPageModel] Generated OTP: 310648
+2025-05-22 15:50:04 [Information] [SignupPageModel] Password hash generated. Length: 60
+2025-05-22 15:50:04 [Information] [SignupPageModel] === GETTING DEFAULT ROLE ID ===
+2025-05-22 15:50:04 [Information] [SignupPageModel] Retrieved role ID: 3
+2025-05-22 15:50:04 [Information] [SignupPageModel] === INSERTING TEMP USER ===
+2025-05-22 15:50:04 [Information] [SignupPageModel] Database connection opened
+2025-05-22 15:50:04 [Information] [SignupPageModel] === TEMP USER PARAMETER VALUES ===
+2025-05-22 15:50:04 [Information] [SignupPageModel] FullName: 'bonfils'
+2025-05-22 15:50:04 [Information] [SignupPageModel] Email: 'andrew.bakareke@auca.ac.rw'
+2025-05-22 15:50:04 [Information] [SignupPageModel] PasswordHash Length: 60
+2025-05-22 15:50:04 [Information] [SignupPageModel] RoleId: 3
+2025-05-22 15:50:04 [Information] [SignupPageModel] OTP: 310648
+2025-05-22 15:50:04 [Information] [SignupPageModel] Temp user created with ID: 23
+2025-05-22 15:50:04 [Information] [SignupPageModel] === SENDING OTP EMAIL ===
+2025-05-22 15:50:08 [Information] [SignupPageModel] OTP email sent successfully
+2025-05-22 15:50:30 [Information] [SignupPageModel] === STARTING VERIFICATION PROCESS ===
+2025-05-22 15:50:30 [Information] [SignupPageModel] === SESSION STATE ===
+TempUserId from session: 23
+2025-05-22 15:50:30 [Information] [SignupPageModel] === VALIDATING OTP ===
+TempUserId: 23
+VerificationCode: 310648
+2025-05-22 15:50:30 [Information] [SignupPageModel] OTP validation successful
+2025-05-22 15:50:30 [Information] [SignupPageModel] Database connection opened successfully
+2025-05-22 15:50:30 [Information] [SignupPageModel] Transaction started
+2025-05-22 15:50:30 [Information] [SignupPageModel] === VERIFYING TEMP USER EXISTENCE ===
+2025-05-22 15:50:30 [Information] [SignupPageModel] === RETRIEVING TEMP USER DATA ===
+2025-05-22 15:50:30 [Information] [SignupPageModel] Column FULL_NAME: bonfils
+2025-05-22 15:50:30 [Information] [SignupPageModel] Column EMAIL: andrew.bakareke@auca.ac.rw
+2025-05-22 15:50:30 [Information] [SignupPageModel] Column PASSWORD_HASH: $2a$12$n3myYTV13K4hTllMr4QbAu9jGjpBcAp9mXY34DRgBde18C/k5UmU.
+2025-05-22 15:50:30 [Information] [SignupPageModel] Column ROLE_ID: 3
+2025-05-22 15:50:30 [Information] [SignupPageModel] Column OTP_CODE: 310648
+2025-05-22 15:50:30 [Information] [SignupPageModel] Column OTP_EXPIRY: 5/22/2025 4:00:04 PM
+2025-05-22 15:50:30 [Information] [SignupPageModel] === RETRIEVED USER DATA ===
+FullName: 'bonfils' (Length: 7)
+Email: 'andrew.bakareke@auca.ac.rw' (Length: 26)
+PasswordHash: [REDACTED] (Length: 60)
+RoleId: 3
+StoredOTP: 310648
+OTPExpiry: 5/22/2025 4:00:04 PM
+2025-05-22 15:50:30 [Information] [SignupPageModel] === USERNAME GENERATION ===
+Username: 'andrew.bakareke' (Length: 15)
+NormalizedUsername: 'ANDREW.BAKAREKE' (Length: 15)
+2025-05-22 15:50:30 [Information] [SignupPageModel] === CREATING USER ===
+2025-05-22 15:50:30 [Information] [SignupPageModel] About to execute INSERT command
+2025-05-22 15:50:30 [Information] [SignupPageModel] User created successfully with ID: 44
+2025-05-22 15:50:30 [Information] [SignupPageModel] Transaction committed successfully
+2025-05-22 15:50:30 [Information] [SignupPageModel] Session cleared
+2025-05-22 15:51:09 [Information] [Login] Starting login process
+2025-05-22 15:51:09 [Information] [Login] Attempting login for email: andrew.bakareke@auca.ac.rw
+2025-05-22 15:51:10 [Information] [Login] Starting CompleteSignInAsync for user 44 (andrew.bakareke@auca.ac.rw)
+2025-05-22 15:51:10 [Information] [Login] Sign-in completed successfully
+2025-05-22 15:51:10 [Information] [Login] Login successful. Redirecting to: /Student/Dashboard
+2025-05-22 15:51:58 [Information] [Login] Starting login process
+2025-05-22 15:51:58 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-22 15:51:59 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-22 15:51:59 [Information] [Login] Sign-in completed successfully
+2025-05-22 15:51:59 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-22 15:53:44 [Information] [Login] Starting login process
+2025-05-22 15:53:44 [Information] [Login] Attempting login for email: andrew.bakareke@auca.ac.rw
+2025-05-22 15:53:45 [Information] [Login] Starting CompleteSignInAsync for user 44 (andrew.bakareke@auca.ac.rw)
+2025-05-22 15:53:45 [Information] [Login] Sign-in completed successfully
+2025-05-22 15:53:45 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-22 16:41:58 [Information] [Login] Starting login process
+2025-05-22 16:41:58 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-22 16:41:58 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-22 16:41:58 [Information] [Login] Sign-in completed successfully
+2025-05-22 16:41:58 [Information] [Login] Login successful. Redirecting to: /AdminDashboard
+2025-05-22 16:42:07 [Error] [PermissionHandler] Error checking permission USER.VIEW for user 14: Incorrect syntax near 'PermissionHierarchy'.
+2025-05-22 16:42:07 [Error] [PermissionHandler] Error checking permission USER.MANAGE for user 14: Incorrect syntax near 'PermissionHierarchy'.
+2025-05-22 16:42:18 [Error] [PermissionHandler] Error checking permission COURSE.VIEW for user 14: Incorrect syntax near 'PermissionHierarchy'.
+2025-05-22 16:42:22 [Error] [PermissionHandler] Error checking permission ADMIN.ACCESS for user 14: Incorrect syntax near 'PermissionHierarchy'.
+2025-05-22 16:42:30 [Error] [PermissionHandler] Error checking permission PERMISSION.MANAGE for user 14: Incorrect syntax near 'PermissionHierarchy'.
+2025-05-22 16:42:30 [Error] [PermissionHandler] Error checking permission ADMIN.ACCESS for user 14: Incorrect syntax near 'PermissionHierarchy'.
+2025-05-22 16:42:35 [Error] [PermissionHandler] Error checking permission USER.VIEW for user 14: Incorrect syntax near 'PermissionHierarchy'.
+2025-05-22 16:42:35 [Error] [PermissionHandler] Error checking permission USER.VIEW for user 14: Incorrect syntax near 'PermissionHierarchy'.
+2025-05-22 16:42:35 [Error] [PermissionHandler] Error checking permission USER.MANAGE for user 14: Incorrect syntax near 'PermissionHierarchy'.
+2025-05-22 16:42:35 [Error] [PermissionHandler] Error checking permission USER.MANAGE for user 14: Incorrect syntax near 'PermissionHierarchy'.
+2025-05-22 16:49:13 [Information] [Login] Starting login process
+2025-05-22 16:49:13 [Information] [Login] Attempting login for email: egide@gmail.com
+2025-05-22 16:49:14 [Information] [Login] Starting CompleteSignInAsync for user 14 (egide@gmail.com)
+2025-05-22 16:49:14 [Error] [Login] Error in CompleteSignInAsync: Incorrect syntax near 'PermissionHierarchy'.
+Stack trace:    at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.QueryAsync[T](IDbConnection cnn, Type effectiveType, CommandDefinition command) in /_/Dapper/SqlMapper.Async.cs:line 434
+   at E_Learning_Platform.Pages.LoginModel.CompleteSignInAsync(Int32 userId, String fullName, String email, String roleName, Boolean rememberMe) in C:\Users\HP\Desktop\Dot-net\E-Learning-Platform\E-Learning-Platform\E-Learning-Platform\Pages\Login.cshtml.cs:line 261
+2025-05-22 16:49:14 [Error] [Login] Exception during login: Incorrect syntax near 'PermissionHierarchy'.
+Stack trace:    at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.QueryAsync[T](IDbConnection cnn, Type effectiveType, CommandDefinition command) in /_/Dapper/SqlMapper.Async.cs:line 434
+   at E_Learning_Platform.Pages.LoginModel.CompleteSignInAsync(Int32 userId, String fullName, String email, String roleName, Boolean rememberMe) in C:\Users\HP\Desktop\Dot-net\E-Learning-Platform\E-Learning-Platform\E-Learning-Platform\Pages\Login.cshtml.cs:line 261
+   at System.Dynamic.UpdateDelegates.UpdateAndExecuteVoid1[T0](CallSite site, T0 arg0)
+   at E_Learning_Platform.Pages.LoginModel.OnPostAsync() in C:\Users\HP\Desktop\Dot-net\E-Learning-Platform\E-Learning-Platform\E-Learning-Platform\Pages\Login.cshtml.cs:line 156

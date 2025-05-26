@@ -1,8 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Threading.Tasks;
+using Dapper;
+using E_Learning_Platform.Services;
 using System.ComponentModel.DataAnnotations;
-using E_Learning_Platform.Pages.Services;
 using Microsoft.AspNetCore.Authorization;
 
 namespace E_Learning_Platform.Pages
@@ -10,14 +15,23 @@ namespace E_Learning_Platform.Pages
     [AllowAnonymous]
     public class ForgotPasswordModel : PageModel
     {
-        private readonly LoggingService _logger = new LoggingService();
-        private readonly OtpService _otpService;
-        private readonly EmailService _emailService;
+        private readonly ILoggingService _logger;
+        private readonly string _connectionString;
+        private readonly IOtpService _otpService;
+        private readonly IEmailService _emailService;
 
-        private string ConnectionString => "Data Source=ABAKAREKE_25497\\SQLEXPRESS;" +
-                                         "Initial Catalog=ONLINE_LEARNING_PLATFORM;" +
-                                         "Integrated Security=True;" +
-                                         "TrustServerCertificate=True";
+        public ForgotPasswordModel(
+            IConfiguration configuration,
+            ILoggingService logger,
+            IOtpService otpService,
+            IEmailService emailService)
+        {
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _connectionString = configuration.GetConnectionString("DefaultConnection") ?? 
+                throw new ArgumentNullException("Connection string 'DefaultConnection' not found.");
+            _otpService = otpService ?? throw new ArgumentNullException(nameof(otpService));
+            _emailService = emailService ?? throw new ArgumentNullException(nameof(emailService));
+        }
 
         [BindProperty]
         [Required(ErrorMessage = "Email is required")]
@@ -46,13 +60,6 @@ namespace E_Learning_Platform.Pages
         public bool ShowEmailForm { get; set; } = true;
         public bool ShowVerificationForm { get; set; } = false;
         public bool ShowResetForm { get; set; } = false;
-
-        public ForgotPasswordModel()
-        {
-            _logger.LogInfo("ForgotPasswordModel", "Initializing ForgotPasswordModel");
-            _otpService = new OtpService(ConnectionString);
-            _emailService = new EmailService();
-        }
 
         public void OnGet()
         {
@@ -133,70 +140,38 @@ namespace E_Learning_Platform.Pages
 
         public async Task<IActionResult> OnPostVerifyCodeAsync()
         {
-            _logger.LogInfo("ForgotPasswordModel", "Verifying reset code");
-
-            // Only validate verification code for this step
             if (string.IsNullOrEmpty(VerificationCode))
             {
-                _logger.LogInfo("ForgotPasswordModel", "Verification code is empty");
                 ModelState.AddModelError("VerificationCode", "Please enter the verification code");
                 ShowVerificationForm = true;
                 return Page();
             }
 
+            var userId = HttpContext.Session.GetInt32("ResetPasswordUserId");
+            if (!userId.HasValue)
+            {
+                ErrorMessage = "Session expired. Please start the password reset process again.";
+                ShowEmailForm = true;
+                return Page();
+            }
+
             try
             {
-                // Retrieve email and user ID from TempData
-                string email = TempData["ResetEmail"]?.ToString();
-                int? userId = TempData["UserId"] as int?;
-
-                if (string.IsNullOrEmpty(email) || !userId.HasValue)
+                var isValid = await _otpService.ValidateOtpAsync(userId.Value, VerificationCode);
+                if (!isValid)
                 {
-                    _logger.LogError("ForgotPasswordModel", "Email or user ID not found in TempData");
-                    ErrorMessage = "Session expired. Please start the password reset process again.";
-                    ShowEmailForm = true;
-                    return Page();
-                }
-
-                // Preserve values for potential failed verification
-                TempData["ResetEmail"] = email;
-                TempData["UserId"] = userId;
-                Email = email;
-
-                _logger.LogInfo("ForgotPasswordModel", $"Validating OTP for user: {userId}");
-
-                // Validate OTP
-                bool isValid = _otpService.ValidateOtp(userId.Value, VerificationCode);
-                _logger.LogInfo("ForgotPasswordModel", $"OTP validation result: {isValid}");
-
-                if (isValid)
-                {
-                    _logger.LogInfo("ForgotPasswordModel", "OTP validation successful");
-                    // Mark OTP as used to prevent reuse
-                    _otpService.MarkOtpAsUsed(userId.Value, VerificationCode);
-
-                    // Store verification in TempData for password reset stage
-                    TempData["VerifiedForReset"] = true;
-
-                    // Show password reset form
-                    ShowEmailForm = false;
-                    ShowVerificationForm = false;
-                    ShowResetForm = true;
-                    StatusMessage = "Verification successful. Please enter your new password.";
-                    return Page();
-                }
-                else
-                {
-                    _logger.LogInfo("ForgotPasswordModel", "Invalid OTP provided");
                     ModelState.AddModelError("VerificationCode", "Invalid or expired verification code");
                     ShowVerificationForm = true;
                     return Page();
                 }
+
+                ShowResetForm = true;
+                return Page();
             }
             catch (Exception ex)
             {
-                _logger.LogError("ForgotPasswordModel", "Error verifying code", ex);
-                ErrorMessage = "An error occurred during verification. Please try again.";
+                _logger.LogError("Error validating verification code", ex);
+                ErrorMessage = "An error occurred while validating the code. Please try again.";
                 ShowVerificationForm = true;
                 return Page();
             }
@@ -345,11 +320,11 @@ namespace E_Learning_Platform.Pages
             _logger.LogInfo("ForgotPasswordModel", $"Checking if email exists: {email}");
             try
             {
-                using (var connection = new SqlConnection(ConnectionString))
+                using (var connection = new SqlConnection(_connectionString))
                 {
                     await connection.OpenAsync();
                     var command = new SqlCommand(
-                        "SELECT COUNT(*) FROM USERS WHERE EMAIL = @Email", connection);
+                        "SELECT COUNT(*) FROM AppUsers WHERE EMAIL = @Email", connection);
                     command.Parameters.AddWithValue("@Email", email);
 
                     var exists = (int)await command.ExecuteScalarAsync() > 0;
@@ -369,11 +344,11 @@ namespace E_Learning_Platform.Pages
             _logger.LogInfo("ForgotPasswordModel", $"Getting user ID for email: {email}");
             try
             {
-                using (var connection = new SqlConnection(ConnectionString))
+                using (var connection = new SqlConnection(_connectionString))
                 {
                     await connection.OpenAsync();
                     var command = new SqlCommand(
-                        "SELECT USER_ID FROM USERS WHERE EMAIL = @Email", connection);
+                        "SELECT USER_ID FROM AppUsers WHERE EMAIL = @Email", connection);
                     command.Parameters.AddWithValue("@Email", email);
 
                     var result = await command.ExecuteScalarAsync();
@@ -399,11 +374,11 @@ namespace E_Learning_Platform.Pages
             _logger.LogInfo("ForgotPasswordModel", $"Updating password for user ID: {userId}");
             try
             {
-                using (var connection = new SqlConnection(ConnectionString))
+                using (var connection = new SqlConnection(_connectionString))
                 {
                     await connection.OpenAsync();
                     var command = new SqlCommand(
-                        "UPDATE USERS SET PASSWORD_HASH = @PasswordHash WHERE USER_ID = @UserId", connection);
+                        "UPDATE AppUsers SET PASSWORD_HASH = @PasswordHash WHERE USER_ID = @UserId", connection);
                     command.Parameters.AddWithValue("@PasswordHash", passwordHash);
                     command.Parameters.AddWithValue("@UserId", userId);
 

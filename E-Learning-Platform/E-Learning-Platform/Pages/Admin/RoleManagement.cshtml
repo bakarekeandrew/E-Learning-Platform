@@ -1,4 +1,581 @@
 ﻿@page
 @model E_Learning_Platform.Pages.Admin.RoleManagementModel
 @{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Role Management";
+}
+
+@section Styles {
+    <style>
+        .role-card {
+            background: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            margin-bottom: 1.5rem;
+        }
+
+        .role-header {
+            padding: 1.25rem;
+            border-bottom: 1px solid #e3e6f0;
+        }
+
+        .role-body {
+            padding: 1.25rem;
+        }
+
+        .role-item {
+            padding: 1rem;
+            border: 1px solid #e3e6f0;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .role-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #4e73df;
+        }
+
+        .role-description {
+            color: #858796;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        .role-stats {
+            font-size: 0.875rem;
+            color: #858796;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e3e6f0;
+        }
+
+        .permission-list {
+            margin-top: 1rem;
+        }
+
+        .permission-item {
+            background: #f8f9fc;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .audit-log {
+            font-size: 0.875rem;
+            margin-top: 1rem;
+        }
+
+        .audit-item {
+            padding: 0.5rem;
+            border-bottom: 1px solid #e3e6f0;
+        }
+
+        .audit-item:last-child {
+            border-bottom: none;
+        }
+
+        .audit-meta {
+            color: #858796;
+            font-size: 0.75rem;
+        }
+
+        .nav-tabs {
+            border-bottom: 1px solid #e3e6f0;
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-tabs .nav-link {
+            border: none;
+            color: #858796;
+            padding: 0.75rem 1rem;
+            font-weight: 500;
+            margin-right: 1rem;
+        }
+
+        .nav-tabs .nav-link:hover {
+            color: #4e73df;
+            border: none;
+            border-bottom: 2px solid #e3e6f0;
+        }
+
+        .nav-tabs .nav-link.active {
+            color: #4e73df;
+            border: none;
+            border-bottom: 2px solid #4e73df;
+            background: transparent;
+        }
+    </style>
+}
+
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">Role Management</h2>
+        @if (Model.CanManageRoles)
+        {
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createRoleModal">
+                <i class="bi bi-plus-circle me-2"></i>Create New Role
+            </button>
+        }
+    </div>
+
+    @if (!string.IsNullOrEmpty(TempData["SuccessMessage"]?.ToString()))
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(TempData["ErrorMessage"]?.ToString()))
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <ul class="nav nav-tabs mb-4" id="roleTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="roles-tab" data-bs-toggle="tab" data-bs-target="#roles" type="button" role="tab" aria-controls="roles" aria-selected="true">
+                <i class="bi bi-shield me-2"></i>Roles
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="assignments-tab" data-bs-toggle="tab" data-bs-target="#assignments" type="button" role="tab" aria-controls="assignments" aria-selected="false">
+                <i class="bi bi-people me-2"></i>User Role Assignments
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="audit-tab" data-bs-toggle="tab" data-bs-target="#audit" type="button" role="tab" aria-controls="audit" aria-selected="false">
+                <i class="bi bi-clock-history me-2"></i>Audit Log
+            </button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="roleTabsContent">
+        <!-- Roles Tab -->
+        <div class="tab-pane fade show active" id="roles" role="tabpanel" aria-labelledby="roles-tab">
+            <div class="row">
+                @foreach (var role in Model.Roles)
+                {
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">@role.RoleName</h5>
+                                <div class="dropdown">
+                                    <button class="btn btn-link text-dark" type="button" data-bs-toggle="dropdown">
+                                        <i class="bi bi-three-dots-vertical"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li>
+                                            <button class="dropdown-item" onclick="editRole(@role.RoleId, '@role.RoleName', '@role.Description')">
+                                                <i class="bi bi-pencil me-2"></i>Edit
+                                            </button>
+                                        </li>
+                                        @if (role.CanDelete)
+                                        {
+                                            <li>
+                                                <button class="dropdown-item text-danger" onclick="deleteRole(@role.RoleId)">
+                                                    <i class="bi bi-trash me-2"></i>Delete
+                                                </button>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <p class="text-muted">@role.Description</p>
+                                <div class="d-flex justify-content-between mb-3">
+                                    <small class="text-muted">
+                                        <i class="bi bi-people me-2"></i>@role.UserCount Users
+                                    </small>
+                                    <small class="text-muted">
+                                        <i class="bi bi-shield-check me-2"></i>@role.PermissionCount Permissions
+                                    </small>
+                                </div>
+                                <div class="permissions-list">
+                                    @foreach (var permission in role.Permissions)
+                                    {
+                                        <span class="badge bg-light text-dark me-2 mb-2">
+                                            @permission.PermissionName
+                                            <button type="button" class="btn-close ms-2" 
+                                                    onclick="removePermission(@role.RoleId, @permission.PermissionId)"
+                                                    aria-label="Remove permission"></button>
+                                        </span>
+                                    }
+                                    <button type="button" class="btn btn-sm btn-outline-primary" 
+                                            onclick="showAddPermissionModal(@role.RoleId)">
+                                        <i class="bi bi-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- User Role Assignments Tab -->
+        <div class="tab-pane fade" id="assignments" role="tabpanel" aria-labelledby="assignments-tab">
+            <div class="card">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="userSearch" class="form-label">Search Users</label>
+                        <input type="text" class="form-control" id="userSearch" placeholder="Search by name, email, or username">
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Email</th>
+                                    <th>Current Role</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="userRolesTableBody">
+                                <!-- User rows will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Audit Log Tab -->
+        <div class="tab-pane fade" id="audit" role="tabpanel" aria-labelledby="audit-tab">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                    <th>Changed By</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var log in Model.RecentAuditLogs)
+                                {
+                                    <tr>
+                                        <td>@log.ChangeDate.ToString("MMM dd, yyyy HH:mm")</td>
+                                        <td>@log.ChangeDescription</td>
+                                        <td>@log.ChangedByName</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create Role Modal -->
+<div class="modal fade" id="createRoleModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" asp-page-handler="CreateRole">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create New Role</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="roleName" class="form-label">Role Name</label>
+                        <input type="text" class="form-control" id="roleName" name="roleName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create Role</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Role Modal -->
+<div class="modal fade" id="editRoleModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" asp-page-handler="UpdateRole">
+                <input type="hidden" id="editRoleId" name="roleId">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Role</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="editRoleName" class="form-label">Role Name</label>
+                        <input type="text" class="form-control" id="editRoleName" name="roleName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="editDescription" name="description" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Add Permission Modal -->
+<div class="modal fade" id="addPermissionModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Permission</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="permissionRoleId">
+                <div class="mb-3">
+                    <label for="permissionSelect" class="form-label">Select Permission</label>
+                    <select class="form-select" id="permissionSelect">
+                        @foreach (var permission in Model.AvailablePermissions)
+                        {
+                            <option value="@permission.Value">@permission.Text</option>
+                        }
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="permissionReason" class="form-label">Reason for Adding</label>
+                    <textarea class="form-control" id="permissionReason" rows="2"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="addPermission()">Add Permission</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Change User Role Modal -->
+<div class="modal fade" id="changeUserRoleModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Change User Role</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="changeRoleUserId">
+                <div class="mb-3">
+                    <label for="newRoleSelect" class="form-label">Select New Role</label>
+                    <select class="form-select" id="newRoleSelect">
+                        @foreach (var role in Model.Roles)
+                        {
+                            <option value="@role.RoleId">@role.RoleName</option>
+                        }
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="roleChangeReason" class="form-label">Reason for Change</label>
+                    <textarea class="form-control" id="roleChangeReason" rows="2"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="changeUserRole()">Change Role</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Role Management Functions
+        function editRole(roleId, roleName, description) {
+            document.getElementById('editRoleId').value = roleId;
+            document.getElementById('editRoleName').value = roleName;
+            document.getElementById('editDescription').value = description;
+            new bootstrap.Modal(document.getElementById('editRoleModal')).show();
+        }
+
+        function deleteRole(roleId) {
+            if (confirm('Are you sure you want to delete this role?')) {
+                window.location.href = '/Admin/RoleManagement?handler=DeleteRole&roleId=' + roleId;
+            }
+        }
+
+        // Permission Management Functions
+        function showAddPermissionModal(roleId) {
+            document.getElementById('permissionRoleId').value = roleId;
+            new bootstrap.Modal(document.getElementById('addPermissionModal')).show();
+        }
+
+        async function addPermission() {
+            const roleId = document.getElementById('permissionRoleId').value;
+            const permissionId = document.getElementById('permissionSelect').value;
+            const reason = document.getElementById('permissionReason').value;
+
+            try {
+                const response = await fetch('?handler=AddPermission', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                    },
+                    body: JSON.stringify({ roleId, permissionId, reason })
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    location.reload();
+                } else {
+                    alert(result.error || 'Failed to add permission');
+                }
+            } catch (error) {
+                alert('Error adding permission');
+            }
+        }
+
+        async function removePermission(roleId, permissionId) {
+            if (!confirm('Are you sure you want to remove this permission?')) return;
+
+            try {
+                const response = await fetch('?handler=RemovePermission', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                    },
+                    body: JSON.stringify({ roleId, permissionId })
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    location.reload();
+                } else {
+                    alert(result.error || 'Failed to remove permission');
+                }
+            } catch (error) {
+                alert('Error removing permission');
+            }
+        }
+
+        // User Role Assignment Functions
+        let searchTimeout;
+        function searchUsers() {
+            clearTimeout(searchTimeout);
+            const searchTerm = document.getElementById('userSearch').value;
+            
+            searchTimeout = setTimeout(async () => {
+                try {
+                    const response = await fetch('?handler=UserRoles&searchTerm=' + encodeURIComponent(searchTerm));
+                    const users = await response.json();
+                    
+                    if (users.error) {
+                        alert(users.error);
+                        return;
+                    }
+
+                    const tbody = document.getElementById('userRolesTableBody');
+                    tbody.innerHTML = '';
+
+                    users.forEach(user => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = 
+                            '<td>' +
+                            htmlEncode(user.fullName) +
+                            '<br>' +
+                            '<small class="text-muted">@@' + htmlEncode(user.username) + '</small>' +
+                            '</td>' +
+                            '<td>' + htmlEncode(user.email) + '</td>' +
+                            '<td>' + (user.roleName ? htmlEncode(user.roleName) : '<span class="text-muted">No role assigned</span>') + '</td>' +
+                            '<td>' +
+                            '<button class="btn btn-sm btn-outline-primary" onclick="showChangeRoleModal(' + user.userId + ')">' +
+                            '<i class="bi bi-shield me-1"></i>Change Role' +
+                            '</button>' +
+                            '</td>';
+                        tbody.appendChild(tr);
+                    });
+                } catch (error) {
+                    alert('Error searching users');
+                }
+            }, 300);
+        }
+
+        function showChangeRoleModal(userId) {
+            document.getElementById('changeRoleUserId').value = userId;
+            new bootstrap.Modal(document.getElementById('changeUserRoleModal')).show();
+        }
+
+        async function changeUserRole() {
+            const userId = document.getElementById('changeRoleUserId').value;
+            const roleId = document.getElementById('newRoleSelect').value;
+            const reason = document.getElementById('roleChangeReason').value;
+
+            try {
+                const response = await fetch('?handler=ChangeUserRole', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                    },
+                    body: JSON.stringify({ userId, roleId, reason })
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    location.reload();
+                } else {
+                    alert(result.error || 'Failed to change user role');
+                }
+            } catch (error) {
+                alert('Error changing user role');
+            }
+        }
+
+        // Initialize search on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize search when assignments tab is shown
+            const assignmentsTab = document.getElementById('assignments-tab');
+            assignmentsTab.addEventListener('shown.bs.tab', () => {
+                const searchInput = document.getElementById('userSearch');
+                if (searchInput) {
+                    searchUsers(); // Load initial data
+                }
+            });
+
+            // Add search input event listener
+            const searchInput = document.getElementById('userSearch');
+            if (searchInput) {
+            searchInput.addEventListener('input', searchUsers);
+            }
+
+            // If assignments tab is active on page load, trigger search
+            if (document.getElementById('assignments').classList.contains('active')) {
+                searchUsers();
+            }
+        });
+
+        // Helper function to prevent XSS
+        function htmlEncode(str) {
+            return str ? str.replace(/[&<>"']/g, function(match) {
+                const enc = {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#39;'
+                };
+                return enc[match];
+            }) : '';
+        }
+    </script>
 }

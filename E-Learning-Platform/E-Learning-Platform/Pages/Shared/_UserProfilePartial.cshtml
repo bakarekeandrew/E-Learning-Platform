@@ -1,0 +1,26 @@
+@using System.Security.Claims
+
+@{
+    var userName = User.FindFirst(ClaimTypes.Name)?.Value ?? "Unknown";
+    var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+    var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
+}
+
+<div class="user-profile">
+    <div class="d-flex align-items-center">
+        <div class="user-avatar">
+            <i class="bi bi-person-circle fs-2"></i>
+        </div>
+        <div class="user-info ms-2">
+            <div class="user-name">@userName</div>
+            @if (!string.IsNullOrEmpty(userEmail))
+            {
+                <div class="user-email small text-muted">@userEmail</div>
+            }
+            @if (!string.IsNullOrEmpty(userRole))
+            {
+                <div class="user-role small"><span class="badge bg-primary">@userRole</span></div>
+            }
+        </div>
+    </div>
+</div> 

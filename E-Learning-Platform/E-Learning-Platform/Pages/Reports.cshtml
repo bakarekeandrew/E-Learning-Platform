@@ -1,0 +1,390 @@
+@page
+@model E_Learning_Platform.Pages.ReportsModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Reports";
+}
+
+@* Add antiforgery token *@
+@Html.AntiForgeryToken()
+
+<div class="container-fluid">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/AdminDashboard">Dashboard</a></li>
+            <li class="breadcrumb-item active">Reports</li>
+        </ol>
+    </nav>
+
+    <!-- Quick Actions -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Quick Generate</h5>
+                    <div class="row g-3">
+                        <div class="col-md-3">
+                            <button class="btn btn-primary w-100" data-report-type="user-engagement">
+                                <i class="fas fa-users me-2"></i>User Engagement Report
+                            </button>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-success w-100" data-report-type="course-performance">
+                                <i class="fas fa-graduation-cap me-2"></i>Course Performance Report
+                            </button>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-info w-100" data-report-type="learning-progress">
+                                <i class="fas fa-chart-line me-2"></i>Learning Progress Report
+                            </button>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-warning w-100" data-report-type="certification-stats">
+                                <i class="fas fa-certificate me-2"></i>Certification Stats
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Report Categories -->
+    <div class="row">
+        <!-- User Reports -->
+        <div class="col-md-6 col-xl-4 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0"><i class="fas fa-users me-2"></i>User Reports</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="/Reports/User/Registration" class="text-decoration-none text-dark">Registration Trends</a>
+                            <span class="badge bg-primary rounded-pill">New</span>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/Reports/User/Activity" class="text-decoration-none text-dark">User Activity Analysis</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/Reports/User/Engagement" class="text-decoration-none text-dark">Engagement Metrics</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Course Reports -->
+        <div class="col-md-6 col-xl-4 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title mb-0"><i class="fas fa-graduation-cap me-2"></i>Course Reports</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <a href="/Reports/Course/Performance" class="text-decoration-none text-dark">Course Performance</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/Reports/Course/Completion" class="text-decoration-none text-dark">Completion Rates</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/Reports/Course/Feedback" class="text-decoration-none text-dark">Student Feedback</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Learning Reports -->
+        <div class="col-md-6 col-xl-4 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-header bg-info text-white">
+                    <h5 class="card-title mb-0"><i class="fas fa-chart-line me-2"></i>Learning Reports</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <a href="/Reports/Learning/Progress" class="text-decoration-none text-dark">Learning Progress</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/Reports/Learning/Assessment" class="text-decoration-none text-dark">Assessment Results</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/Reports/Learning/Certification" class="text-decoration-none text-dark">Certification Tracking</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Report Builder -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Custom Report Builder</h5>
+                </div>
+                <div class="card-body">
+                    <form id="customReportForm" class="row g-3">
+                        <div class="col-md-4">
+                            <label for="reportType" class="form-label">Report Type</label>
+                            <select class="form-select" id="reportType" required>
+                                <option value="">Choose report type...</option>
+                                <option value="user-engagement">User Engagement Report</option>
+                                <option value="course-performance">Course Performance Report</option>
+                                <option value="learning-progress">Learning Progress Report</option>
+                                <option value="certification-stats">Certification Stats</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="dateRange" class="form-label">Date Range</label>
+                            <select class="form-select" id="dateRange" required>
+                                <option value="7">Last 7 days</option>
+                                <option value="30">Last 30 days</option>
+                                <option value="90">Last 90 days</option>
+                                <option value="custom">Custom Range</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="format" class="form-label">Export Format</label>
+                            <select class="form-select" id="format" required>
+                                <option value="excel">Excel</option>
+                                <option value="pdf">PDF</option>
+                                <option value="csv">CSV</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-file-export me-2"></i>Generate Custom Report
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let loadingOverlay = null;
+
+        function showLoading() {
+            loadingOverlay = document.createElement('div');
+            loadingOverlay.className = 'loading-overlay';
+            loadingOverlay.innerHTML = '<div class="loading-spinner"></div>';
+            document.body.appendChild(loadingOverlay);
+        }
+
+        function hideLoading() {
+            if (loadingOverlay) {
+                loadingOverlay.remove();
+                loadingOverlay = null;
+            }
+        }
+
+        function showError(message) {
+            hideLoading();
+            const toast = document.createElement('div');
+            toast.className = 'toast show';
+            toast.setAttribute('role', 'alert');
+            toast.setAttribute('aria-live', 'assertive');
+            toast.setAttribute('aria-atomic', 'true');
+            toast.innerHTML = `
+                <div class="toast-header bg-danger text-white">
+                    <strong class="me-auto">Error</strong>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    ${message}
+                </div>
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 5000);
+        }
+
+        function showSuccess() {
+            const toast = document.createElement('div');
+            toast.className = 'toast show';
+            toast.setAttribute('role', 'alert');
+            toast.setAttribute('aria-live', 'assertive');
+            toast.setAttribute('aria-atomic', 'true');
+            toast.innerHTML = `
+                <div class="toast-header bg-success text-white">
+                    <strong class="me-auto">Success</strong>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    Report generated successfully! Downloading...
+                </div>
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        function getAntiForgeryToken() {
+            const tokenElement = document.querySelector('input[name="__RequestVerificationToken"]');
+            if (!tokenElement) {
+                throw new Error('Antiforgery token not found. Please refresh the page.');
+            }
+            return tokenElement.value;
+        }
+
+        async function generateReport(type) {
+            try {
+                // Validate report type
+                const validReportTypes = ['user-engagement', 'course-performance', 'learning-progress', 'certification-stats'];
+                if (!validReportTypes.includes(type)) {
+                    throw new Error(`Invalid report type: ${type}. Please select a valid report type.`);
+                }
+
+                showLoading();
+                
+                // Get selected format from the form for custom reports, or default to excel
+                let format = 'excel';
+                const formatSelect = document.getElementById('format');
+                if (formatSelect && formatSelect.value) {
+                    format = formatSelect.value;
+                }
+
+                // Get antiforgery token
+                const token = getAntiForgeryToken();
+
+                // Create form data
+                const formData = new FormData();
+                formData.append('type', type);
+                formData.append('format', format);
+                formData.append('__RequestVerificationToken', token);
+
+                // Make the request
+                const response = await fetch('?handler=GenerateReport', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'RequestVerificationToken': token
+                    }
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(errorText || 'Failed to generate report');
+                }
+
+                // Get the filename from the Content-Disposition header if available
+                const contentDisposition = response.headers.get('Content-Disposition');
+                const fileName = contentDisposition
+                    ? contentDisposition.split('filename=')[1].replace(/"/g, '')
+                    : `${type}_report.${format}`;
+
+                // Convert response to blob and download
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = fileName;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+
+                // Show success message and hide loading
+                hideLoading();
+                showSuccess();
+            } catch (error) {
+                console.error('Error:', error);
+                showError(error.message || 'Error generating report. Please try again.');
+            }
+        }
+
+        // Handle quick action buttons
+        document.querySelectorAll('[data-report-type]').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const type = button.getAttribute('data-report-type');
+                generateReport(type);
+            });
+        });
+
+        // Handle custom report form
+        const customReportForm = document.getElementById('customReportForm');
+        if (customReportForm) {
+            customReportForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const reportType = document.getElementById('reportType');
+                if (!reportType || !reportType.value) {
+                    showError('Please select a report type');
+                    return;
+                }
+                generateReport(reportType.value);
+            });
+        }
+
+        // Close button handler for toasts
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('btn-close')) {
+                const toast = e.target.closest('.toast');
+                if (toast) {
+                    toast.remove();
+                }
+            }
+        });
+    </script>
+
+    <style>
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #4e73df;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @@keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            min-width: 300px;
+            z-index: 1100;
+            box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .list-group-item a {
+            display: block;
+            padding: 0.5rem 0;
+        }
+
+        .list-group-item a:hover {
+            color: #4e73df !important;
+        }
+    </style>
+} 

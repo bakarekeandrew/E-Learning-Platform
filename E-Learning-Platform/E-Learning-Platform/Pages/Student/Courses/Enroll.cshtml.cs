@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
-using Dapper;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
+using Dapper;
+using E_Learning_Platform.Services;
 
 namespace E_Learning_Platform.Pages.Student.Courses
 {
@@ -13,123 +14,101 @@ namespace E_Learning_Platform.Pages.Student.Courses
     {
         private readonly string _connectionString;
         private readonly ILogger<EnrollModel> _logger;
-
-        public EnrollModel(ILogger<EnrollModel> logger)
-        {
-            _connectionString = "Data Source=ABAKAREKE_25497\\SQLEXPRESS;" +
-                              "Initial Catalog=ONLINE_LEARNING_PLATFORM;" +
-                              "Integrated Security=True;" +
-                              "TrustServerCertificate=True";
-            _logger = logger;
-        }
-
-        [BindProperty(SupportsGet = true)]
-        public int id { get; set; }
-
+        private readonly INotificationService _notificationService;
         public string ErrorMessage { get; set; }
         public string SuccessMessage { get; set; }
 
-        public async Task<IActionResult> OnGetAsync()
+        public EnrollModel(
+            IConfiguration configuration, 
+            ILogger<EnrollModel> logger,
+            INotificationService notificationService)
         {
+            _connectionString = configuration.GetConnectionString("DefaultConnection") ?? 
+                throw new ArgumentNullException("Connection string 'DefaultConnection' not found.");
+            _logger = logger;
+            _notificationService = notificationService;
+        }
+
+        public async Task<IActionResult> OnGetAsync(int id)
+        {
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userId))
+            {
+                return RedirectToPage("/Login");
+            }
+
             try
             {
-                _logger.LogInformation("Starting enrollment process for course ID: {CourseId}", id);
+                using var connection = new SqlConnection(_connectionString);
+                await connection.OpenAsync();
 
-                if (!HttpContext.Session.TryGetValue("UserId", out var userIdBytes))
+                // Check if already enrolled
+                var isEnrolled = await connection.QueryFirstOrDefaultAsync<bool>(
+                    "SELECT COUNT(1) FROM COURSE_ENROLLMENTS WHERE USER_ID = @UserId AND COURSE_ID = @CourseId",
+                    new { UserId = userId, CourseId = id });
+
+                if (isEnrolled)
                 {
-                    _logger.LogWarning("User not logged in, redirecting to login page");
-                    TempData["ErrorMessage"] = "Please log in to enroll in courses.";
-                    return RedirectToPage("/Login");
+                    _logger.LogWarning("User {UserId} attempted to enroll in course {CourseId} but is already enrolled", userId, id);
+                    ErrorMessage = "You are already enrolled in this course.";
+                    return Page();
                 }
 
-                var userId = BitConverter.ToInt32(userIdBytes, 0);
-                _logger.LogInformation("User ID: {UserId} attempting to enroll in course ID: {CourseId}", userId, id);
+                // Get course details
+                var courseDetails = await connection.QueryFirstOrDefaultAsync<CourseDetails>(
+                    @"SELECT 
+                        c.COURSE_ID,
+                        c.TITLE,
+                        c.DESCRIPTION,
+                        u.FULL_NAME as InstructorName
+                    FROM COURSES c
+                    JOIN USERS u ON c.CREATED_BY = u.USER_ID
+                    WHERE c.COURSE_ID = @CourseId AND c.IS_ACTIVE = 1",
+                    new { CourseId = id });
 
-                using (var connection = new SqlConnection(_connectionString))
+                if (courseDetails == null)
                 {
-                    await connection.OpenAsync();
-                    _logger.LogInformation("Database connection opened successfully");
+                    _logger.LogWarning("User {UserId} attempted to enroll in non-existent or inactive course {CourseId}", userId, id);
+                    ErrorMessage = "This course is not available for enrollment.";
+                    return Page();
+                }
 
-                    // Check if user exists
-                    var userExists = await connection.ExecuteScalarAsync<bool>(
-                        "SELECT COUNT(1) FROM USERS WHERE USER_ID = @UserId",
-                        new { UserId = userId });
+                using var transaction = await connection.BeginTransactionAsync();
+                try
+                {
+                    // Enroll the user
+                    var enrollmentResult = await connection.ExecuteAsync(
+                        @"INSERT INTO COURSE_ENROLLMENTS (USER_ID, COURSE_ID, ENROLLMENT_DATE, STATUS)
+                        VALUES (@UserId, @CourseId, GETUTCDATE(), 'ACTIVE')",
+                        new { UserId = userId, CourseId = id },
+                        transaction);
 
-                    if (!userExists)
+                    if (enrollmentResult > 0)
                     {
-                        ErrorMessage = "User not found. Please log in again.";
-                        _logger.LogWarning("User not found. UserId: {UserId}", userId);
-                        HttpContext.Session.Clear();
-                        return RedirectToPage("/Login");
+                        // Send notification about course enrollment
+                        await _notificationService.CreateNotificationAsync(
+                            int.Parse(userId),
+                            "Course Enrollment",
+                            $"You have been enrolled in the course: {courseDetails.Title}\nInstructor: {courseDetails.InstructorName}",
+                            "success");
+
+                        await transaction.CommitAsync();
+                        _logger.LogInformation("Successfully enrolled user {UserId} in course {CourseId}", userId, id);
+                        TempData["SuccessMessage"] = "Successfully enrolled in the course!";
+                        return RedirectToPage("/Student/Courses");
                     }
-
-                    // Check if course exists and is active
-                    var courseExists = await connection.ExecuteScalarAsync<bool>(
-                        "SELECT COUNT(1) FROM COURSES WHERE COURSE_ID = @CourseId AND IS_ACTIVE = 1",
-                        new { CourseId = id });
-
-                    _logger.LogInformation("Course exists check result: {CourseExists}", courseExists);
-
-                    if (!courseExists)
+                    else
                     {
-                        ErrorMessage = "Course not found or is not available.";
-                        _logger.LogWarning("Course not found or inactive. CourseId: {CourseId}", id);
+                        await transaction.RollbackAsync();
+                        _logger.LogWarning("Failed to enroll user {UserId} in course {CourseId}", userId, id);
+                        ErrorMessage = "Failed to enroll in the course. Please try again.";
                         return Page();
                     }
-
-                    // Check if already enrolled
-                    var isEnrolled = await connection.ExecuteScalarAsync<bool>(
-                        "SELECT COUNT(1) FROM COURSE_ENROLLMENTS WHERE USER_ID = @UserId AND COURSE_ID = @CourseId",
-                        new { UserId = userId, CourseId = id });
-
-                    _logger.LogInformation("Already enrolled check result: {IsEnrolled}", isEnrolled);
-
-                    if (isEnrolled)
-                    {
-                        ErrorMessage = "You are already enrolled in this course.";
-                        _logger.LogWarning("User already enrolled. UserId: {UserId}, CourseId: {CourseId}", userId, id);
-                        return Page();
-                    }
-
-                    // Enroll the user with transaction
-                    using (var transaction = connection.BeginTransaction())
-                    {
-                        try
-                        {
-                            var enrollmentResult = await connection.ExecuteAsync(
-                                @"INSERT INTO COURSE_ENROLLMENTS (USER_ID, COURSE_ID, ENROLLMENT_DATE, STATUS) 
-                          VALUES (@UserId, @CourseId, @EnrollmentDate, 'active')",
-                                new
-                                {
-                                    UserId = userId,
-                                    CourseId = id,
-                                    EnrollmentDate = DateTime.UtcNow
-                                },
-                                transaction);
-
-                            _logger.LogInformation("Enrollment result: {Result} rows affected", enrollmentResult);
-
-                            if (enrollmentResult > 0)
-                            {
-                                transaction.Commit();
-                                _logger.LogInformation("Successfully enrolled user {UserId} in course {CourseId}", userId, id);
-                                TempData["SuccessMessage"] = "Successfully enrolled in the course!";
-                                return RedirectToPage("/Student/Courses");
-                            }
-                            else
-                            {
-                                transaction.Rollback();
-                                _logger.LogWarning("Failed to enroll user {UserId} in course {CourseId}", userId, id);
-                                ErrorMessage = "Failed to enroll in the course. Please try again.";
-                                return Page();
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            transaction.Rollback();
-                            throw; // Re-throw to be caught by outer try-catch
-                        }
-                    }
+                }
+                catch (Exception ex)
+                {
+                    await transaction.RollbackAsync();
+                    throw;
                 }
             }
             catch (SqlException ex)
@@ -144,6 +123,14 @@ namespace E_Learning_Platform.Pages.Student.Courses
                 ErrorMessage = $"Error enrolling in course: {ex.Message}";
                 return Page();
             }
+        }
+
+        private class CourseDetails
+        {
+            public int CourseId { get; set; }
+            public string Title { get; set; }
+            public string Description { get; set; }
+            public string InstructorName { get; set; }
         }
     }
 } 

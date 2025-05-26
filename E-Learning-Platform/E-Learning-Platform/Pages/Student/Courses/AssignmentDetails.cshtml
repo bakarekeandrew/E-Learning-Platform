@@ -5,18 +5,23 @@
 }
 
 <div class="container">
-    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    @if (!ModelState.IsValid)
     {
         <div class="alert alert-danger alert-dismissible fade show">
-            @Model.ErrorMessage
+            <ul class="mb-0">
+                @foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
 
-    @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+    @if (TempData["SuccessMessage"] != null)
     {
         <div class="alert alert-success alert-dismissible fade show">
-            @Model.SuccessMessage
+            @TempData["SuccessMessage"]
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
@@ -30,7 +35,14 @@
         </ol>
     </nav>
 
-    @if (Model.Assignment != null)
+    @if (!Model.AssignmentExists)
+    {
+        <div class="alert alert-warning">
+            <p>Assignment not found or you don't have permission to view it.</p>
+            <a asp-page="/Student/Courses/Assignments" class="btn btn-primary mt-2">Return to Assignments</a>
+        </div>
+    }
+    else if (Model.Assignment != null)
     {
         <div class="card mb-4">
             <div class="card-header bg-primary text-white">
@@ -111,9 +123,12 @@
                 }
 
                 <form method="post" enctype="multipart/form-data">
+                    <input type="hidden" asp-for="Submission.SubmissionId" />
+                    
                     <div class="mb-3">
-                        <label for="Submission_SubmissionText" class="form-label">Your Answer</label>
-                        <textarea class="form-control" id="Submission_SubmissionText" name="Submission.SubmissionText" rows="5">@Model.Assignment?.SubmissionText</textarea>
+                        <label asp-for="Submission.SubmissionText" class="form-label">Your Answer</label>
+                        <textarea asp-for="Submission.SubmissionText" class="form-control" rows="5"></textarea>
+                        <span asp-validation-for="Submission.SubmissionText" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">

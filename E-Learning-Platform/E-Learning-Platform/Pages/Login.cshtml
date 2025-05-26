@@ -13,6 +13,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="~/css/themes.css" asp-append-version="true" />
     <style>
+        :root {
+            --danger-color: #dc3545;
+            --danger-light: #f8d7da;
+            --success-color: #28a745;
+            --success-light: #d4edda;
+            --primary-color: #0d6efd;
+        }
+        
         body {
             font-family: "Segoe UI", Arial, sans-serif;
             background: var(--primary-bg);
@@ -21,71 +29,75 @@
             align-items: center;
             justify-content: center;
             color: var(--primary-text);
+            margin: 0;
+            padding: 20px;
         }
         .login-container {
             background: var(--card-bg);
-            padding: 18px 22px;
-            border-radius: 6px;
+            padding: 2rem;
+            border-radius: 8px;
             box-shadow: 0 2px 8px var(--shadow-color);
             width: 100%;
-            max-width: 320px;
+            max-width: 360px;
         }
         .login-container h2 {
-            font-size: 1.3rem;
-            margin-bottom: 18px;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
             text-align: center;
             color: var(--primary-text);
         }
         .form-group {
-            margin-bottom: 13px;
+            margin-bottom: 1rem;
         }
         .form-group label {
-            font-size: 0.97rem;
-            margin-bottom: 4px;
+            display: block;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
             color: var(--primary-text);
         }
         .form-group input {
             width: 100%;
-            padding: 8px 10px;
+            padding: 0.75rem;
             border: 1px solid var(--border-color);
             border-radius: 4px;
             font-size: 1rem;
             background-color: var(--input-bg);
             color: var(--primary-text);
+            box-sizing: border-box;
         }
         .form-check {
             display: flex;
             align-items: center;
-            margin-bottom: 13px;
+            margin-bottom: 1rem;
         }
         .form-check input {
-            margin-right: 6px;
+            margin-right: 0.5rem;
         }
         .btn {
             width: 100%;
-            padding: 9px;
+            padding: 0.75rem;
             border: none;
             border-radius: 4px;
             font-size: 1rem;
             font-weight: 500;
             cursor: pointer;
+            transition: opacity 0.2s;
         }
         .btn-primary {
             background-color: var(--btn-primary-bg);
             color: var(--btn-primary-text);
         }
         .btn-primary:hover {
-            background-color: var(--btn-primary-bg);
             opacity: 0.9;
         }
         .validation-error {
             color: var(--danger-color);
             font-size: 0.875rem;
-            margin-top: 4px;
+            margin-top: 0.25rem;
         }
         .alert {
-            padding: 10px;
-            margin-bottom: 15px;
+            padding: 1rem;
+            margin-bottom: 1rem;
             border-radius: 4px;
         }
         .alert-danger {
@@ -99,13 +111,15 @@
             border: 1px solid var(--success-color);
         }
         .links {
-            margin-top: 15px;
+            margin-top: 1.5rem;
             text-align: center;
         }
         .links a {
             color: var(--primary-color);
             text-decoration: none;
             font-size: 0.9rem;
+            display: inline-block;
+            margin: 0.25rem 0;
         }
         .links a:hover {
             text-decoration: underline;
@@ -125,7 +139,6 @@
             <div class="alert alert-success">@Model.SuccessMessage</div>
         }
         <form method="post" asp-antiforgery="true" id="loginForm">
-            <input type="hidden" name="__RequestVerificationToken" value="@Html.AntiForgeryToken()" />
             <div class="form-group">
                 <label asp-for="Input.Email">Email</label>
                 <input asp-for="Input.Email" class="form-control" autocomplete="username" required />
@@ -143,7 +156,7 @@
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
         <div class="links">
-            <p><a href="/Register">Sign up</a></p>
+            <p><a href="/SignupPage">Sign up</a></p>
             <p><a href="/ForgotPassword">Forgot password?</a></p>
         </div>
     </div>
@@ -151,16 +164,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/js/theme.js" asp-append-version="true"></script>
-    <script>
-        $(document).ready(function() {
-            // Prevent form submission if validation fails
-            $("#loginForm").on("submit", function(e) {
-                if (!$(this).valid()) {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-        });
-    </script>
 </body>
 </html>

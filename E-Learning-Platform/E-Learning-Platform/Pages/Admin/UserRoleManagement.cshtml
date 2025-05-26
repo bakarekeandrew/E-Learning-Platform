@@ -1,0 +1,135 @@
+@page
+@model E_Learning_Platform.Pages.Admin.UserRoleManagementModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "User Role Management";
+}
+
+<div class="container-fluid">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/AdminDashboard">Dashboard</a></li>
+            <li class="breadcrumb-item active">User Role Management</li>
+        </ol>
+    </nav>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show mb-4">
+            <strong>Success!</strong> @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show mb-4">
+            <strong>Error:</strong> @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                    <h6 class="m-0 font-weight-bold text-primary">User Role Management</h6>
+                    <div class="form-group mb-0">
+                        <input type="text" id="userSearch" class="form-control" placeholder="Search users...">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="usersTable">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Email</th>
+                                    <th>Current Role</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var user in Model.Users)
+                                {
+                                    <tr>
+                                        <td>@user.FullName</td>
+                                        <td>@user.Email</td>
+                                        <td>@user.CurrentRole</td>
+                                        <td>
+                                            <button class="btn btn-primary btn-sm" 
+                                                    onclick="showChangeRoleModal(@user.UserId, '@user.FullName', '@user.CurrentRole')">
+                                                <i class="fas fa-user-edit"></i> Change Role
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Change Role Modal -->
+<div class="modal fade" id="changeRoleModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" asp-page-handler="ChangeRole">
+                <input type="hidden" id="userId" name="userId" />
+                <div class="modal-header">
+                    <h5 class="modal-title">Change User Role</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Change role for: <strong id="userName"></strong></p>
+                    <p>Current role: <span id="currentRole"></span></p>
+                    <div class="mb-3">
+                        <label class="form-label">New Role</label>
+                        <select name="newRoleId" class="form-select" required>
+                            <option value="">Select Role</option>
+                            @foreach (var role in Model.AvailableRoles)
+                            {
+                                <option value="@role.Value">@role.Text</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Reason for Change</label>
+                        <textarea name="reason" class="form-control" rows="3" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Change Role</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Initialize DataTable
+            var table = $('#usersTable').DataTable({
+                "pageLength": 10,
+                "order": [[0, "asc"]]
+            });
+
+            // Search functionality
+            $('#userSearch').on('keyup', function() {
+                table.search(this.value).draw();
+            });
+        });
+
+        function showChangeRoleModal(userId, userName, currentRole) {
+            document.getElementById('userId').value = userId;
+            document.getElementById('userName').textContent = userName;
+            document.getElementById('currentRole').textContent = currentRole;
+            new bootstrap.Modal(document.getElementById('changeRoleModal')).show();
+        }
+    </script>
+} 

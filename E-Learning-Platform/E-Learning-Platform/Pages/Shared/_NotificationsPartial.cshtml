@@ -1,0 +1,416 @@
+@using E_Learning_Platform.Services
+@inject INotificationService NotificationService
+
+@{
+    var userId = Context.Session.GetInt32("UserId");
+    var unreadCount = 0;
+    var notifications = new List<NotificationDto>();
+
+    if (userId.HasValue)
+    {
+        unreadCount = await NotificationService.GetUnreadCountAsync(userId.Value);
+        notifications = await NotificationService.GetUserNotificationsAsync(userId.Value);
+    }
+}
+
+<div class="notification-wrapper">
+    <a class="notification-bell" href="#" id="notificationsDropdown" role="button"
+       data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-bell"></i>
+        @if (unreadCount > 0)
+        {
+            <span class="notification-badge pulse">
+                @unreadCount
+            </span>
+        }
+    </a>
+    <div class="dropdown-menu dropdown-menu-end notification-panel" aria-labelledby="notificationsDropdown">
+        <div class="notification-header">
+            <h6 class="mb-0">Notifications</h6>
+            @if (unreadCount > 0)
+            {
+                <button class="btn btn-link btn-sm p-0" onclick="markAllNotificationsAsRead()">
+                    <i class="fas fa-check-double me-1"></i>Mark all as read
+                </button>
+            }
+        </div>
+        <div class="notification-list">
+            @if (notifications.Any())
+            {
+                foreach (var notification in notifications)
+                {
+                    <div class="notification-item @(!notification.IsRead ? "unread" : "")"
+                         data-notification-id="@notification.NotificationId"
+                         onclick="markNotificationAsRead(@notification.NotificationId)">
+                        <div class="notification-icon">
+                            @switch (notification.Type.ToLower())
+                            {
+                                case "success":
+                                    <i class="fas fa-check-circle text-success"></i>
+                                    break;
+                                case "warning":
+                                    <i class="fas fa-exclamation-triangle text-warning"></i>
+                                    break;
+                                case "error":
+                                    <i class="fas fa-times-circle text-danger"></i>
+                                    break;
+                                default:
+                                    <i class="fas fa-info-circle text-info"></i>
+                                    break;
+                            }
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">@notification.Title</div>
+                            <div class="notification-message">@notification.Message</div>
+                            <div class="notification-time">
+                                <i class="fas fa-clock me-1"></i>
+                                @notification.CreatedAt.ToLocalTime().ToString("g")
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="no-notifications">
+                    <i class="fas fa-bell-slash"></i>
+                    <p>No notifications</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .notification-wrapper {
+        position: relative;
+        margin-right: 1rem;
+    }
+
+    .notification-bell {
+        position: relative;
+        color: #4a5568;
+        font-size: 1.25rem;
+        padding: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        border-radius: 50%;
+    }
+
+    .notification-bell:hover {
+        color: #2d3748;
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    .notification-badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background-color: #e53e3e;
+        color: white;
+        border-radius: 50%;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+        min-width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+    }
+
+    .pulse {
+        animation: pulse 2s infinite;
+    }
+
+    @@keyframes pulse {
+        0% {
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(229, 62, 62, 0.7);
+        }
+        
+        70% {
+            transform: scale(1.1);
+            box-shadow: 0 0 0 10px rgba(229, 62, 62, 0);
+        }
+        
+        100% {
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(229, 62, 62, 0);
+        }
+    }
+
+    .notification-panel {
+        width: 350px;
+        max-height: 500px;
+        padding: 0;
+        margin: 0;
+        border: none;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        border-radius: 0.5rem;
+    }
+
+    .notification-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        border-bottom: 1px solid #e2e8f0;
+        background-color: #f8fafc;
+        border-radius: 0.5rem 0.5rem 0 0;
+    }
+
+    .notification-list {
+        max-height: 400px;
+        overflow-y: auto;
+        padding: 0.5rem;
+    }
+
+    .notification-item {
+        display: flex;
+        align-items: flex-start;
+        padding: 1rem;
+        border-radius: 0.375rem;
+        margin-bottom: 0.5rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .notification-item:hover {
+        background-color: #f7fafc;
+        transform: translateY(-1px);
+    }
+
+    .notification-item.unread {
+        background-color: #ebf8ff;
+    }
+
+    .notification-icon {
+        flex-shrink: 0;
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1rem;
+        background-color: white;
+        border-radius: 50%;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .notification-content {
+        flex: 1;
+    }
+
+    .notification-title {
+        font-weight: 600;
+        color: #2d3748;
+        margin-bottom: 0.25rem;
+    }
+
+    .notification-message {
+        color: #4a5568;
+        font-size: 0.875rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .notification-time {
+        color: #718096;
+        font-size: 0.75rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .no-notifications {
+        text-align: center;
+        padding: 2rem;
+        color: #a0aec0;
+    }
+
+    .no-notifications i {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .no-notifications p {
+        margin: 0;
+    }
+
+    /* Custom scrollbar for notification list */
+    .notification-list::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .notification-list::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 3px;
+    }
+
+    .notification-list::-webkit-scrollbar-thumb {
+        background: #cbd5e0;
+        border-radius: 3px;
+    }
+
+    .notification-list::-webkit-scrollbar-thumb:hover {
+        background: #a0aec0;
+    }
+</style>
+
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+<script>
+    let hubConnection = null;
+
+    function setupSignalRConnection() {
+        try {
+            if (hubConnection) {
+                return; // Connection already exists
+            }
+
+            hubConnection = new signalR.HubConnectionBuilder()
+                .withUrl("/infoHub")
+                .withAutomaticReconnect([0, 2000, 5000, 10000, 20000]) // Retry pattern
+                .configureLogging(signalR.LogLevel.Information)
+                .build();
+
+            hubConnection.on("ReceiveNotification", function (notification) {
+                console.log("Received notification:", notification);
+                addNotificationToUI(notification);
+                updateUnreadCount(1);
+            });
+
+            hubConnection.onclose(error => {
+                console.log("SignalR Disconnected", error);
+                setTimeout(() => setupSignalRConnection(), 5000);
+            });
+
+            startConnection();
+        } catch (err) {
+            console.error("Error setting up SignalR connection:", err);
+            setTimeout(() => setupSignalRConnection(), 5000);
+        }
+    }
+
+    async function startConnection() {
+        try {
+            await hubConnection.start();
+            console.log("SignalR Connected");
+            
+            const userId = '@userId';
+            if (userId) {
+                await hubConnection.invoke("JoinUserGroup", userId);
+                console.log("Joined user group:", userId);
+            }
+        } catch (err) {
+            console.error("Error starting SignalR connection:", err);
+            setTimeout(() => startConnection(), 5000);
+        }
+    }
+
+    // Initialize SignalR connection when document is ready
+    document.addEventListener('DOMContentLoaded', setupSignalRConnection);
+
+    function addNotificationToUI(notification) {
+        const notificationList = document.querySelector('.notification-list');
+        if (!notificationList) return;
+
+        const noNotifications = notificationList.querySelector('.no-notifications');
+        if (noNotifications) {
+            noNotifications.remove();
+        }
+
+        const notificationHtml = `
+            <div class="notification-item unread" data-notification-id="${notification.notificationId}">
+                <div class="notification-icon">
+                    <i class="fas fa-${getNotificationIcon(notification.type)}"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">${notification.title}</div>
+                    <div class="notification-message">${notification.message}</div>
+                    <div class="notification-time">
+                        <i class="fas fa-clock me-1"></i>
+                        ${new Date(notification.createdAt).toLocaleString()}
+                    </div>
+                </div>
+            </div>`;
+
+        notificationList.insertAdjacentHTML('afterbegin', notificationHtml);
+        updateUnreadCount(1);
+    }
+
+    function getNotificationIcon(type) {
+        switch (type.toLowerCase()) {
+            case 'success': return 'check-circle text-success';
+            case 'warning': return 'exclamation-triangle text-warning';
+            case 'error': return 'times-circle text-danger';
+            default: return 'info-circle text-info';
+        }
+    }
+
+    function updateUnreadCount(increment) {
+        const badge = document.querySelector('.notification-badge');
+        if (!badge) {
+            const bell = document.querySelector('.notification-bell');
+            if (bell) {
+                bell.insertAdjacentHTML('beforeend', `
+                    <span class="notification-badge pulse">1</span>
+                `);
+            }
+        } else {
+            const currentCount = parseInt(badge.textContent);
+            const newCount = currentCount + increment;
+            if (newCount <= 0) {
+                badge.remove();
+            } else {
+                badge.textContent = newCount;
+            }
+        }
+    }
+
+    async function markNotificationAsRead(notificationId) {
+        try {
+            const response = await fetch(`/api/notifications/${notificationId}/read`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                const notificationElement = document.querySelector(`[data-notification-id="${notificationId}"]`);
+                if (notificationElement) {
+                    notificationElement.classList.remove('unread');
+                    updateUnreadCount(-1);
+                }
+            }
+        } catch (error) {
+            console.error('Error marking notification as read:', error);
+        }
+    }
+
+    async function markAllNotificationsAsRead() {
+        try {
+            const response = await fetch('/api/notifications/mark-all-read', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                const unreadNotifications = document.querySelectorAll('.notification-item.unread');
+                unreadNotifications.forEach(notification => {
+                    notification.classList.remove('unread');
+                });
+                
+                const badge = document.querySelector('.notification-badge');
+                if (badge) {
+                    badge.remove();
+                }
+            }
+        } catch (error) {
+            console.error('Error marking all notifications as read:', error);
+        }
+    }
+</script> 

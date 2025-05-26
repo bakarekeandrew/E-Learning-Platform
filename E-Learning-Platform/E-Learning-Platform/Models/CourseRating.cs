@@ -4,12 +4,12 @@ namespace E_Learning_Platform.Models
 {
     public class CourseRating
     {
-        public int RatingId { get; set; }
+        public int ReviewId { get; set; }
         public int CourseId { get; set; }
         public Course Course { get; set; }
         public int UserId { get; set; }
-        public int Rating { get; set; }
-        public string Comment { get; set; }
-        public DateTime RatingDate { get; set; }
+        public decimal Rating { get; set; }
+        public string ReviewText { get; set; }
+        public DateTime ReviewDate { get; set; }
     }
 } 

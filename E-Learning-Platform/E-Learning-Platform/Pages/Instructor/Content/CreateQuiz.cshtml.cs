@@ -1,20 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
 using Dapper;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace E_Learning_Platform.Pages.Instructor.Content
 {
-    public class CreateQuizModel : PageModel
+    public class CreateQuizModel : InstructorPageModel
     {
-        private string ConnectionString => "Data Source=ABAKAREKE_25497\\SQLEXPRESS;" +
-                                        "Initial Catalog=ONLINE_LEARNING_PLATFORM;" +
-                                        "Integrated Security=True;" +
-                                        "TrustServerCertificate=True";
-
         [BindProperty(SupportsGet = true)]
         public int ModuleId { get; set; }
 
@@ -24,10 +19,14 @@ namespace E_Learning_Platform.Pages.Instructor.Content
         [BindProperty]
         public QuizInput Quiz { get; set; } = new QuizInput
         {
-            Title = string.Empty, // Initialize required property
-            Description = string.Empty // Initialize required property
+            Title = string.Empty,
+            Description = string.Empty
         };
 
+        public CreateQuizModel(ILogger<CreateQuizModel> logger, IConfiguration configuration)
+            : base(logger, configuration)
+        {
+        }
 
         public class QuizInput
         {
@@ -55,20 +54,9 @@ namespace E_Learning_Platform.Pages.Instructor.Content
 
         public async Task<IActionResult> OnGetAsync()
         {
-            int? userId = null;
-            byte[] userIdBytes;
-            if (HttpContext.Session.TryGetValue("UserId", out userIdBytes))
+            return await ExecuteDbOperationAsync(async () =>
             {
-                userId = BitConverter.ToInt32(userIdBytes, 0);
-            }
-            if (userId == null)
-            {
-                return RedirectToPage("/Login");
-            }
-
-            try
-            {
-                using var connection = new SqlConnection(ConnectionString);
+                using var connection = new SqlConnection(_connectionString);
                 await connection.OpenAsync();
 
                 // Verify this instructor owns the module
@@ -80,80 +68,63 @@ namespace E_Learning_Platform.Pages.Instructor.Content
                     FROM MODULES m
                     JOIN COURSES c ON m.COURSE_ID = c.COURSE_ID
                     WHERE m.MODULE_ID = @ModuleId AND c.CREATED_BY = @InstructorId",
-                    new { ModuleId, InstructorId = userId });
+                    new { ModuleId, InstructorId = GetInstructorId() });
 
                 if (moduleInfo == null)
                 {
-                    return NotFound();
+                    return RedirectToPage("Quizzes");
                 }
 
-                ModuleTitle = moduleInfo.Title ?? string.Empty;
+                ModuleTitle = moduleInfo.Title;
                 CourseId = moduleInfo.CourseId;
 
                 return Page();
-            }
-            catch (SqlException ex)
-            {
-                ModelState.AddModelError("", "Database error occurred: " + ex.Message);
-                return RedirectToPage("Quizzes", new { moduleId = ModuleId });
-            }
+            }, "Error loading module information");
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            int? userId = null;
-            byte[] userIdBytes;
-            if (HttpContext.Session.TryGetValue("UserId", out userIdBytes))
-            {
-                userId = BitConverter.ToInt32(userIdBytes, 0);
-            }
-            if (userId == null)
-            {
-                return RedirectToPage("/Login");
-            }
-
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            try
+            return await ExecuteDbOperationAsync(async () =>
             {
-                using var connection = new SqlConnection(ConnectionString);
+                using var connection = new SqlConnection(_connectionString);
                 await connection.OpenAsync();
 
                 // Verify this instructor owns the module
                 var ownsModule = await connection.ExecuteScalarAsync<bool>(@"
-            SELECT COUNT(1) 
-            FROM MODULES m
-            JOIN COURSES c ON m.COURSE_ID = c.COURSE_ID
-            WHERE m.MODULE_ID = @ModuleId AND c.CREATED_BY = @InstructorId",
-                    new { ModuleId, InstructorId = userId });
+                    SELECT COUNT(1) 
+                    FROM MODULES m
+                    JOIN COURSES c ON m.COURSE_ID = c.COURSE_ID
+                    WHERE m.MODULE_ID = @ModuleId AND c.CREATED_BY = @InstructorId",
+                    new { ModuleId, InstructorId = GetInstructorId() });
 
                 if (!ownsModule)
                 {
-                    return NotFound();
+                    return RedirectToPage("Quizzes");
                 }
 
-                // Insert new quiz
                 // Insert new quiz and get the new quiz ID
-            var quizId = await connection.ExecuteScalarAsync<int>(@"
-            INSERT INTO QUIZZES (
-                MODULE_ID,
-                TITLE,
-                DESCRIPTION,
-                PASSING_SCORE,
-                TIME_LIMIT_MINUTES,
-                MAX_ATTEMPTS
-            ) VALUES (
-                @ModuleId,
-                @Title,
-                @Description,
-                @PassingScore,
-                @TimeLimitMinutes,
-                @MaxAttempts
-            );
-            SELECT SCOPE_IDENTITY();", // This gets the newly created quiz ID
+                var quizId = await connection.ExecuteScalarAsync<int>(@"
+                    INSERT INTO QUIZZES (
+                        MODULE_ID,
+                        TITLE,
+                        DESCRIPTION,
+                        PASSING_SCORE,
+                        TIME_LIMIT_MINUTES,
+                        MAX_ATTEMPTS
+                    ) VALUES (
+                        @ModuleId,
+                        @Title,
+                        @Description,
+                        @PassingScore,
+                        @TimeLimitMinutes,
+                        @MaxAttempts
+                    );
+                    SELECT SCOPE_IDENTITY();",
                     new
                     {
                         ModuleId,
@@ -164,14 +135,9 @@ namespace E_Learning_Platform.Pages.Instructor.Content
                         Quiz.MaxAttempts
                     });
 
-                // Redirect to QuizQuestions page for the new quiz
+                TempData["SuccessMessage"] = "Quiz created successfully.";
                 return RedirectToPage("QuizQuestions", new { quizId });
-            }
-            catch (SqlException ex)
-            {
-                ModelState.AddModelError("", "Error creating quiz: " + ex.Message);
-                return Page();
-            }
+            }, "Error creating quiz");
         }
 
         private class ModuleInfo

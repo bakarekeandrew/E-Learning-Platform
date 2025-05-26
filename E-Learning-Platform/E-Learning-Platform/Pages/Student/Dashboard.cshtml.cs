@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
 using Dapper;
 using System.Collections.Generic;
@@ -8,28 +7,23 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 
 namespace E_Learning_Platform.Pages.Student
 {
-    public class DashboardModel : PageModel
+    public class DashboardModel : StudentPageModel
     {
-        private readonly string _connectionString;
-        private readonly ILogger<DashboardModel> _logger;
-
-        public DashboardModel(ILogger<DashboardModel> logger = null)
+        public DashboardModel(
+            ILogger<DashboardModel> logger,
+            IConfiguration configuration)
+            : base(logger, configuration)
         {
-            _connectionString = "Data Source=ABAKAREKE_25497\\SQLEXPRESS;" +
-                              "Initial Catalog=ONLINE_LEARNING_PLATFORM;" +
-                              "Integrated Security=True;" +
-                              "TrustServerCertificate=True";
-            _logger = logger;
         }
 
         public DashboardStats Stats { get; set; } = new DashboardStats();
         public List<EnrolledCourse> MyCourses { get; set; } = new List<EnrolledCourse>();
         public List<UpcomingAssignment> UpcomingAssignments { get; set; } = new List<UpcomingAssignment>();
         public List<RecentActivity> RecentActivities { get; set; } = new List<RecentActivity>();
-        public string ErrorMessage { get; set; }
 
         public class DashboardStats
         {
@@ -68,27 +62,10 @@ namespace E_Learning_Platform.Pages.Student
 
         public async Task<IActionResult> OnGetAsync()
         {
-            try
+            return await ExecuteDbOperationAsync(async () =>
             {
-                // Verify session and role
-                if (!HttpContext.Session.TryGetValue("UserId", out var userIdBytes))
-                {
-                    _logger?.LogWarning("Student dashboard accessed without user session");
-                    return RedirectToPage("/Login");
-                }
-
-                var userRoleBytes = HttpContext.Session.Get("UserRole");
-                var userRole = userRoleBytes != null ? System.Text.Encoding.UTF8.GetString(userRoleBytes) : null;
-                if (userRole != "STUDENT")
-                {
-                    _logger?.LogWarning($"Unauthorized access attempt to student dashboard by {userRole}");
-                    return RedirectToPage("/AccessDenied");
-                }
-
-                var userId = BitConverter.ToInt32(userIdBytes, 0);
-                var userName = HttpContext.Session.GetString("UserName");
-
-                _logger?.LogInformation($"Loading student dashboard for {userName} (ID: {userId})");
+                var studentId = GetStudentId();
+                _logger.LogInformation("Loading dashboard for student ID: {StudentId}", studentId);
 
                 using var connection = new SqlConnection(_connectionString);
                 await connection.OpenAsync();
@@ -97,10 +74,10 @@ namespace E_Learning_Platform.Pages.Student
                 Stats = await connection.QueryFirstOrDefaultAsync<DashboardStats>(@"
                     SELECT 
                         (SELECT COUNT(*) FROM COURSE_ENROLLMENTS WHERE USER_ID = @UserId) AS EnrolledCourses,
-                        (SELECT COUNT(*) FROM ASSIGNMENT_SUBMISSIONS WHERE USER_ID = @UserId AND GRADE IS NOT NULL) AS CompletedAssignments,
-                        (SELECT COUNT(*) FROM ASSIGNMENT_SUBMISSIONS WHERE USER_ID = @UserId AND GRADE IS NULL) AS PendingAssignments,
+                        (SELECT COUNT(*) FROM ASSIGNMENT_SUBMISSIONS WHERE USER_ID = @UserId AND STATUS = 'Graded') AS CompletedAssignments,
+                        (SELECT COUNT(*) FROM ASSIGNMENT_SUBMISSIONS WHERE USER_ID = @UserId AND STATUS = 'Submitted') AS PendingAssignments,
                         COALESCE((SELECT AVG(CAST(PROGRESS AS DECIMAL(5,2))) FROM COURSE_PROGRESS WHERE USER_ID = @UserId), 0) AS OverallProgress",
-                    new { UserId = userId }) ?? new DashboardStats();
+                    new { UserId = studentId }) ?? new DashboardStats();
 
                 // Load enrolled courses
                 MyCourses = (await connection.QueryAsync<EnrolledCourse>(@"
@@ -117,7 +94,7 @@ namespace E_Learning_Platform.Pages.Student
                     LEFT JOIN COURSE_PROGRESS cp ON ce.COURSE_ID = cp.COURSE_ID AND ce.USER_ID = cp.USER_ID
                     WHERE ce.USER_ID = @UserId
                     ORDER BY ce.ENROLLMENT_DATE DESC",
-                    new { UserId = userId })).ToList();
+                    new { UserId = studentId })).ToList();
 
                 // Load upcoming assignments
                 UpcomingAssignments = (await connection.QueryAsync<UpcomingAssignment>(@"
@@ -134,46 +111,34 @@ namespace E_Learning_Platform.Pages.Student
                     WHERE ce.USER_ID = @UserId
                     AND a.DUE_DATE >= GETDATE()
                     ORDER BY a.DUE_DATE ASC",
-                    new { UserId = userId })).ToList();
+                    new { UserId = studentId })).ToList();
 
                 // Load recent activities
                 RecentActivities = (await connection.QueryAsync<RecentActivity>(@"
-                    SELECT TOP 5
-                        'Course Activity' AS Type,
+                    SELECT TOP 10
+                        'Assignment Due' AS Type,
                         c.TITLE + ' - ' + a.TITLE AS Description,
                         a.DUE_DATE AS Timestamp,
                         c.TITLE AS CourseTitle
                     FROM ASSIGNMENTS a
                     JOIN COURSES c ON a.COURSE_ID = c.COURSE_ID
                     JOIN COURSE_ENROLLMENTS ce ON c.COURSE_ID = ce.COURSE_ID
-                    WHERE ce.USER_ID = @UserId
+                    WHERE ce.USER_ID = @UserId AND a.DUE_DATE >= GETDATE()
                     UNION ALL
                     SELECT 
-                        'Grade Update' AS Type,
-                        c.TITLE + ' - ' + a.TITLE + ' - Grade: ' + CAST(s.GRADE AS VARCHAR) AS Description,
-                        s.GRADED_ON AS Timestamp,
+                        'Submission' AS Type,
+                        c.TITLE + ' - ' + a.TITLE + ' - ' + s.STATUS AS Description,
+                        s.SUBMITTED_ON AS Timestamp,
                         c.TITLE AS CourseTitle
                     FROM ASSIGNMENT_SUBMISSIONS s
                     JOIN ASSIGNMENTS a ON s.ASSIGNMENT_ID = a.ASSIGNMENT_ID
                     JOIN COURSES c ON a.COURSE_ID = c.COURSE_ID
-                    WHERE s.USER_ID = @UserId AND s.GRADE IS NOT NULL
+                    WHERE s.USER_ID = @UserId
                     ORDER BY Timestamp DESC",
-                    new { UserId = userId })).ToList();
+                    new { UserId = studentId })).ToList();
 
                 return Page();
-            }
-            catch (SqlException ex)
-            {
-                _logger?.LogError(ex, "Database error in student dashboard");
-                ErrorMessage = "A database error occurred while loading your dashboard. Please try again later.";
-                return Page();
-            }
-            catch (Exception ex)
-            {
-                _logger?.LogError(ex, "Unexpected error in student dashboard");
-                ErrorMessage = "An unexpected error occurred while loading your dashboard. Please try again.";
-                return Page();
-            }
+            }, "Error loading student dashboard");
         }
     }
 }

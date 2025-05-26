@@ -4,8 +4,9 @@ using Microsoft.Data.SqlClient;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authorization;
 using Dapper;
-using E_Learning_Platform.Pages.Services;
+using E_Learning_Platform.Services;
 using System.Security.Claims;
+using Microsoft.Extensions.Configuration;
 
 namespace E_Learning_Platform.Pages
 {
@@ -41,15 +42,20 @@ namespace E_Learning_Platform.Pages
 
         public bool ShowVerificationForm { get; set; }
 
-        private readonly LoggingService _logger;
+        private readonly ILoggingService _logger;
         private readonly string _connectionString;
-        private readonly OtpService _otpService;
-        private readonly EmailService _emailService;
+        private readonly IOtpService _otpService;
+        private readonly IEmailService _emailService;
 
-        public UserProfileModel(ConfigurationService configService, OtpService otpService, EmailService emailService)
+        public UserProfileModel(
+            IConfiguration configuration,
+            ILoggingService logger,
+            IOtpService otpService,
+            IEmailService emailService)
         {
-            _logger = new LoggingService();
-            _connectionString = configService.ConnectionString;
+            _connectionString = configuration.GetConnectionString("DefaultConnection") ?? 
+                throw new ArgumentNullException("Connection string 'DefaultConnection' not found.");
+            _logger = logger;
             _otpService = otpService;
             _emailService = emailService;
         }
@@ -108,7 +114,7 @@ namespace E_Learning_Platform.Pages
                     }
                     catch (Exception ex)
                     {
-                        _logger.LogError("UserProfile", $"Error sending verification code for user {userIdInt}", ex);
+                        _logger.LogError("Error sending verification code", ex);
                         ErrorMessage = $"Error sending verification code: {ex.Message}";
                         return RedirectToPage();
                     }
@@ -132,7 +138,7 @@ namespace E_Learning_Platform.Pages
                     }
                     catch (Exception ex)
                     {
-                        _logger.LogError("UserProfile", $"Error disabling MFA for user {userIdInt}", ex);
+                        _logger.LogError("Error disabling MFA", ex);
                         ErrorMessage = $"Error: {ex.Message}";
                     }
                 }
@@ -166,7 +172,7 @@ namespace E_Learning_Platform.Pages
             // Verify OTP code
             try
             {
-                bool isValid = _otpService.ValidateOtp(userIdInt, VerificationCode);
+                bool isValid = await _otpService.ValidateOtpAsync(userIdInt, VerificationCode);
 
                 if (isValid)
                 {
@@ -188,7 +194,7 @@ namespace E_Learning_Platform.Pages
                     }
                     catch (Exception ex)
                     {
-                        _logger.LogError("UserProfile", $"Database error enabling MFA for user {userIdInt}", ex);
+                        _logger.LogError("Database error enabling MFA", ex);
                         ErrorMessage = $"Error: {ex.Message}";
                         ShowVerificationForm = true;
                         return Page();
@@ -204,7 +210,7 @@ namespace E_Learning_Platform.Pages
             }
             catch (Exception ex)
             {
-                _logger.LogError("UserProfile", $"Error during OTP validation for user {userIdInt}", ex);
+                _logger.LogError("Error during OTP validation", ex);
                 ModelState.AddModelError("VerificationCode", $"Error validating code: {ex.Message}");
                 ShowVerificationForm = true;
                 return Page();
@@ -236,12 +242,12 @@ namespace E_Learning_Platform.Pages
                 }
                 else
                 {
-                    _logger.LogError("UserProfile", $"No user found with ID {userId}", null);
+                    _logger.LogError($"No user found with ID {userId}");
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError("UserProfile", $"Error loading profile for user {userId}", ex);
+                _logger.LogError("Error loading profile", ex);
                 ErrorMessage = $"Error loading profile: {ex.Message}";
             }
         }
@@ -281,13 +287,13 @@ namespace E_Learning_Platform.Pages
                 }
                 else
                 {
-                    _logger.LogError("UserProfile", $"User not found when resending OTP: {userIdInt}", null);
+                    _logger.LogError($"User not found when resending OTP: {userIdInt}");
                     ErrorMessage = "User profile not found.";
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError("UserProfile", $"Error resending OTP for user {userIdInt}", ex);
+                _logger.LogError("Error resending OTP", ex);
                 ErrorMessage = $"Error sending verification code: {ex.Message}";
             }
 

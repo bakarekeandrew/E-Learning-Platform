@@ -1,13 +1,13 @@
 @model E_Learning_Platform.Pages.UsersInfoModel
 
-@if (Model.PermissionAuditLogs.Any())
+@if (Model.AuditLogs.Any())
 {
-    foreach (var log in Model.PermissionAuditLogs)
+    foreach (var log in Model.AuditLogs)
     {
         <tr>
             <td>@log.ChangeDate.ToString("MMM dd, yyyy HH:mm")</td>
             <td>@log.UserName</td>
-            <td>@log.PermissionName</td>
+            <td>@log.Action</td>
             <td>
                 @switch (log.Action)
                 {

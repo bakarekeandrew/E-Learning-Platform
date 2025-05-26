@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.Data.SqlClient;
 using Dapper;
 
@@ -41,12 +42,11 @@ namespace E_Learning_Platform.Services
                     catch (Exception ex)
                     {
                         // Log error but continue running
-                        Console.WriteLine($"Error in InfoUpdateService: {ex.Message}");
+                        Debug.WriteLine($"Error in InfoUpdateService: {ex.Message}");
                     }
                 }
 
-                // Update every 10 seconds
-                await Task.Delay(10000, stoppingToken);
+                await Task.Delay(TimeSpan.FromSeconds(30), stoppingToken);
             }
         }
 
@@ -56,11 +56,12 @@ namespace E_Learning_Platform.Services
             await connection.OpenAsync(stoppingToken);
 
             // Get all active users
-            var activeUsers = await connection.QueryAsync<(int UserId, DateTime LastActive)>(
+            var activeUsers = (await connection.QueryAsync<(int UserId, DateTime LastActive)>(
                 @"SELECT USER_ID, MAX(LAST_ACCESSED) as LastActive
                   FROM USER_PROGRESS
                   WHERE LAST_ACCESSED >= DATEADD(MINUTE, -5, GETDATE())
-                  GROUP BY USER_ID");
+                  GROUP BY USER_ID")
+            ).AsList();
 
             foreach (var user in activeUsers)
             {
@@ -124,7 +125,7 @@ namespace E_Learning_Platform.Services
                             JOIN COURSE_ENROLLMENTS ce ON c.COURSE_ID = ce.COURSE_ID AND up.USER_ID = ce.USER_ID
                             WHERE up.USER_ID = @UserId",
                             new { user.UserId })).AsList(),
-                        RecentAssessments = (await connection.QueryAsync<AssessmentResult>(
+                        RecentAssessments = (await connection.QueryAsync<E_Learning_Platform.Hubs.AssessmentResult>(
                             @"SELECT TOP 5
                                 a.TITLE as AssessmentName,
                                 asub.GRADE as Score,
@@ -148,12 +149,13 @@ namespace E_Learning_Platform.Services
             await connection.OpenAsync(stoppingToken);
 
             // Get active courses (courses with recent activity)
-            var activeCourses = await connection.QueryAsync<int>(
+            var activeCourses = (await connection.QueryAsync<int>(
                 @"SELECT DISTINCT c.COURSE_ID
                   FROM COURSES c
                   JOIN MODULES m ON c.COURSE_ID = m.COURSE_ID
                   JOIN USER_PROGRESS up ON m.MODULE_ID = up.MODULE_ID
-                  WHERE up.LAST_ACCESSED >= DATEADD(MINUTE, -5, GETDATE())");
+                  WHERE up.LAST_ACCESSED >= DATEADD(MINUTE, -5, GETDATE())")
+            ).AsList();
 
             foreach (var courseId in activeCourses)
             {

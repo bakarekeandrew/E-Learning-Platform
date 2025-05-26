@@ -166,29 +166,35 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link @(ViewContext.RouteData.Values["Page"]?.ToString() == "/Student/Catalog" ? "active" : "")" 
+                       asp-page="/Student/Catalog">
+                        <i class="bi bi-grid"></i> Course Catalog
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link @(ViewContext.RouteData.Values["Page"]?.ToString()?.Contains("/Assignments") == true ? "active" : "")" 
                        asp-page="/Student/Courses/Assignments">
                         <i class="bi bi-file-earmark-text"></i> Assignments
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link @(ViewContext.RouteData.Values["Page"]?.ToString()?.Contains("/Certificate") == true ? "active" : "")" 
-                       asp-page="/Student/Certificate">
-                        <i class="bi bi-award"></i> Certificates
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link @(ViewContext.RouteData.Values["Page"]?.ToString() == "/Student/Calendar" ? "active" : "")" 
-                       asp-page="/Student/Calendar">
-                        <i class="bi bi-calendar"></i> Calendar
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link @(ViewContext.RouteData.Values["Page"]?.ToString() == "/Student/Resources" ? "active" : "")" 
-                       asp-page="/Student/Resources">
-                        <i class="bi bi-collection"></i> Resources
-                    </a>
-                </li>
+                @* <li class="nav-item"> *@
+                @*     <a class="nav-link @(ViewContext.RouteData.Values["Page"]?.ToString()?.Contains("/Certificate") == true ? "active" : "")"  *@
+                @*        asp-page="/Student/Certificate"> *@
+                @*         <i class="bi bi-award"></i> Certificates *@
+                @*     </a> *@
+                @* </li> *@
+                @* <li class="nav-item"> *@
+                @*     <a class="nav-link @(ViewContext.RouteData.Values["Page"]?.ToString() == "/Student/Calendar" ? "active" : "")"  *@
+                @*        asp-page="/Student/Calendar"> *@
+                @*         <i class="bi bi-calendar"></i> Calendar *@
+                @*     </a> *@
+                @* </li> *@
+                @* <li class="nav-item"> *@
+                @*     <a class="nav-link @(ViewContext.RouteData.Values["Page"]?.ToString() == "/Student/Resources" ? "active" : "")"  *@
+                @*        asp-page="/Student/Resources"> *@
+                @*         <i class="bi bi-collection"></i> Resources *@
+                @*     </a> *@
+                @* </li> *@
             </ul>
 
             <!-- User Profile Section -->

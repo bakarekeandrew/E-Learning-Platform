@@ -29,12 +29,11 @@ namespace E_Learning_Platform.Pages.Student
         {
             try
             {
-                if (!HttpContext.Session.TryGetValue("UserId", out var userIdBytes))
+                var userId = HttpContext.Session.GetInt32("UserId");
+                if (!userId.HasValue)
                 {
                     return RedirectToPage("/Login");
                 }
-
-                var userId = BitConverter.ToInt32(userIdBytes, 0);
 
                 using (var connection = new SqlConnection(_connectionString))
                 {
@@ -43,12 +42,12 @@ namespace E_Learning_Platform.Pages.Student
                     // First verify the user exists
                     var userExists = await connection.ExecuteScalarAsync<bool>(
                         "SELECT COUNT(1) FROM USERS WHERE USER_ID = @UserId",
-                        new { UserId = userId });
+                        new { UserId = userId.Value });
 
                     if (!userExists)
                     {
                         ErrorMessage = "User not found";
-                        return Page();
+                        return RedirectToPage("/Login");
                     }
 
                     // Get all available courses that the student is NOT enrolled in
@@ -74,7 +73,7 @@ namespace E_Learning_Platform.Pages.Student
                         )
                         ORDER BY c.CREATION_DATE DESC";
 
-                    AvailableCourses = (await connection.QueryAsync<AvailableCourse>(query, new { UserId = userId })).ToList();
+                    AvailableCourses = (await connection.QueryAsync<AvailableCourse>(query, new { UserId = userId.Value })).ToList();
                 }
 
                 return Page();

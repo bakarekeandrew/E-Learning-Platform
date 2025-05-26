@@ -5,9 +5,11 @@ using Dapper;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace E_Learning_Platform.Pages.Instructor.Content
 {
+    [Authorize(Roles = "INSTRUCTOR")]
     public class EditModuleModel : PageModel
     {
         private string ConnectionString => "Data Source=ABAKAREKE_25497\\SQLEXPRESS;" +

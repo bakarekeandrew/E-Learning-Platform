@@ -1,0 +1,38 @@
+@page
+@model E_Learning_Platform.Pages.TestNotificationsModel
+@{
+    ViewData["Title"] = "Test Notifications";
+}
+
+<div class="container">
+    <h2>Test Notifications</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Send Test Notification</h5>
+                    <form method="post">
+                        <div class="mb-3">
+                            <label asp-for="Title" class="form-label">Title</label>
+                            <input asp-for="Title" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Message" class="form-label">Message</label>
+                            <input asp-for="Message" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Type" class="form-label">Type</label>
+                            <select asp-for="Type" class="form-select">
+                                <option value="info">Info</option>
+                                <option value="success">Success</option>
+                                <option value="warning">Warning</option>
+                                <option value="error">Error</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Notification</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

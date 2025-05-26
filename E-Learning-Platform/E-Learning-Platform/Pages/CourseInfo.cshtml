@@ -1,471 +1,492 @@
 ﻿@page
 @model E_Learning_Platform.Pages.CourseInfoModel
 @{
-    Layout = null;
+    Layout = "_AdminLayout";
     ViewData["Title"] = "Course Management";
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Management</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+@section Styles {
     <style>
-        :root {
-            --primary-color: #4f46e5;
-            --secondary-color: #6366f1;
-            --light-color: #f8fafc;
-            --dark-color: #1e293b;
-            --sidebar-width: 240px;
-            --sidebar-bg: #f8fafc;
-            --active-menu-bg: #e0e7ff;
+        /* Custom styles for Course page */
+        .content-card {
+            background: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f1f5f9;
+        .content-card-header {
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eaecf4;
+            margin-bottom: 1rem;
         }
 
-        /* Sidebar Styling */
-        .sidebar {
-            width: var(--sidebar-width);
-            background-color: var(--sidebar-bg);
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            overflow-y: auto;
-            box-shadow: 1px 0 5px rgba(0, 0, 0, 0.05);
-            padding: 20px 0;
-            z-index: 1000;
-        }
-
-        .logo {
-            font-size: 22px;
+        .content-card-title {
+            font-size: 1.1rem;
             font-weight: 700;
-            color: var(--primary-color);
-            padding: 0 20px 20px;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .menu-category {
-            text-transform: uppercase;
-            font-size: 12px;
-            color: #64748b;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            padding: 15px 20px 5px;
-        }
-
-        .sidebar-menu {
-            list-style: none;
-            padding: 0;
+            color: #3a3b45;
             margin: 0;
         }
 
-        .menu-item {
-            padding: 10px 20px;
-            display: block;
-            color: var(--dark-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            margin: 2px 0;
-            border-radius: 0 20px 20px 0;
-        }
-
-            .menu-item:hover, .menu-item.active {
-                background-color: var(--active-menu-bg);
-                color: var(--primary-color);
-                padding-left: 25px;
-                text-decoration: none;
-            }
-
-        /* Main Content */
-        .main-content {
-            margin-left: var(--sidebar-width);
-            padding: 20px 30px;
-        }
-
-        /* Custom styles */
-        .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-            .btn-primary:hover {
-                background-color: var(--secondary-color);
-                border-color: var(--secondary-color);
-            }
-
-        .breadcrumb {
-            font-size: 14px;
-            color: #64748b;
-        }
-
-            .breadcrumb a {
-                color: var(--primary-color);
-                text-decoration: none;
-            }
-
         .tab-pills .nav-link {
-            color: #64748b;
+            color: #6b7280;
             border-radius: 0.5rem;
-            padding: 8px 16px;
-            margin-right: 10px;
+            padding: 0.75rem 1rem;
+            margin-right: 1rem;
+            font-weight: 500;
         }
 
-            .tab-pills .nav-link.active {
-                background-color: var(--active-menu-bg);
-                color: var(--primary-color);
-            }
-
-        .course-table {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        .tab-pills .nav-link:hover {
+            color: #4e73df;
+            background-color: #e0e7ff;
         }
 
-            .course-table th {
-                font-weight: 600;
-                color: #64748b;
-                font-size: 14px;
-            }
+        .tab-pills .nav-link.active {
+            background-color: #4e73df;
+            color: #ffffff;
+        }
+
+        .table thead th {
+            background-color: #f8fafc;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            color: #6b7280;
+            padding: 1rem;
+        }
+
+        .table tbody td {
+            padding: 1rem;
+            vertical-align: middle;
+        }
+
+        .badge {
+            font-weight: 500;
+            padding: 0.5em 0.75em;
+        }
 
         .rating {
             font-weight: 600;
+            color: #4e73df;
         }
 
-        .course-status {
-            font-weight: 500;
-        }
-
-        .action-buttons {
-            white-space: nowrap;
+        .form-control:focus, .form-select:focus {
+            border-color: #4e73df;
+            box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
         }
 
         .pagination-info {
-            font-size: 14px;
-            color: #64748b;
-        }
-
-        /* Stats section */
-        .stats-heading {
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            font-weight: 600;
+            font-size: 0.875rem;
+            color: #6b7280;
         }
     </style>
-</head>
-<body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="logo">E-Learning</div>
-        <ul class="sidebar-menu">
-            <li><a asp-page="/AdminDashboard" class="menu-item">Dashboard</a></li>
-            <li><a asp-page="/CourseInfo" class="menu-item active">Courses</a></li>
-            <li><a asp-page="/UsersInfo" class="menu-item">Users</a></li>
-            <li><a asp-page="/Analytics" class="menu-item">Analytics</a></li>
+}
 
-            <li class="menu-category">MANAGEMENT</li>
-            <li><a asp-page="/Instructors" class="menu-item">Instructors</a></li>
-            <li><a asp-page="/Students" class="menu-item">Students</a></li>
-            <li><a asp-page="/Content" class="menu-item">Content</a></li>
+<!-- Main Content -->
+<div class="container-fluid">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/AdminDashboard">Dashboard</a></li>
+            <li class="breadcrumb-item active">Courses</li>
+        </ol>
+    </nav>
 
-            <li class="menu-category">SYSTEM</li>
-            <li><a asp-page="/Settings" class="menu-item">Settings</a></li>
-            <li><a asp-page="/Support" class="menu-item">Support</a></li>
-        </ul>
-    </div>
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show mb-4">
+            <strong>Success!</strong> @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show mb-4">
+            <strong>Error:</strong> @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
 
-    <!-- Main Content -->
-    <div class="main-content">
-        <!-- Breadcrumb -->
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-page="/AdminDashboard">Dashboard</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Courses</li>
-            </ol>
-        </nav>
-
-        <!-- Success/Error Messages -->
-        @if (TempData["SuccessMessage"] != null)
-        {
-            <div class="alert alert-success alert-dismissible fade show mb-4">
-                <strong>Success!</strong> @TempData["SuccessMessage"]
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        }
-        @if (TempData["ErrorMessage"] != null)
-        {
-            <div class="alert alert-danger alert-dismissible fade show mb-4">
-                <strong>Error:</strong> @TempData["ErrorMessage"]
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        }
-
-        <!-- Page Header -->
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="h2">Course Management</h1>
+    <div class="content-card">
+        <div class="content-card-header d-flex justify-content-between align-items-center">
+            <h5 class="content-card-title">Course Management</h5>
         </div>
 
-        <!-- Tabs -->
-        <ul class="nav nav-pills tab-pills mb-4 border-bottom pb-3">
-            <li class="nav-item">
-                <a class="nav-link @(string.IsNullOrEmpty(Model.Filters.StatusFilter) ? "active" : "")"
-                   href="?statusFilter=">All Courses</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link @(Model.Filters.StatusFilter == "Active" ? "active" : "")"
-                   href="?statusFilter=Active">Active</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link @(Model.Filters.StatusFilter == "Inactive" ? "active" : "")"
-                   href="?statusFilter=Inactive">Inactive</a>
-            </li>
-        </ul>
+        @if (Model.CanViewCourses)
+        {
+            <!-- Tabs -->
+            <ul class="nav nav-pills tab-pills mb-4">
+                <li class="nav-item">
+                    <a class="nav-link @(string.IsNullOrEmpty(Model.Filters.StatusFilter) ? "active" : "")"
+                       href="?statusFilter=">All Courses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @(Model.Filters.StatusFilter == "Active" ? "active" : "")"
+                       href="?statusFilter=Active">Active</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @(Model.Filters.StatusFilter == "Inactive" ? "active" : "")"
+                       href="?statusFilter=Inactive">Inactive</a>
+                </li>
+            </ul>
 
-        <!-- Search and Add Course -->
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <form method="get" class="input-group" style="max-width: 300px;">
-                <input type="text" class="form-control" name="searchTerm" placeholder="Search courses..."
-                       value="@Model.Filters.SearchTerm">
-                <button class="btn btn-outline-secondary" type="submit">
-                    <i class="bi bi-search"></i>
-                </button>
-                <input type="hidden" name="statusFilter" value="@Model.Filters.StatusFilter" />
-            </form>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#courseModal">
-                Add New Course
-            </button>
-        </div>
+            <!-- Search and Add Course -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <form method="get" class="input-group" style="max-width: 300px;">
+                    <input type="text" class="form-control" name="searchTerm" placeholder="Search courses..."
+                           value="@Model.Filters.SearchTerm">
+                    <button class="btn btn-outline-secondary" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <input type="hidden" name="statusFilter" value="@Model.Filters.StatusFilter" />
+                </form>
+                @if (Model.CanCreateCourses)
+                {
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#courseModal">
+                        <i class="fas fa-plus"></i> Add New Course
+                    </button>
+                }
+            </div>
 
-        <!-- Courses Table -->
-        <div class="table-responsive course-table mb-4">
-            <table class="table align-middle">
-                <thead>
-                    <tr>
-                        <th style="width: 35%">Course Name</th>
-                        <th>Instructor</th>
-                        <th>Students</th>
-                        <th>Status</th>
-                        <th>Rating</th>
-                        <th class="text-end">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model.Courses.Any())
-                    {
-                        @foreach (var course in Model.Courses)
+            <!-- Courses Table -->
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th style="width: 35%">Course Name</th>
+                            <th>Instructor</th>
+                            <th>Students</th>
+                            <th>Status</th>
+                            <th>Rating</th>
+                            @if (Model.CanEditCourses || Model.CanDeleteCourses)
+                            {
+                                <th class="text-end">Actions</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Courses.Any())
+                        {
+                            @foreach (var course in Model.Courses)
+                            {
+                                <tr>
+                                    <td><strong>@course.Title</strong></td>
+                                    <td>@course.InstructorName</td>
+                                    <td>@course.StudentCount</td>
+                                    <td>
+                                        @if (course.IsActive)
+                                        {
+                                            <span class="badge bg-success">Active</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">Inactive</span>
+                                        }
+                                    </td>
+                                    <td class="rating">
+                                        @if (course.Rating > 0)
+                                        {
+                                            @($"{course.Rating:0.0}/5")
+                                        }
+                                        else
+                                        {
+                                            @:N/A
+                                        }
+                                    </td>
+                                    @if (Model.CanEditCourses || Model.CanDeleteCourses)
+                                    {
+                                        <td class="text-end">
+                                            <div class="btn-group">
+                                                @if (Model.CanEditCourses)
+                                                {
+                                                    <button class="btn btn-sm btn-outline-primary edit-course"
+                                                            data-courseid="@course.CourseId"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#courseModal">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm @(course.IsActive ? "btn-outline-warning" : "btn-outline-success") toggle-status"
+                                                            data-courseid="@course.CourseId" data-current-status="@course.IsActive.ToString().ToLower()">
+                                                        <i class="fas fa-@(course.IsActive ? "pause" : "play")"></i>
+                                                    </button>
+                                                }
+                                                @if (Model.CanDeleteCourses)
+                                                {
+                                                    <button type="button" class="btn btn-sm btn-outline-danger delete-course" data-courseid="@course.CourseId">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                }
+                                            </div>
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        }
+                        else
                         {
                             <tr>
-                                <td>@course.Title</td>
-                                <td>@course.InstructorName</td>
-                                <td>@course.StudentCount</td>
-                                <td>
-                                    @if (course.IsActive)
-                                    {
-                                        <span class="badge bg-success">Active</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge bg-secondary">Inactive</span>
-                                    }
-                                </td>
-                                <td class="rating">
-                                    @if (course.Rating > 0)
-                                    {
-                                        @($"{course.Rating:0.0}/5")
-                                    }
-                                    else
-                                    {
-                                        @:N/A
-                                    }
-                                </td>
-                                <td class="text-end action-buttons">
-                                    <button class="btn btn-sm btn-outline-secondary edit-course"
-                                            data-courseid="@course.CourseId"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#courseModal">
-                                        Edit
-                                    </button>
-                                    <form method="post" asp-page-handler="Delete" style="display:inline;">
-                                        <input type="hidden" name="courseId" value="@course.CourseId" />
-                                        <button type="submit" class="btn btn-sm btn-outline-danger"
-                                                onclick="return confirm('Are you sure you want to delete this course?')">
-                                            Delete
-                                        </button>
-                                        @Html.AntiForgeryToken()
-                                    </form>
+                                <td colspan="@(Model.CanEditCourses || Model.CanDeleteCourses ? 6 : 5)" class="text-center py-5 text-muted">
+                                    <i class="fas fa-book fa-3x mb-3"></i>
+                                    <p class="mb-0">No courses found matching your criteria.</p>
                                 </td>
                             </tr>
                         }
-                    }
-                    else
-                    {
-                        <tr>
-                            <td colspan="6" class="text-center py-5 text-muted">
-                                <i class="bi bi-inbox-fill fs-2 d-block mb-3"></i>
-                                No courses found matching your criteria.
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Pagination -->
-        <div class="d-flex justify-content-between align-items-center mb-5">
-            <div class="pagination-info">
-                Showing @((Model.Pagination.CurrentPage - 1) * Model.Pagination.PageSize + 1)-@Math.Min(Model.Pagination.CurrentPage * Model.Pagination.PageSize, Model.Pagination.TotalItems) of @Model.Pagination.TotalItems courses
+                    </tbody>
+                </table>
             </div>
-            <div>
-                @if (Model.Pagination.CurrentPage > 1)
-                {
-                    <a class="btn btn-outline-secondary me-2"
-                       href="?searchTerm=@Model.Filters.SearchTerm&statusFilter=@Model.Filters.StatusFilter&pageNumber=@(Model.Pagination.CurrentPage - 1)">
-                        Previous
-                    </a>
-                }
-                @if (Model.Pagination.CurrentPage < Model.Pagination.TotalPages)
-                {
-                    <a class="btn btn-primary"
-                       href="?searchTerm=@Model.Filters.SearchTerm&statusFilter=@Model.Filters.StatusFilter&pageNumber=@(Model.Pagination.CurrentPage + 1)">
-                        Next
-                    </a>
-                }
-            </div>
-        </div>
 
-        <!-- Course Modal -->
-        <div class="modal fade" id="courseModal" tabindex="-1" aria-labelledby="courseModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="courseModalLabel">Add New Course</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <!-- Pagination -->
+            @if (Model.Pagination.TotalPages > 1)
+            {
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                    <div class="pagination-info">
+                        Showing @((Model.Pagination.CurrentPage - 1) * Model.Pagination.PageSize + 1)-@Math.Min(Model.Pagination.CurrentPage * Model.Pagination.PageSize, Model.Pagination.TotalItems) of @Model.Pagination.TotalItems courses
                     </div>
-                    <form method="post" id="courseForm">
-                        <div class="modal-body">
-                            <input type="hidden" asp-for="CourseInput.CourseId" />
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-                            <div class="row mb-3">
-                                <div class="col-md-8">
-                                    <label asp-for="CourseInput.Title" class="form-label">Title*</label>
-                                    <input asp-for="CourseInput.Title" class="form-control" required />
-                                    <span asp-validation-for="CourseInput.Title" class="text-danger"></span>
-                                </div>
-                                <div class="col-md-4">
-                                    <label asp-for="CourseInput.CreatedBy" class="form-label">Instructor*</label>
-                                    <select asp-for="CourseInput.CreatedBy" asp-items="Model.Instructors" class="form-select" required>
-                                        <option value="">Select Instructor</option>
-                                    </select>
-                                    <span asp-validation-for="CourseInput.CreatedBy" class="text-danger"></span>
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label asp-for="CourseInput.Description" class="form-label">Description*</label>
-                                <textarea asp-for="CourseInput.Description" class="form-control" rows="3" required></textarea>
-                                <span asp-validation-for="CourseInput.Description" class="text-danger"></span>
-                            </div>
-
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label asp-for="CourseInput.CategoryId" class="form-label">Category</label>
-                                    <select asp-for="CourseInput.CategoryId" asp-items="Model.Categories" class="form-select">
-                                        <option value="">Select Category</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <label asp-for="CourseInput.ThumbnailUrl" class="form-label">Thumbnail URL</label>
-                                    <input asp-for="CourseInput.ThumbnailUrl" class="form-control" placeholder="Image URL" />
-                                    <span asp-validation-for="CourseInput.ThumbnailUrl" class="text-danger"></span>
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label asp-for="CourseInput.Requirements" class="form-label">Requirements</label>
-                                    <textarea asp-for="CourseInput.Requirements" class="form-control" rows="2"></textarea>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-check form-switch mt-4 pt-3">
-                                        <input asp-for="CourseInput.IsActive" class="form-check-input" type="checkbox" role="switch">
-                                        <label asp-for="CourseInput.IsActive" class="form-check-label">Active Course</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary" id="saveCourseBtn">Save Course</button>
-                        </div>
-                    </form>
+                    <nav>
+                        <ul class="pagination mb-0">
+                            <li class="page-item @(Model.Pagination.CurrentPage > 1 ? "" : "disabled")">
+                                <a class="page-link" href="?searchTerm=@Model.Filters.SearchTerm&statusFilter=@Model.Filters.StatusFilter&pageNumber=@(Model.Pagination.CurrentPage - 1)">
+                                    Previous
+                                </a>
+                            </li>
+                            @for (int i = Math.Max(1, Model.Pagination.CurrentPage - 2); i <= Math.Min(Model.Pagination.TotalPages, Model.Pagination.CurrentPage + 2); i++)
+                            {
+                                <li class="page-item @(i == Model.Pagination.CurrentPage ? "active" : "")">
+                                    <a class="page-link" href="?searchTerm=@Model.Filters.SearchTerm&statusFilter=@Model.Filters.StatusFilter&pageNumber=@i">
+                                        @i
+                                    </a>
+                                </li>
+                            }
+                            <li class="page-item @(Model.Pagination.CurrentPage < Model.Pagination.TotalPages ? "" : "disabled")">
+                                <a class="page-link" href="?searchTerm=@Model.Filters.SearchTerm&statusFilter=@Model.Filters.StatusFilter&pageNumber=@(Model.Pagination.CurrentPage + 1)">
+                                    Next
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
+            }
+        }
+        else
+        {
+            <div class="alert alert-warning">
+                You do not have permission to view courses.
+            </div>
+        }
+    </div>
+</div>
+
+@if (Model.CanCreateCourses || Model.CanEditCourses)
+{
+    <!-- Course Modal -->
+    <div class="modal fade" id="courseModal" tabindex="-1" aria-labelledby="courseModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="courseModalLabel">Add New Course</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" id="courseForm">
+                    <div class="modal-body">
+                        <input type="hidden" asp-for="CourseInput.CourseId" />
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-8">
+                                <label asp-for="CourseInput.Title" class="form-label">Title*</label>
+                                <input asp-for="CourseInput.Title" class="form-control" required />
+                                <span asp-validation-for="CourseInput.Title" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label asp-for="CourseInput.CreatedBy" class="form-label">Instructor*</label>
+                                <select asp-for="CourseInput.CreatedBy" asp-items="Model.Instructors" class="form-select" required>
+                                    <option value="">Select Instructor</option>
+                                </select>
+                                <span asp-validation-for="CourseInput.CreatedBy" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="CourseInput.Description" class="form-label">Description*</label>
+                            <textarea asp-for="CourseInput.Description" class="form-control" rows="3" required></textarea>
+                            <span asp-validation-for="CourseInput.Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="CourseInput.CategoryId" class="form-label">Category</label>
+                                <select asp-for="CourseInput.CategoryId" asp-items="Model.Categories" class="form-select">
+                                    <option value="">Select Category</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="CourseInput.ThumbnailUrl" class="form-label">Thumbnail URL</label>
+                                <input asp-for="CourseInput.ThumbnailUrl" class="form-control" placeholder="Image URL" />
+                                <span asp-validation-for="CourseInput.ThumbnailUrl" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="CourseInput.Requirements" class="form-label">Requirements</label>
+                                <textarea asp-for="CourseInput.Requirements" class="form-control" rows="2"></textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check form-switch mt-4 pt-3">
+                                    <input asp-for="CourseInput.IsActive" class="form-check-input" type="checkbox" role="switch">
+                                    <label asp-for="CourseInput.IsActive" class="form-check-label">Active Course</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="saveCourseBtn">Save Course</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+}
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@3.2.12/dist/jquery.validate.unobtrusive.min.js"></script>
+@section Scripts {
+    @if (Model.CanCreateCourses || Model.CanEditCourses || Model.CanDeleteCourses)
+    {
+        <script>
+            $(document).ready(function() {
+                // Handle edit course button click
+                $('.edit-course').click(function() {
+                    const courseId = $(this).data('courseid');
+                    $('#courseModalLabel').text('Edit Course');
+                    $('#saveCourseBtn').text('Update Course');
+                    $('#courseForm').attr('action', '?handler=Update');
 
-    <script>
-        $(document).ready(function() {
-            // Handle edit course button click
-            $('.edit-course').click(function() {
-                const courseId = $(this).data('courseid');
-                $('#courseModalLabel').text('Edit Course');
-                $('#saveCourseBtn').text('Update Course');
-                $('#courseForm').attr('action', '?handler=Update');
+                    // Fetch course data via AJAX
+                    $.get(`?handler=CourseById&courseId=${courseId}`, function(data) {
+                        if (data.error) {
+                            alert(data.error);
+                            return;
+                        }
 
-                // Fetch course data via AJAX
-                $.get(`?handler=CourseById&courseId=${courseId}`, function(data) {
-                    if (data.error) {
-                        alert(data.error);
-                        return;
-                    }
-
-                    // Populate form fields
-                    $('#CourseInput_CourseId').val(data.courseId);
-                    $('#CourseInput_Title').val(data.title);
-                    $('#CourseInput_Description').val(data.description);
-                    $('#CourseInput_CreatedBy').val(data.createdBy);
-                    $('#CourseInput_CategoryId').val(data.categoryId);
-                    $('#CourseInput_ThumbnailUrl').val(data.thumbnailUrl);
-                    $('#CourseInput_Requirements').val(data.requirements);
-                    $('#CourseInput_IsActive').prop('checked', data.isActive);
-                }).fail(function() {
-                    alert('Failed to load course data');
+                        // Populate form fields
+                        $('#CourseInput_CourseId').val(data.courseId);
+                        $('#CourseInput_Title').val(data.title);
+                        $('#CourseInput_Description').val(data.description);
+                        $('#CourseInput_CreatedBy').val(data.createdBy);
+                        $('#CourseInput_CategoryId').val(data.categoryId);
+                        $('#CourseInput_ThumbnailUrl').val(data.thumbnailUrl);
+                        $('#CourseInput_Requirements').val(data.requirements);
+                        $('#CourseInput_IsActive').prop('checked', data.isActive);
+                    }).fail(function() {
+                        alert('Failed to load course data');
+                    });
                 });
-            });
 
-            // Handle add course button click
-            $('#courseModal').on('show.bs.modal', function(e) {
-                if (!$(e.relatedTarget).hasClass('edit-course')) {
-                    $('#courseModalLabel').text('Add New Course');
-                    $('#saveCourseBtn').text('Save Course');
-                    $('#courseForm').attr('action', '?handler=Add');
-                    $('#courseForm')[0].reset();
-                    $('#CourseInput_CourseId').val(0);
+                // Handle add course button click
+                $('#courseModal').on('show.bs.modal', function(e) {
+                    if (!$(e.relatedTarget).hasClass('edit-course')) {
+                        $('#courseModalLabel').text('Add New Course');
+                        $('#saveCourseBtn').text('Save Course');
+                        $('#courseForm').attr('action', '?handler=Add');
+                        $('#courseForm')[0].reset();
+                        $('#CourseInput_CourseId').val(0);
+                    }
+                });
+
+                // Auto-hide alerts after 5 seconds
+                setTimeout(function() {
+                    $('.alert').alert('close');
+                }, 5000);
+
+                // Handle status toggle
+                $('.toggle-status').click(function() {
+                    const button = $(this);
+                    const courseId = button.data('courseid');
+                    const currentStatus = button.data('current-status') === 'true';
+
+                    if (confirm('Are you sure you want to ' + (currentStatus ? 'deactivate' : 'activate') + ' this course?')) {
+                        $.post('?handler=ToggleStatus', {
+                            courseId: courseId,
+                            currentStatus: currentStatus,
+                            __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                        })
+                        .done(function(response) {
+                            if (response.success) {
+                                // Update button appearance
+                                button.data('current-status', response.newStatus);
+                                button
+                                    .removeClass('btn-outline-warning btn-outline-success')
+                                    .addClass(response.newStatus ? 'btn-outline-warning' : 'btn-outline-success');
+                                button.find('i')
+                                    .removeClass('fa-play fa-pause')
+                                    .addClass(response.newStatus ? 'fa-pause' : 'fa-play');
+
+                                // Update status badge in the row
+                                const statusBadge = button.closest('tr').find('.badge');
+                                statusBadge
+                                    .removeClass('bg-success bg-secondary')
+                                    .addClass(response.newStatus ? 'bg-success' : 'bg-secondary')
+                                    .text(response.newStatus ? 'Active' : 'Inactive');
+
+                                // Show success message
+                                showAlert('success', 'Status updated successfully');
+                            } else {
+                                showAlert('danger', response.message || 'Failed to update status');
+                            }
+                        })
+                        .fail(function() {
+                            showAlert('danger', 'An error occurred while updating status');
+                        });
+                    }
+                });
+
+                // Handle delete course button click
+                $('.delete-course').click(function() {
+                    const courseId = $(this).data('courseid');
+                    if (confirm('Are you sure you want to delete this course? This action cannot be undone.')) {
+                        $.post('?handler=Delete', {
+                            courseId: courseId,
+                            __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                        })
+                        .done(function(response) {
+                            if (response.success) {
+                                // Remove the row from the table
+                                $(this).closest('tr').remove();
+                                showAlert('success', 'Course deleted successfully');
+                                // Reload the page to update the list
+                                location.reload();
+                            } else {
+                                showAlert('danger', response.message || 'Failed to delete course');
+                            }
+                        })
+                        .fail(function() {
+                            showAlert('danger', 'An error occurred while deleting the course');
+                        });
+                    }
+                });
+
+                // Helper function to show alerts
+                function showAlert(type, message) {
+                    const alertHtml = `
+                        <div class="alert alert-${type} alert-dismissible fade show">
+                            <strong>${type === 'success' ? 'Success!' : 'Error!'}</strong> ${message}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>`;
+                    
+                    // Remove any existing alerts
+                    $('.alert').remove();
+                    
+                    // Add new alert at the top of the content
+                    $('.content-card').before(alertHtml);
+
+                    // Auto-hide after 5 seconds
+                    setTimeout(function() {
+                        $('.alert').alert('close');
+                    }, 5000);
                 }
             });
-
-            // Auto-hide alerts after 5 seconds
-            setTimeout(function() {
-                $('.alert').alert('close');
-            }, 5000);
-        });
-    </script>
-</body>
-</html>
+        </script>
+    }
+}

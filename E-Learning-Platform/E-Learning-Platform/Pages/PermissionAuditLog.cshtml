@@ -1,0 +1,200 @@
+@page
+@model E_Learning_Platform.Pages.PermissionAuditLogModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Permission Audit Log";
+}
+
+@section Styles {
+    <style>
+        .audit-card {
+            background: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            margin-bottom: 1.5rem;
+        }
+
+        .audit-header {
+            padding: 1.25rem;
+            border-bottom: 1px solid #e3e6f0;
+        }
+
+        .audit-body {
+            padding: 1.25rem;
+        }
+
+        .audit-filters {
+            background-color: #f8f9fc;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .audit-item {
+            padding: 1rem;
+            border-bottom: 1px solid #e3e6f0;
+        }
+
+        .audit-item:last-child {
+            border-bottom: none;
+        }
+
+        .audit-action {
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.25rem;
+            display: inline-block;
+        }
+
+        .audit-action.grant {
+            background-color: #e3fcef;
+            color: #1cc88a;
+        }
+
+        .audit-action.revoke {
+            background-color: #fee2e2;
+            color: #e74a3b;
+        }
+
+        .audit-meta {
+            color: #858796;
+            font-size: 0.875rem;
+        }
+
+        .audit-reason {
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            background-color: #f8f9fc;
+            border-radius: 0.25rem;
+            font-style: italic;
+        }
+    </style>
+}
+
+<div class="container-fluid">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/AdminDashboard">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="/UsersInfo">Users</a></li>
+            <li class="breadcrumb-item active">Permission Audit Log</li>
+        </ol>
+    </nav>
+
+    <div class="audit-card">
+        <div class="audit-header">
+            <h5 class="m-0">Permission Audit Log</h5>
+        </div>
+        <div class="audit-body">
+            <!-- Filters -->
+            <div class="audit-filters">
+                <form method="get" class="row g-3">
+                    <div class="col-md-3">
+                        <label class="form-label">User</label>
+                        <select name="userId" class="form-select" asp-items="Model.UsersList">
+                            <option value="">All Users</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Action</label>
+                        <select name="action" class="form-select">
+                            <option value="">All Actions</option>
+                            <option value="GRANT" selected="@(Model.Filters.Action == "GRANT")">Grant</option>
+                            <option value="REVOKE" selected="@(Model.Filters.Action == "REVOKE")">Revoke</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Date Range</label>
+                        <div class="input-group">
+                            <input type="date" name="startDate" class="form-control" value="@Model.Filters.StartDate?.ToString("yyyy-MM-dd")" />
+                            <span class="input-group-text">to</span>
+                            <input type="date" name="endDate" class="form-control" value="@Model.Filters.EndDate?.ToString("yyyy-MM-dd")" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">&nbsp;</label>
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-filter me-1"></i> Filter
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Audit Log List -->
+            @if (Model.AuditLogs.Any())
+            {
+                foreach (var log in Model.AuditLogs)
+                {
+                    <div class="audit-item">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <span class="audit-action @(log.Action.ToLower())">@log.Action</span>
+                                <strong class="ms-2">@log.PermissionName</strong>
+                                <div class="audit-meta mt-1">
+                                    Permission @(log.Action.ToLower())ed to <strong>@log.UserName</strong>
+                                    by <strong>@log.ChangedByName</strong>
+                                    on @log.ChangeDate.ToString("MMM dd, yyyy HH:mm:ss")
+                                </div>
+                                @if (!string.IsNullOrEmpty(log.Reason))
+                                {
+                                    <div class="audit-reason">
+                                        <i class="fas fa-quote-left me-1 text-muted"></i>
+                                        @log.Reason
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <!-- Pagination -->
+                @if (Model.TotalPages > 1)
+                {
+                    <div class="d-flex justify-content-between align-items-center mt-4">
+                        <div>
+                            <p class="text-muted mb-0">
+                                Showing @((Model.CurrentPage - 1) * Model.PageSize + 1)-@(Math.Min(Model.CurrentPage * Model.PageSize, Model.TotalItems)) of @Model.TotalItems
+                            </p>
+                        </div>
+                        <nav>
+                            <ul class="pagination mb-0">
+                                <li class="page-item @(Model.CurrentPage > 1 ? "" : "disabled")">
+                                    <a class="page-link" href="@Model.GetPageUrl(Model.CurrentPage - 1)">Previous</a>
+                                </li>
+
+                                @for (int i = Math.Max(1, Model.CurrentPage - 2); i <= Math.Min(Model.TotalPages, Model.CurrentPage + 2); i++)
+                                {
+                                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                                        <a class="page-link" href="@Model.GetPageUrl(i)">@i</a>
+                                    </li>
+                                }
+
+                                <li class="page-item @(Model.CurrentPage < Model.TotalPages ? "" : "disabled")">
+                                    <a class="page-link" href="@Model.GetPageUrl(Model.CurrentPage + 1)">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="text-center py-4 text-muted">
+                    <i class="fas fa-history fa-3x mb-3"></i>
+                    <p class="mb-0">No audit log entries found matching your criteria.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Initialize select2 for better dropdown experience
+            $('.form-select').select2({
+                theme: 'bootstrap-5'
+            });
+        });
+    </script>
+} 

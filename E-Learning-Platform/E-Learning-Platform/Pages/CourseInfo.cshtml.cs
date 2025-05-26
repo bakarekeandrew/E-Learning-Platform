@@ -5,19 +5,28 @@ using Microsoft.Data.SqlClient;
 using Dapper;
 using System.Data;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using E_Learning_Platform.Services;
 
 namespace E_Learning_Platform.Pages
 {
+    [Authorize(Policy = "Permission_COURSE.VIEW")]
     public class CourseInfoModel : PageModel
     {
         private readonly string _connectionString;
+        private readonly ILogger<CourseInfoModel> _logger;
+        private readonly IPermissionService _permissionService;
 
-        public CourseInfoModel()
+        public CourseInfoModel(ILogger<CourseInfoModel> logger, IPermissionService permissionService)
         {
             _connectionString = "Data Source=ABAKAREKE_25497\\SQLEXPRESS;" +
                               "Initial Catalog=ONLINE_LEARNING_PLATFORM;" +
                               "Integrated Security=True;" +
                               "TrustServerCertificate=True";
+            _logger = logger;
+            _permissionService = permissionService;
         }
 
         // Properties
@@ -26,6 +35,13 @@ namespace E_Learning_Platform.Pages
         public List<SelectListItem> Categories { get; set; } = new();
         public PaginationInfo Pagination { get; set; } = new();
         public FilterOptions Filters { get; set; } = new();
+
+        // Permission properties
+        public bool CanViewCourses { get; set; }
+        public bool CanManageCourses { get; set; }
+        public bool CanCreateCourses { get; set; }
+        public bool CanEditCourses { get; set; }
+        public bool CanDeleteCourses { get; set; }
 
         [BindProperty]
         public CourseInputModel CourseInput { get; set; } = new();
@@ -83,22 +99,92 @@ namespace E_Learning_Platform.Pages
             public string StatusFilter { get; set; } = string.Empty;
         }
 
-        public async Task OnGetAsync(
+        private async Task<int> GetCurrentUserIdAsync()
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out var userId))
+            {
+                _logger.LogWarning("User ID claim not found or invalid");
+                throw new InvalidOperationException("User not properly authenticated");
+            }
+            return userId;
+        }
+
+        private async Task LoadPermissionsAsync()
+        {
+            try
+            {
+                var userId = await GetCurrentUserIdAsync();
+                
+                // Check each permission using PermissionService
+                CanViewCourses = await _permissionService.HasPermissionAsync(userId, "COURSE.VIEW");
+                CanManageCourses = await _permissionService.HasPermissionAsync(userId, "COURSE.MANAGE");
+                CanCreateCourses = await _permissionService.HasPermissionAsync(userId, "COURSE.CREATE");
+                CanEditCourses = await _permissionService.HasPermissionAsync(userId, "COURSE.EDIT");
+                CanDeleteCourses = await _permissionService.HasPermissionAsync(userId, "COURSE.DELETE");
+
+                //_logger.LogInfo("CourseInfo", $"User {userId} permissions loaded successfully");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("CourseInfo", $"Error loading permissions: {ex.Message}");
+                CanViewCourses = CanManageCourses = CanCreateCourses = CanEditCourses = CanDeleteCourses = false;
+            }
+        }
+
+        public async Task<IActionResult> OnGetAsync(
             string searchTerm = "",
             string statusFilter = "",
             int pageNumber = 1)
         {
-            Filters.SearchTerm = searchTerm;
-            Filters.StatusFilter = statusFilter;
-            Pagination.CurrentPage = pageNumber < 1 ? 1 : pageNumber;
+            try
+            {
+                var userId = await GetCurrentUserIdAsync();
+                
+                // Load user permissions
+                await LoadPermissionsAsync();
 
-            await LoadInstructorsAsync();
-            await LoadCategoriesAsync();
-            await LoadCoursesAsync();
+                // Check if user has basic view permission
+                if (!CanViewCourses)
+                {
+                    _logger.LogWarning("Access Denied", $"User {userId} attempted to access CourseInfo without view permission");
+                    return Forbid();
+                }
+
+                Filters.SearchTerm = searchTerm;
+                Filters.StatusFilter = statusFilter;
+                Pagination.CurrentPage = pageNumber < 1 ? 1 : pageNumber;
+
+                await LoadInstructorsAsync();
+                await LoadCategoriesAsync();
+                await LoadCoursesAsync();
+
+                return Page();
+            }
+            catch (InvalidOperationException)
+            {
+                return RedirectToPage("/Login");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error accessing CourseInfo page");
+                return RedirectToPage("/Error");
+            }
         }
 
         public async Task<IActionResult> OnPostAdd()
         {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
+            {
+                return Forbid();
+            }
+
+            if (!await _permissionService.HasPermissionAsync(userId, "COURSE.CREATE"))
+            {
+                return Forbid();
+            }
+
             if (!ModelState.IsValid)
             {
                 await LoadInstructorsAsync();
@@ -147,6 +233,17 @@ namespace E_Learning_Platform.Pages
 
         public async Task<IActionResult> OnPostUpdate()
         {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
+            {
+                return Forbid();
+            }
+
+            if (!await _permissionService.HasPermissionAsync(userId, "COURSE.EDIT"))
+            {
+                return Forbid();
+            }
+
             if (!ModelState.IsValid)
             {
                 await LoadInstructorsAsync();
@@ -198,6 +295,17 @@ namespace E_Learning_Platform.Pages
 
         public async Task<IActionResult> OnPostDelete(int courseId)
         {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
+            {
+                return Forbid();
+            }
+
+            if (!await _permissionService.HasPermissionAsync(userId, "COURSE.DELETE"))
+            {
+                return Forbid();
+            }
+
             try
             {
                 using var connection = new SqlConnection(_connectionString);
@@ -250,6 +358,62 @@ namespace E_Learning_Platform.Pages
             {
                 return new JsonResult(new { error = ex.Message });
             }
+        }
+
+        public async Task<IActionResult> OnPostToggleStatusAsync(int courseId, bool currentStatus)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out var userId))
+            {
+                return Forbid();
+            }
+
+            if (!await _permissionService.HasPermissionAsync(userId, "COURSE.EDIT"))
+            {
+                return Forbid();
+            }
+
+            try
+            {
+                using var connection = new SqlConnection(_connectionString);
+                await connection.OpenAsync();
+
+                // Update the course's status
+                var newStatus = !currentStatus;
+                var result = await connection.ExecuteAsync(
+                    "UPDATE COURSES SET IS_ACTIVE = @NewStatus WHERE COURSE_ID = @CourseId",
+                    new { NewStatus = newStatus, CourseId = courseId });
+
+                if (result > 0)
+                {
+                    TempData["SuccessMessage"] = $"Course has been {(newStatus ? "activated" : "deactivated")} successfully.";
+                    // Return JSON response for AJAX requests
+                    if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                    {
+                        return new JsonResult(new { success = true, newStatus = newStatus });
+                    }
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Failed to update course status.";
+                    if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                    {
+                        return new JsonResult(new { success = false, message = "Failed to update course status." });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error toggling course status");
+                TempData["ErrorMessage"] = "An error occurred while updating course status.";
+                if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                {
+                    return new JsonResult(new { success = false, message = "An error occurred while updating course status." });
+                }
+            }
+
+            // Redirect back to the page for non-AJAX requests
+            return RedirectToPage();
         }
 
         private async Task LoadInstructorsAsync()

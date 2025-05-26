@@ -1,20 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
 using Dapper;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace E_Learning_Platform.Pages.Instructor.Content
 {
-    public class CreateModuleModel : PageModel
+    public class CreateModuleModel : InstructorPageModel
     {
-        private string ConnectionString => "Data Source=ABAKAREKE_25497\\SQLEXPRESS;" +
-                                        "Initial Catalog=ONLINE_LEARNING_PLATFORM;" +
-                                        "Integrated Security=True;" +
-                                        "TrustServerCertificate=True";
-
         [BindProperty(SupportsGet = true)]
         public int CourseId { get; set; }
 
@@ -23,10 +18,14 @@ namespace E_Learning_Platform.Pages.Instructor.Content
         [BindProperty]
         public ModuleInput Module { get; set; } = new ModuleInput
         {
-            Title = string.Empty, // Initialize required property
-            Description = string.Empty // Initialize required property
+            Title = string.Empty,
+            Description = string.Empty
         };
 
+        public CreateModuleModel(ILogger<CreateModuleModel> logger, IConfiguration configuration)
+            : base(logger, configuration)
+        {
+        }
 
         public class ModuleInput
         {
@@ -44,25 +43,14 @@ namespace E_Learning_Platform.Pages.Instructor.Content
             public int SequenceNumber { get; set; } = 1;
 
             [Display(Name = "Free Module")]
-            public bool IsFree { get; set; } = false; // Changed from IsActive to match database
+            public bool IsFree { get; set; } = false;
         }
 
         public async Task<IActionResult> OnGetAsync()
         {
-            int? userId = null;
-            byte[] userIdBytes;
-            if (HttpContext.Session.TryGetValue("UserId", out userIdBytes))
+            return await ExecuteDbOperationAsync(async () =>
             {
-                userId = BitConverter.ToInt32(userIdBytes, 0);
-            }
-            if (userId == null)
-            {
-                return RedirectToPage("/Login");
-            }
-
-            try
-            {
-                using var connection = new SqlConnection(ConnectionString);
+                using var connection = new SqlConnection(_connectionString);
                 await connection.OpenAsync();
 
                 // Verify this instructor owns the course
@@ -72,11 +60,11 @@ namespace E_Learning_Platform.Pages.Instructor.Content
                         TITLE AS Title
                     FROM COURSES
                     WHERE COURSE_ID = @CourseId AND CREATED_BY = @InstructorId",
-                    new { CourseId, InstructorId = userId });
+                    new { CourseId, InstructorId = GetInstructorId() });
 
                 if (course == null)
                 {
-                    return NotFound();
+                    return RedirectToPage("Modules");
                 }
 
                 CourseName = course.Title;
@@ -88,70 +76,52 @@ namespace E_Learning_Platform.Pages.Instructor.Content
                     WHERE COURSE_ID = @CourseId",
                     new { CourseId });
 
-                if (highestOrder.HasValue)
-                {
-                    Module.SequenceNumber = highestOrder.Value + 1;
-                }
+                Module.SequenceNumber = (highestOrder ?? 0) + 1;
 
                 return Page();
-            }
-            catch (SqlException ex)
-            {
-                ModelState.AddModelError("", "Database error occurred: " + ex.Message);
-                return RedirectToPage("Modules");
-            }
+            }, "Error loading course information");
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            int? userId = null;
-            byte[] userIdBytes;
-            if (HttpContext.Session.TryGetValue("UserId", out userIdBytes))
-            {
-                userId = BitConverter.ToInt32(userIdBytes, 0);
-            }
-            if (userId == null)
-            {
-                return RedirectToPage("/Login");
-            }
-
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            try
+            return await ExecuteDbOperationAsync(async () =>
             {
-                using var connection = new SqlConnection(ConnectionString);
+                using var connection = new SqlConnection(_connectionString);
                 await connection.OpenAsync();
 
                 // Verify this instructor owns the course
                 var ownsCourse = await connection.ExecuteScalarAsync<bool>(@"
                     SELECT COUNT(1) FROM COURSES 
                     WHERE COURSE_ID = @CourseId AND CREATED_BY = @InstructorId",
-                    new { CourseId, InstructorId = userId });
+                    new { CourseId, InstructorId = GetInstructorId() });
 
                 if (!ownsCourse)
                 {
-                    return NotFound();
+                    return RedirectToPage("Modules");
                 }
 
-                // Insert new module with correct column names
-                // Insert new module with correct column names
+                // Insert new module
                 await connection.ExecuteAsync(@"
-                        INSERT INTO MODULES (
-                                  COURSE_ID,
-                                  TITLE,
-                                  DESCRIPTION,
-                                  SEQUENCE_NUMBER,
-                                  IS_FREE
-                                  ) VALUES (
-                                  @CourseId,
-                                  @Title,
-                                  @Description,
-                                  @SequenceNumber,
-                                  @IsFree
-                                  )",
+                    INSERT INTO MODULES (
+                        COURSE_ID,
+                        TITLE,
+                        DESCRIPTION,
+                        SEQUENCE_NUMBER,
+                        IS_FREE,
+                        DURATION_MINUTES
+                    ) VALUES (
+                        @CourseId,
+                        @Title,
+                        @Description,
+                        @SequenceNumber,
+                        @IsFree,
+                        0
+                    )",
                     new
                     {
                         CourseId,
@@ -161,13 +131,9 @@ namespace E_Learning_Platform.Pages.Instructor.Content
                         Module.IsFree
                     });
 
+                TempData["SuccessMessage"] = "Module created successfully.";
                 return RedirectToPage("Modules", new { courseId = CourseId });
-            }
-            catch (SqlException ex)
-            {
-                ModelState.AddModelError("", "Error creating module: " + ex.Message);
-                return Page();
-            }
+            }, "Error creating module");
         }
 
         private class CourseInfo

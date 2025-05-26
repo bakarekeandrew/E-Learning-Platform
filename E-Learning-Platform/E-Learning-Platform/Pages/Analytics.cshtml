@@ -1,0 +1,149 @@
+@page
+@model E_Learning_Platform.Pages.AnalyticsModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Analytics";
+}
+
+@section Styles {
+    <style>
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .content-card {
+            background: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .content-card-header {
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eaecf4;
+            margin-bottom: 1rem;
+        }
+
+        .content-card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #3a3b45;
+            margin: 0;
+        }
+
+        .analytics-card {
+            background: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.2s;
+        }
+
+        .analytics-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .analytics-icon {
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+    </style>
+}
+
+<div class="container-fluid">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/AdminDashboard">Dashboard</a></li>
+            <li class="breadcrumb-item active">Analytics</li>
+        </ol>
+    </nav>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show">
+            <strong>Error:</strong> @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <!-- Quick Stats -->
+    <div class="stats-grid">
+        <div class="analytics-card">
+            <div class="analytics-icon" style="background-color: rgba(78, 115, 223, 0.1); color: #4e73df;">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Users</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.TotalUsers.ToString("N0")</div>
+        </div>
+
+        <div class="analytics-card">
+            <div class="analytics-icon" style="background-color: rgba(28, 200, 138, 0.1); color: #1cc88a;">
+                <i class="fas fa-book"></i>
+            </div>
+            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Active Courses</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.ActiveCourses.ToString("N0")</div>
+        </div>
+
+        <div class="analytics-card">
+            <div class="analytics-icon" style="background-color: rgba(54, 185, 204, 0.1); color: #36b9cc;">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Completion Rate</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.CompletionRate.ToString("P1")</div>
+        </div>
+
+        <div class="analytics-card">
+            <div class="analytics-icon" style="background-color: rgba(246, 194, 62, 0.1); color: #f6c23e;">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Active Enrollments</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.ActiveEnrollments.ToString("N0")</div>
+        </div>
+    </div>
+
+    <!-- Analytics Navigation -->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="content-card h-100">
+                <div class="content-card-body text-center">
+                    <i class="fas fa-chart-line fa-3x mb-3 text-primary"></i>
+                    <h5 class="card-title">Overview</h5>
+                    <p class="card-text">View platform-wide statistics and trends</p>
+                    <a href="/Analytics/Overview" class="btn btn-primary">View Overview</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="content-card h-100">
+                <div class="content-card-body text-center">
+                    <i class="fas fa-users fa-3x mb-3 text-success"></i>
+                    <h5 class="card-title">User Engagement</h5>
+                    <p class="card-text">Analyze user activity and engagement metrics</p>
+                    <a href="/Analytics/Engagement" class="btn btn-success">View Engagement</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="content-card h-100">
+                <div class="content-card-body text-center">
+                    <i class="fas fa-graduation-cap fa-3x mb-3 text-info"></i>
+                    <h5 class="card-title">Course Performance</h5>
+                    <p class="card-text">Track course completion and student progress</p>
+                    <a href="/Analytics/CoursePerformance" class="btn btn-info">View Performance</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

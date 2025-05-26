@@ -1,13 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
-using Dapper;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Configuration;
+using Dapper;
+using E_Learning_Platform.Services;
 
 namespace E_Learning_Platform.Pages.Student.Courses
 {
@@ -20,8 +21,15 @@ namespace E_Learning_Platform.Pages.Student.Courses
         {
             _connectionString = "Data Source=ABAKAREKE_25497\\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True";
             _logger = logger;
-            // Initialize Quiz property to prevent null reference exceptions
-            Quiz = new QuizViewModel();
+            // Initialize Quiz property with default values
+            Quiz = new QuizViewModel
+            {
+                Title = string.Empty,
+                Description = string.Empty,
+                ModuleTitle = string.Empty,
+                CourseTitle = string.Empty,
+                Questions = new List<QuizQuestion>()
+            };
         }
 
         [BindProperty]
@@ -52,7 +60,7 @@ namespace E_Learning_Platform.Pages.Student.Courses
         {
             if (Id <= 0)
             {
-                _logger.LogError("Invalid quiz ID: {Id}", Id);
+                _logger.LogError("Invalid quiz ID: {QuizId}", Id);
                 return NotFound("Invalid quiz ID");
             }
 
@@ -80,16 +88,7 @@ namespace E_Learning_Platform.Pages.Student.Courses
                 }
 
                 using var connection = new SqlConnection(_connectionString);
-                try
-                {
-                    await connection.OpenAsync();
-                }
-                catch (SqlException sqlEx)
-                {
-                    _logger.LogError(sqlEx, "Failed to open database connection");
-                    ErrorMessage = "Database connection error: " + sqlEx.Message;
-                    return Page();
-                }
+                await connection.OpenAsync();
 
                 try
                 {
@@ -131,16 +130,7 @@ namespace E_Learning_Platform.Pages.Student.Courses
 
                     // Store max attempts allowed
                     MaxAttemptsAllowed = Quiz.AttemptsAllowed ?? 0;
-                }
-                catch (SqlException sqlEx)
-                {
-                    _logger.LogError(sqlEx, "SQL error when retrieving quiz details");
-                    ErrorMessage = "Error retrieving quiz: " + sqlEx.Message;
-                    return Page();
-                }
 
-                try
-                {
                     // Check if student is enrolled in this course
                     var isEnrolled = await connection.ExecuteScalarAsync<bool>(
                         "SELECT COUNT(1) FROM COURSE_ENROLLMENTS WHERE USER_ID = @UserId AND COURSE_ID = @CourseId",
@@ -151,16 +141,7 @@ namespace E_Learning_Platform.Pages.Student.Courses
                         ErrorMessage = "You are not enrolled in this course.";
                         return Page();
                     }
-                }
-                catch (SqlException sqlEx)
-                {
-                    _logger.LogError(sqlEx, "SQL error when checking enrollment");
-                    ErrorMessage = "Error checking course enrollment: " + sqlEx.Message;
-                    return Page();
-                }
 
-                try
-                {
                     // Get quiz questions with options
                     var questions = await connection.QueryAsync<QuizQuestion>(@"
                         SELECT 
@@ -212,16 +193,7 @@ namespace E_Learning_Platform.Pages.Student.Courses
                             _logger.LogWarning("No options found for question {QuestionId}", question.QuestionId);
                         }
                     }
-                }
-                catch (SqlException sqlEx)
-                {
-                    _logger.LogError(sqlEx, "SQL error when retrieving questions and options");
-                    ErrorMessage = "Error retrieving quiz questions: " + sqlEx.Message;
-                    return Page();
-                }
 
-                try
-                {
                     // Check previous attempts
                     PreviousAttempts = await connection.ExecuteScalarAsync<int>(
                         "SELECT COUNT(*) FROM QUIZ_ATTEMPTS WHERE USER_ID = @UserId AND QUIZ_ID = @Id",
@@ -260,45 +232,51 @@ namespace E_Learning_Platform.Pages.Student.Courses
                         ErrorMessage = "You have reached the maximum number of attempts allowed for this quiz.";
                         return Page();
                     }
+
+                    // Check for an active quiz session
+                    if (HttpContext.Session.TryGetValue("QuizStartTime_" + Id, out var quizStartTimeBytes))
+                    {
+                        var ticks = BitConverter.ToInt64(quizStartTimeBytes, 0);
+                        QuizStartTime = new DateTime(ticks);
+
+                        // If we have a time limit, check if quiz has expired
+                        if (Quiz.TimeLimitMinutes.HasValue && Quiz.TimeLimitMinutes.Value > 0)
+                        {
+                            var elapsedTime = DateTime.Now - QuizStartTime.Value;
+                            var timeLimit = TimeSpan.FromMinutes(Quiz.TimeLimitMinutes.Value);
+
+                            if (elapsedTime > timeLimit)
+                            {
+                                // Quiz has expired - auto-submit
+                                return await AutoSubmitQuizAsync();
+                            }
+                        }
+                    }
+                    else if (Quiz.TimeLimitMinutes.HasValue && Quiz.TimeLimitMinutes.Value > 0)
+                    {
+                        // Initialize quiz timer
+                        QuizStartTime = DateTime.Now;
+                        HttpContext.Session.Set("QuizStartTime_" + Id, BitConverter.GetBytes(QuizStartTime.Value.Ticks));
+                    }
+
+                    return Page();
                 }
                 catch (SqlException sqlEx)
                 {
-                    _logger.LogError(sqlEx, "SQL error when retrieving previous attempts");
-                    ErrorMessage = "Error retrieving attempt history: " + sqlEx.Message;
+                    _logger.LogError("SQL error: {Error}", sqlEx.Message);
+                    ErrorMessage = "Database error: " + sqlEx.Message;
                     return Page();
                 }
-
-                // Check for an active quiz session
-                if (HttpContext.Session.TryGetValue("QuizStartTime_" + Id, out var quizStartTimeBytes))
+                catch (Exception ex)
                 {
-                    var ticks = BitConverter.ToInt64(quizStartTimeBytes, 0);
-                    QuizStartTime = new DateTime(ticks);
-
-                    // If we have a time limit, check if quiz has expired
-                    if (Quiz.TimeLimitMinutes.HasValue && Quiz.TimeLimitMinutes.Value > 0)
-                    {
-                        var elapsedTime = DateTime.Now - QuizStartTime.Value;
-                        var timeLimit = TimeSpan.FromMinutes(Quiz.TimeLimitMinutes.Value);
-
-                        if (elapsedTime > timeLimit)
-                        {
-                            // Quiz has expired - auto-submit
-                            return await AutoSubmitQuizAsync();
-                        }
-                    }
+                    _logger.LogError("Error loading quiz: {Error}", ex.Message);
+                    ErrorMessage = "An error occurred while loading the quiz: " + ex.Message;
+                    return Page();
                 }
-                else if (Quiz.TimeLimitMinutes.HasValue && Quiz.TimeLimitMinutes.Value > 0)
-                {
-                    // Initialize quiz timer
-                    QuizStartTime = DateTime.Now;
-                    HttpContext.Session.Set("QuizStartTime_" + Id, BitConverter.GetBytes(QuizStartTime.Value.Ticks));
-                }
-
-                return Page();
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error loading quiz {QuizId} for user {UserId}", Id, CurrentUserId);
+                _logger.LogError("Error loading quiz", ex);
                 ErrorMessage = "An error occurred while loading the quiz: " + ex.Message;
                 return Page();
             }
@@ -384,7 +362,7 @@ namespace E_Learning_Platform.Pages.Student.Courses
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error auto-submitting quiz {QuizId} for user {UserId}", Id, CurrentUserId);
+                _logger.LogError("Error auto-submitting quiz", ex);
                 ErrorMessage = "An error occurred while auto-submitting the quiz: " + ex.Message;
                 return Page();
             }
@@ -659,7 +637,7 @@ namespace E_Learning_Platform.Pages.Student.Courses
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error submitting quiz {QuizId} for user {UserId}", Quiz?.QuizId, CurrentUserId);
+                _logger.LogError("Error submitting quiz", ex);
                 ErrorMessage = "An error occurred while submitting the quiz: " + ex.Message;
                 return Page();
             }
@@ -669,23 +647,23 @@ namespace E_Learning_Platform.Pages.Student.Courses
         public class QuizViewModel
         {
             public int QuizId { get; set; }
-            public string Title { get; set; }
-            public string Description { get; set; }
+            public required string Title { get; set; }
+            public required string Description { get; set; }
             public int? TimeLimitMinutes { get; set; }
             public decimal PassingScore { get; set; }
             public int? AttemptsAllowed { get; set; }
             public int ModuleId { get; set; }
-            public string ModuleTitle { get; set; }
+            public required string ModuleTitle { get; set; }
             public int CourseId { get; set; }
-            public string CourseTitle { get; set; }
+            public required string CourseTitle { get; set; }
             public List<QuizQuestion> Questions { get; set; } = new List<QuizQuestion>();
         }
 
         public class QuizQuestion
         {
             public int QuestionId { get; set; }
-            public string Text { get; set; }
-            public string QuestionType { get; set; }
+            public required string Text { get; set; }
+            public required string QuestionType { get; set; }
             public int Points { get; set; }
             public int SequenceNumber { get; set; }
             public List<QuizOption> Options { get; set; } = new List<QuizOption>();
@@ -695,9 +673,8 @@ namespace E_Learning_Platform.Pages.Student.Courses
         public class QuizOption
         {
             public int OptionId { get; set; }
-            public string Text { get; set; }
+            public required string Text { get; set; }
             public bool IsCorrect { get; set; }
-            // Runtime property - not in database
             public bool IsSelected { get; set; }
         }
 
@@ -705,7 +682,7 @@ namespace E_Learning_Platform.Pages.Student.Courses
         {
             public int QuestionId { get; set; }
             public int Points { get; set; }
-            public string QuestionType { get; set; }
+            public required string QuestionType { get; set; }
             public int CorrectOptionId { get; set; }
         }
 

@@ -1,0 +1,83 @@
+@page
+@model E_Learning_Platform.Pages.Analytics.EngagementModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "User Engagement Analytics";
+}
+
+<div class="container-fluid">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/AdminDashboard">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="/Analytics">Analytics</a></li>
+            <li class="breadcrumb-item active">User Engagement</li>
+        </ol>
+    </nav>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show">
+            <strong>Error:</strong> @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <!-- Engagement Overview -->
+    <div class="content-card">
+        <div class="content-card-header">
+            <h5 class="content-card-title">User Engagement Overview</h5>
+        </div>
+        <div class="content-card-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <h6>Active Users (Last 30 Days)</h6>
+                        <h3>@Model.ActiveUsers.ToString("N0")</h3>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <h6>Average Session Duration</h6>
+                        <h3>@Model.AverageSessionDuration.ToString("N0") min</h3>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <h6>Course Completion Rate</h6>
+                        <h3>@Model.CourseCompletionRate.ToString("P1")</h3>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <h6>New Users (This Month)</h6>
+                        <h3>@Model.NewUsers.ToString("N0")</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .stats-card {
+            background: #ffffff;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+        }
+        .stats-card h6 {
+            color: #858796;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .stats-card h3 {
+            color: #4e73df;
+            font-weight: 600;
+            margin: 0;
+        }
+    </style>
+} 

@@ -1,8 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Threading.Tasks;
+using Dapper;
+using E_Learning_Platform.Services;
 using System.ComponentModel.DataAnnotations;
-using E_Learning_Platform.Pages.Services;
+using BCrypt.Net;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 
@@ -11,14 +17,23 @@ namespace E_Learning_Platform.Pages
     [AllowAnonymous] // Changed from [Authorize] to allow access without login
     public class ResetPasswordModel : PageModel
     {
-        private readonly LoggingService _logger = new LoggingService();
-        private readonly OtpService _otpService;
-        private readonly EmailService _emailService;
+        private readonly ILoggingService _logger;
+        private readonly string _connectionString;
+        private readonly IOtpService _otpService;
+        private readonly IEmailService _emailService;
 
-        private string ConnectionString => "Data Source=ABAKAREKE_25497\\SQLEXPRESS;" +
-                                         "Initial Catalog=ONLINE_LEARNING_PLATFORM;" +
-                                         "Integrated Security=True;" +
-                                         "TrustServerCertificate=True";
+        public ResetPasswordModel(
+            IConfiguration configuration,
+            ILoggingService logger,
+            IOtpService otpService,
+            IEmailService emailService)
+        {
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _connectionString = configuration.GetConnectionString("DefaultConnection") ?? 
+                throw new ArgumentNullException("Connection string 'DefaultConnection' not found.");
+            _otpService = otpService ?? throw new ArgumentNullException(nameof(otpService));
+            _emailService = emailService ?? throw new ArgumentNullException(nameof(emailService));
+        }
 
         // For logged-in users who want to change their password
         [BindProperty]
@@ -60,13 +75,6 @@ namespace E_Learning_Platform.Pages
         public bool ShowVerificationForm { get; set; } = false;
         public bool ShowResetForm { get; set; } = false;
         public bool IsForgotPasswordFlow { get; set; } = false;
-
-        public ResetPasswordModel()
-        {
-            _logger = new LoggingService();
-            _otpService = new OtpService(ConnectionString);
-            _emailService = new EmailService();
-        }
 
         public void OnGet(string mode = "")
         {
@@ -298,7 +306,7 @@ namespace E_Learning_Platform.Pages
                 _logger.LogInfo("ResetPasswordModel", $"Validating OTP for user: {userId}");
 
                 // Validate OTP
-                bool isValid = _otpService.ValidateOtp(userId.Value, VerificationCode);
+                bool isValid = await _otpService.ValidateOtpAsync(userId.Value, VerificationCode);
                 _logger.LogInfo("ResetPasswordModel", $"OTP validation result: {isValid}");
 
                 if (isValid)
@@ -488,11 +496,11 @@ namespace E_Learning_Platform.Pages
             _logger.LogInfo("ResetPasswordModel", $"Checking if email exists: {email}");
             try
             {
-                using (var connection = new SqlConnection(ConnectionString))
+                using (var connection = new SqlConnection(_connectionString))
                 {
                     await connection.OpenAsync();
                     var command = new SqlCommand(
-                        "SELECT COUNT(*) FROM USERS WHERE EMAIL = @Email", connection);
+                        "SELECT COUNT(*) FROM AppUsers WHERE EMAIL = @Email", connection);
                     command.Parameters.AddWithValue("@Email", email);
 
                     var exists = (int)await command.ExecuteScalarAsync() > 0;
@@ -512,11 +520,11 @@ namespace E_Learning_Platform.Pages
             _logger.LogInfo("ResetPasswordModel", $"Getting user ID for email: {email}");
             try
             {
-                using (var connection = new SqlConnection(ConnectionString))
+                using (var connection = new SqlConnection(_connectionString))
                 {
                     await connection.OpenAsync();
                     var command = new SqlCommand(
-                        "SELECT USER_ID FROM USERS WHERE EMAIL = @Email", connection);
+                        "SELECT USER_ID FROM AppUsers WHERE EMAIL = @Email", connection);
                     command.Parameters.AddWithValue("@Email", email);
 
                     var result = await command.ExecuteScalarAsync();
@@ -542,11 +550,11 @@ namespace E_Learning_Platform.Pages
             _logger.LogInfo("ResetPasswordModel", $"Verifying current password for user ID: {userId}");
             try
             {
-                using (var connection = new SqlConnection(ConnectionString))
+                using (var connection = new SqlConnection(_connectionString))
                 {
                     await connection.OpenAsync();
                     var command = new SqlCommand(
-                        "SELECT PASSWORD_HASH FROM USERS WHERE USER_ID = @UserId", connection);
+                        "SELECT PASSWORD_HASH FROM AppUsers WHERE USER_ID = @UserId", connection);
                     command.Parameters.AddWithValue("@UserId", userId);
 
                     var passwordHash = await command.ExecuteScalarAsync() as string;
@@ -574,11 +582,11 @@ namespace E_Learning_Platform.Pages
             _logger.LogInfo("ResetPasswordModel", $"Updating password for user ID: {userId}");
             try
             {
-                using (var connection = new SqlConnection(ConnectionString))
+                using (var connection = new SqlConnection(_connectionString))
                 {
                     await connection.OpenAsync();
                     var command = new SqlCommand(
-                        "UPDATE USERS SET PASSWORD_HASH = @PasswordHash WHERE USER_ID = @UserId", connection);
+                        "UPDATE AppUsers SET PASSWORD_HASH = @PasswordHash WHERE USER_ID = @UserId", connection);
                     command.Parameters.AddWithValue("@PasswordHash", passwordHash);
                     command.Parameters.AddWithValue("@UserId", userId);
 

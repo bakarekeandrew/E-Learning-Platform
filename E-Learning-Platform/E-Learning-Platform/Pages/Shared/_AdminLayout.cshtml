@@ -1,5 +1,14 @@
+@using E_Learning_Platform.Services
+@using Microsoft.AspNetCore.Http
+@using System.Security.Claims
+@inject IPermissionService permissionService
 @{
     Layout = null;
+    var userId = Context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+    if (string.IsNullOrEmpty(userId))
+    {
+        userId = "0";
+    }
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -10,6 +19,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    @RenderSection("Styles", required: false)
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -65,13 +75,88 @@
             padding: 20px;
             min-height: 100vh;
             transition: all 0.3s;
+            background-color: #f8f9fc;
         }
         .top-navbar {
-            background: #fff;
+            background: #ffffff;
             box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
-            padding: 1rem;
+            padding: 1rem 1.5rem;
             margin-bottom: 1.5rem;
-            border-radius: 10px;
+            border-radius: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .top-navbar .btn-primary {
+            background-color: #4e73df;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s;
+        }
+        .top-navbar .btn-primary:hover {
+            background-color: #2e59d9;
+            transform: translateY(-1px);
+        }
+        .dropdown-menu {
+            border: none;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 0;
+        }
+        .dropdown-item {
+            padding: 0.5rem 1.5rem;
+            color: #3a3b45;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .dropdown-item:hover {
+            background-color: #f8f9fc;
+            color: #4e73df;
+        }
+        .dropdown-divider {
+            margin: 0.5rem 0;
+            border-top: 1px solid #eaecf4;
+        }
+        .badge.bg-danger {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            position: absolute;
+            top: -5px;
+            right: -5px;
+        }
+        .user-dropdown {
+            position: relative;
+            padding-left: 1rem;
+            border-left: 1px solid #eaecf4;
+        }
+        .btn-link {
+            color: #3a3b45;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .btn-link:hover {
+            color: #4e73df;
+        }
+        .content-card {
+            background: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .content-card-header {
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eaecf4;
+            margin-bottom: 1rem;
+        }
+        .content-card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #3a3b45;
+            margin: 0;
         }
         @@media (max-width: 768px) {
             #sidebar {
@@ -86,8 +171,21 @@
             #content.active {
                 margin-left: 250px;
             }
+            .top-navbar {
+                padding: 0.75rem 1rem;
+            }
+            .user-dropdown {
+                border-left: none;
+                padding-left: 0;
+            }
         }
     </style>
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
+    
+    <!-- SignalR -->
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
 </head>
 <body>
     <!-- Sidebar -->
@@ -99,21 +197,54 @@
             </a>
         </div>
         <ul class="sidebar-nav">
+            <!-- Always visible items -->
             <li class="@(Context.Request.Path.Value.Contains("AdminDashboard") ? "active" : "")">
                 <a href="/AdminDashboard"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a>
             </li>
-            <li class="@(Context.Request.Path.Value.Contains("UsersInfo") ? "active" : "")">
-                <a href="/UsersInfo"><i class="fas fa-users me-2"></i> Users</a>
-            </li>
-            <li class="@(Context.Request.Path.Value.Contains("CourseInfo") || Context.Request.Path.Value.Contains("Courses") ? "active" : "")">
-                <a href="/CourseInfo"><i class="fas fa-book me-2"></i> Courses</a>
-            </li>
             <li class="@(Context.Request.Path.Value.Contains("Analytics") ? "active" : "")">
-                <a href="/Analytics/Overview"><i class="fas fa-chart-line me-2"></i> Analytics</a>
+                <a href="/Analytics"><i class="fas fa-chart-line me-2"></i> Analytics</a>
             </li>
-            <li class="@(Context.Request.Path.Value.Contains("Settings") ? "active" : "")">
-                <a href="/Settings"><i class="fas fa-cog me-2"></i> Settings</a>
+            <li class="@(Context.Request.Path.Value.Contains("/Reports") ? "active" : "")">
+                <a href="/Reports"><i class="fas fa-file-alt me-2"></i> Reports</a>
             </li>
+
+            <!-- Permission-based items -->
+            @if (await permissionService.HasPermissionAsync(int.Parse(userId), "USER.VIEW"))
+            {
+                <li class="@(Context.Request.Path.Value.Contains("UsersInfo") ? "active" : "")">
+                    <a href="/UsersInfo"><i class="fas fa-users me-2"></i> User Management</a>
+                </li>
+            }
+
+            @if (await permissionService.HasPermissionAsync(int.Parse(userId), "ROLE.VIEW"))
+            {
+                <li class="@(Context.Request.Path.Value.Contains("RoleManagement") ? "active" : "")">
+                    <a href="/Admin/RoleManagement"><i class="fas fa-user-shield me-2"></i> Role Management</a>
+                </li>
+            }
+            
+            @if (await permissionService.HasPermissionAsync(int.Parse(userId), "COURSE.VIEW"))
+            {
+                <li class="@(Context.Request.Path.Value.Contains("CourseInfo") || Context.Request.Path.Value.Contains("Courses") ? "active" : "")">
+                    <a href="/CourseInfo"><i class="fas fa-book me-2"></i> Courses</a>
+                </li>
+            }
+
+            @if (await permissionService.HasPermissionAsync(int.Parse(userId), "USER.VIEW"))
+            {
+                <li class="@(Context.Request.Path.Value.Contains("MyPermissions") ? "active" : "")">
+                    <a href="/MyPermissions"><i class="fas fa-key me-2"></i> My Permissions</a>
+                </li>
+            }
+            
+            @if (await permissionService.HasPermissionAsync(int.Parse(userId), "ADMIN.ACCESS"))
+            {
+                <li class="@(Context.Request.Path.Value.Contains("Settings") ? "active" : "")">
+                    <a href="/Settings"><i class="fas fa-cog me-2"></i> Settings</a>
+                </li>
+            }
+            
+            <!-- Always visible logout button -->
             <li>
                 <a href="/Logout"><i class="fas fa-sign-out-alt me-2"></i> Logout</a>
             </li>
@@ -121,35 +252,26 @@
     </nav>
     <!-- Main Content -->
     <div id="content">
-        <!-- Top Navbar -->
-        <nav class="top-navbar d-flex justify-content-between align-items-center">
-            <button type="button" id="sidebarCollapse" class="btn btn-primary">
-                <i class="fas fa-bars"></i>
-            </button>
+        <!-- Enhanced Top Navbar -->
+        <nav class="top-navbar">
             <div class="d-flex align-items-center">
-                <div class="dropdown">
-                    <button class="btn btn-link text-dark dropdown-toggle" type="button" id="dropdownMenuButton" 
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-bell me-2"></i>
-                        <span class="badge bg-danger">3</span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="#">New user registration</a></li>
-                        <li><a class="dropdown-item" href="#">Course update available</a></li>
-                        <li><a class="dropdown-item" href="#">System update</a></li>
-                    </ul>
-                </div>
-                <div class="dropdown ms-3">
-                    <button class="btn btn-link text-dark dropdown-toggle" type="button" id="userDropdown" 
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-user-circle me-2"></i>
-                        Admin
+                <button class="btn btn-primary me-3" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h4 class="mb-0">@ViewData["Title"]</h4>
+            </div>
+            <div class="d-flex align-items-center">
+                @await Html.PartialAsync("_NotificationsPartial")
+                <div class="user-dropdown">
+                    <button class="btn btn-link dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user me-2"></i>
+                        @User.Identity?.Name
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
-                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" href="/Profile"><i class="fas fa-user-circle me-2"></i>Profile</a></li>
+                        <li><a class="dropdown-item" href="/Settings"><i class="fas fa-cog me-2"></i>Settings</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="/Logout">Logout</a></li>
+                        <li><a class="dropdown-item" href="/Logout"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
                     </ul>
                 </div>
             </div>
@@ -163,7 +285,10 @@
                 }
             </div>
         }
-        @RenderBody()
+        <!-- Main Content Area -->
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -173,6 +298,8 @@
             document.getElementById('content').classList.toggle('active');
         });
     </script>
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html> 

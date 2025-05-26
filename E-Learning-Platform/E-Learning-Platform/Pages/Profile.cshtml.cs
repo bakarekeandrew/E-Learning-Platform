@@ -3,17 +3,22 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
-using E_Learning_Platform.Pages.Services;
+using E_Learning_Platform.Services;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Threading.Tasks;
+using Dapper;
 
 namespace E_Learning_Platform.Pages
 {
     [Authorize]
     public class ProfileModel : PageModel
     {
-        private readonly LoggingService _logger = new LoggingService();
         private readonly string _connectionString;
-        private readonly OtpService _otpService;
-        private readonly EmailService _emailService;
+        private readonly ILoggingService _logger;
+        private readonly IOtpService _otpService;
+        private readonly IEmailService _emailService;
 
         public string FullName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
@@ -25,9 +30,15 @@ namespace E_Learning_Platform.Pages
         [BindProperty]
         public bool EnableMfa { get; set; }
 
-        public ProfileModel(ConfigurationService configService, OtpService otpService, EmailService emailService)
+        public ProfileModel(
+            IConfiguration configuration,
+            ILoggingService logger,
+            IOtpService otpService,
+            IEmailService emailService)
         {
-            _connectionString = configService.ConnectionString;
+            _connectionString = configuration.GetConnectionString("DefaultConnection") ?? 
+                throw new ArgumentNullException("Connection string 'DefaultConnection' not found.");
+            _logger = logger;
             _otpService = otpService;
             _emailService = emailService;
         }
@@ -141,7 +152,7 @@ namespace E_Learning_Platform.Pages
                     await connection.OpenAsync();
                     var command = new SqlCommand(@"
                         SELECT u.FULL_NAME, u.EMAIL, u.MFA_ENABLED, r.ROLE_NAME 
-                        FROM USERS u
+                        FROM AppUsers u
                         JOIN ROLES r ON u.ROLE_ID = r.ROLE_ID
                         WHERE u.USER_ID = @UserId", connection);
 
@@ -182,14 +193,17 @@ namespace E_Learning_Platform.Pages
                 using (var connection = new SqlConnection(_connectionString))
                 {
                     await connection.OpenAsync();
-                    var command = new SqlCommand(
-                        "UPDATE USERS SET MFA_ENABLED = @MfaEnabled WHERE USER_ID = @UserId",
-                        connection);
+                    var updateCommand = new SqlCommand(@"
+                        UPDATE AppUsers 
+                        SET FULL_NAME = @FullName, 
+                            EMAIL = @Email 
+                        WHERE USER_ID = @UserId", connection);
 
-                    command.Parameters.AddWithValue("@MfaEnabled", enableMfa);
-                    command.Parameters.AddWithValue("@UserId", userId);
+                    updateCommand.Parameters.AddWithValue("@FullName", FullName);
+                    updateCommand.Parameters.AddWithValue("@Email", Email);
+                    updateCommand.Parameters.AddWithValue("@UserId", userId);
 
-                    int rowsAffected = await command.ExecuteNonQueryAsync();
+                    int rowsAffected = await updateCommand.ExecuteNonQueryAsync();
                     bool success = rowsAffected > 0;
 
                     _logger.LogInfo("ProfileModel", $"MFA update rows affected: {rowsAffected}");

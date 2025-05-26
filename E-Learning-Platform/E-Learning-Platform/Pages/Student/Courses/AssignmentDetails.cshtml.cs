@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
 using Dapper;
 using System;
@@ -7,24 +6,20 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
+using Microsoft.Extensions.Configuration;
 
 namespace E_Learning_Platform.Pages.Student.Courses
 {
-    [Authorize(Policy = "StudentOnly")]
-    public class AssignmentDetailsModel : PageModel
+    public class AssignmentDetailsModel : StudentPageModel
     {
-        private readonly string _connectionString;
-        private readonly ILogger<AssignmentDetailsModel> _logger;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public AssignmentDetailsModel(
             ILogger<AssignmentDetailsModel> logger,
+            IConfiguration configuration,
             IHttpContextAccessor httpContextAccessor)
+            : base(logger, configuration)
         {
-            _connectionString = "Data Source=ABAKAREKE_25497\\SQLEXPRESS;Initial Catalog=ONLINE_LEARNING_PLATFORM;Integrated Security=True;TrustServerCertificate=True";
-            _logger = logger;
             _httpContextAccessor = httpContextAccessor;
         }
 
@@ -38,56 +33,52 @@ namespace E_Learning_Platform.Pages.Student.Courses
         public AssignmentSubmission Submission { get; set; }
 
         public AssignmentDetails Assignment { get; set; }
-        public string ErrorMessage { get; set; }
-        public string SuccessMessage { get; set; }
-        public int CurrentUserId { get; set; }
-
-        // Get current user ID from claims or session
-        private int GetCurrentUserId()
-        {
-            // First try to get from claims
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
-                ?? User.FindFirst("UserId")?.Value;
-
-            if (!string.IsNullOrEmpty(userIdClaim) && int.TryParse(userIdClaim, out int userId))
-            {
-                return userId;
-            }
-
-            // Fallback to session
-            if (_httpContextAccessor.HttpContext.Session.TryGetValue("UserId", out byte[] userIdBytes))
-            {
-                return BitConverter.ToInt32(userIdBytes);
-            }
-
-            // If we can't get the user ID, throw an exception - user should be logged in at this point
-            throw new InvalidOperationException("User ID not found. User might not be properly authenticated.");
-        }
+        public bool AssignmentExists { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
-            try
+            return await ExecuteDbOperationAsync(async () =>
             {
-                // Get current user ID from claims or session
-                CurrentUserId = GetCurrentUserId();
-                _logger.LogInformation($"Loading assignment details for user ID: {CurrentUserId}, assignment ID: {Id}");
+                var studentId = GetStudentId();
+                _logger.LogInformation("Loading assignment details for Assignment ID: {AssignmentId}, Student ID: {StudentId}", 
+                    Id, studentId);
 
                 using var connection = new SqlConnection(_connectionString);
                 await connection.OpenAsync();
 
-                // Check if assignment exists first
-                var assignmentExists = await connection.ExecuteScalarAsync<bool>(
-                    "SELECT CASE WHEN EXISTS(SELECT 1 FROM ASSIGNMENTS WHERE ASSIGNMENT_ID = @AssignmentId) THEN 1 ELSE 0 END",
-                    new { AssignmentId = Id });
+                // First verify the assignment exists and student is enrolled in the course
+                var assignmentCheck = await connection.QueryFirstOrDefaultAsync<AssignmentCheck>(@"
+                    SELECT 
+                        a.ASSIGNMENT_ID,
+                        a.COURSE_ID,
+                        c.TITLE AS CourseTitle,
+                        ce.ENROLLMENT_ID
+                    FROM ASSIGNMENTS a
+                    JOIN COURSES c ON a.COURSE_ID = c.COURSE_ID
+                    LEFT JOIN COURSE_ENROLLMENTS ce ON c.COURSE_ID = ce.COURSE_ID AND ce.USER_ID = @StudentId
+                    WHERE a.ASSIGNMENT_ID = @AssignmentId",
+                    new { AssignmentId = Id, StudentId = studentId });
 
-                if (!assignmentExists)
+                if (assignmentCheck == null)
                 {
-                    ErrorMessage = "Assignment not found in database.";
-                    _logger.LogWarning($"Assignment ID {Id} not found in database.");
+                    _logger.LogWarning("Assignment not found. Assignment ID: {AssignmentId}", Id);
+                    ModelState.AddModelError("", "Assignment not found.");
                     return Page();
                 }
 
-                // Get assignment details
+                if (assignmentCheck.ENROLLMENT_ID == null)
+                {
+                    _logger.LogWarning(
+                        "Student not enrolled. Assignment ID: {AssignmentId}, Course ID: {CourseId}, Student ID: {StudentId}", 
+                        Id, assignmentCheck.COURSE_ID, studentId);
+                    ModelState.AddModelError("", "You are not enrolled in this course.");
+                    return Page();
+                }
+
+                _logger.LogInformation("Assignment found. Course ID: {CourseId}, Course Title: {CourseTitle}", 
+                    assignmentCheck.COURSE_ID, assignmentCheck.CourseTitle);
+
+                // Get assignment details with submission if exists
                 Assignment = await connection.QueryFirstOrDefaultAsync<AssignmentDetails>(@"
                     SELECT 
                         a.ASSIGNMENT_ID AS AssignmentId,
@@ -107,173 +98,156 @@ namespace E_Learning_Platform.Pages.Student.Courses
                     FROM ASSIGNMENTS a
                     JOIN COURSES c ON a.COURSE_ID = c.COURSE_ID
                     LEFT JOIN ASSIGNMENT_SUBMISSIONS s ON a.ASSIGNMENT_ID = s.ASSIGNMENT_ID 
-                        AND s.USER_ID = @UserId
+                        AND s.USER_ID = @StudentId
                     WHERE a.ASSIGNMENT_ID = @AssignmentId",
-                    new { UserId = CurrentUserId, AssignmentId = Id });
+                    new { AssignmentId = Id, StudentId = studentId });
 
                 if (Assignment == null)
                 {
-                    ErrorMessage = "Assignment not found or cannot be loaded.";
-                    _logger.LogError($"Assignment ID {Id} query returned NULL even though it exists in the database.");
+                    _logger.LogError("Failed to load assignment details after verification passed. Assignment ID: {AssignmentId}", 
+                        Id);
+                    ModelState.AddModelError("", "Error loading assignment details.");
                     return Page();
                 }
 
-                // Check if the user is enrolled in this course
-                var isEnrolled = await connection.ExecuteScalarAsync<bool>(@"
-                    SELECT CASE WHEN EXISTS(
-                        SELECT 1 FROM COURSE_ENROLLMENTS
-                        WHERE USER_ID = @UserId AND COURSE_ID = @CourseId
-                    ) THEN 1 ELSE 0 END",
-                    new { UserId = CurrentUserId, CourseId = Assignment.CourseId });
+                AssignmentExists = true;
+                _logger.LogInformation("Successfully loaded assignment details. Title: {Title}", Assignment.Title);
 
-                if (!isEnrolled)
-                {
-                    ErrorMessage = "You are not enrolled in this course.";
-                    return Page();
-                }
-
-                // Make sure we handle null values properly to avoid errors
+                // Initialize new submission if none exists
                 if (Assignment.SubmissionId == 0)
-                {
-                    // Explicitly set properties that would be NULL from database to avoid NullReferenceException
-                    Assignment.SubmissionText = null;
-                    Assignment.FileUrl = null;
-                    Assignment.SubmittedOn = null;
-                    Assignment.Grade = null;
-                    Assignment.Feedback = null;
-                    Assignment.Status = "Not Submitted";
-                }
-
-                // Initialize submission if not exists
-                if (Assignment.SubmissionId == 0 && Submission == null)
                 {
                     Submission = new AssignmentSubmission();
                 }
 
                 return Page();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error loading assignment details for assignment ID {AssignmentId} and user {UserId}", Id, CurrentUserId);
-                ErrorMessage = "An error occurred while loading assignment details: " + ex.Message;
-                return Page();
-            }
+            }, "Error loading assignment details");
         }
 
         public async Task<IActionResult> OnPostAsync(IFormFile file)
         {
-            try
+            return await ExecuteDbOperationAsync(async () =>
             {
-                // Get current user ID from claims or session
-                CurrentUserId = GetCurrentUserId();
-                _logger.LogInformation($"Submitting assignment for user ID: {CurrentUserId}, assignment ID: {Id}");
+                var studentId = GetStudentId();
+                _logger.LogInformation("Processing submission for Assignment ID: {AssignmentId}, Student ID: {StudentId}", 
+                    Id, studentId);
 
                 using var connection = new SqlConnection(_connectionString);
                 await connection.OpenAsync();
 
-                // First make sure the assignment exists
-                var assignment = await connection.QueryFirstOrDefaultAsync<dynamic>(
-                    "SELECT ASSIGNMENT_ID, COURSE_ID FROM ASSIGNMENTS WHERE ASSIGNMENT_ID = @AssignmentId",
-                    new { AssignmentId = Id });
+                // Verify student is enrolled and assignment exists
+                var assignmentCheck = await connection.QueryFirstOrDefaultAsync<AssignmentCheck>(@"
+                    SELECT 
+                        a.ASSIGNMENT_ID,
+                        a.COURSE_ID,
+                        ce.ENROLLMENT_ID,
+                        a.DUE_DATE
+                    FROM ASSIGNMENTS a
+                    JOIN COURSES c ON a.COURSE_ID = c.COURSE_ID
+                    LEFT JOIN COURSE_ENROLLMENTS ce ON c.COURSE_ID = ce.COURSE_ID AND ce.USER_ID = @StudentId
+                    WHERE a.ASSIGNMENT_ID = @AssignmentId",
+                    new { AssignmentId = Id, StudentId = studentId });
 
-                if (assignment == null)
+                if (assignmentCheck == null)
                 {
-                    ErrorMessage = "Assignment not found.";
+                    ModelState.AddModelError("", "Assignment not found.");
                     return Page();
                 }
 
-                // Check if the user is enrolled in this course
-                var isEnrolled = await connection.ExecuteScalarAsync<bool>(@"
-                    SELECT CASE WHEN EXISTS(
-                        SELECT 1 FROM COURSE_ENROLLMENTS
-                        WHERE USER_ID = @UserId AND COURSE_ID = @CourseId
-                    ) THEN 1 ELSE 0 END",
-                    new { UserId = CurrentUserId, CourseId = assignment.COURSE_ID });
-
-                if (!isEnrolled)
+                if (assignmentCheck.ENROLLMENT_ID == null)
                 {
-                    ErrorMessage = "You are not enrolled in this course.";
+                    ModelState.AddModelError("", "You are not enrolled in this course.");
                     return Page();
                 }
 
-                // Handle file upload
+                // Handle file upload if provided
                 string fileUrl = null;
                 if (file != null && file.Length > 0)
                 {
-                    var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
-                    if (!Directory.Exists(uploadsFolder))
+                    try
                     {
+                        var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "assignments");
                         Directory.CreateDirectory(uploadsFolder);
-                    }
 
-                    var uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-                    var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await file.CopyToAsync(fileStream);
+                        var uniqueFileName = $"{studentId}_{Id}_{DateTime.Now:yyyyMMddHHmmss}_{file.FileName}";
+                        var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(fileStream);
+                        }
+
+                        fileUrl = $"/uploads/assignments/{uniqueFileName}";
+                        _logger.LogInformation("File uploaded successfully: {FileUrl}", fileUrl);
                     }
-                    fileUrl = "/uploads/" + uniqueFileName;
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "Error uploading file for Assignment ID: {AssignmentId}", Id);
+                        ModelState.AddModelError("", "Error uploading file. Please try again.");
+                        return Page();
+                    }
                 }
 
-                // Check if submission exists
-                var existingSubmission = await connection.QueryFirstOrDefaultAsync<dynamic>(
-                    "SELECT SUBMISSION_ID FROM ASSIGNMENT_SUBMISSIONS WHERE ASSIGNMENT_ID = @AssignmentId AND USER_ID = @UserId",
-                    new { AssignmentId = Id, UserId = CurrentUserId });
-
-                if (existingSubmission != null)
+                // Update or insert submission
+                if (Submission.SubmissionId > 0)
                 {
-                    // Update existing submission
                     await connection.ExecuteAsync(@"
-                        UPDATE ASSIGNMENT_SUBMISSIONS SET
-                            SUBMISSION_TEXT = @SubmissionText,
-                            FILE_URL = CASE WHEN @FileUrl IS NULL THEN FILE_URL ELSE @FileUrl END,
+                        UPDATE ASSIGNMENT_SUBMISSIONS 
+                        SET SUBMISSION_TEXT = @SubmissionText,
+                            FILE_URL = COALESCE(@FileUrl, FILE_URL),
                             SUBMITTED_ON = GETDATE(),
                             STATUS = 'Submitted'
-                        WHERE SUBMISSION_ID = @SubmissionId",
-                        new
-                        {
+                        WHERE SUBMISSION_ID = @SubmissionId 
+                        AND USER_ID = @StudentId",
+                        new { 
+                            SubmissionId = Submission.SubmissionId,
                             SubmissionText = Submission.SubmissionText,
                             FileUrl = fileUrl,
-                            SubmissionId = existingSubmission.SUBMISSION_ID
+                            StudentId = studentId
                         });
+
+                    _logger.LogInformation("Updated submission {SubmissionId} for Assignment {AssignmentId}", 
+                        Submission.SubmissionId, Id);
                 }
                 else
                 {
-                    // Create new submission
                     await connection.ExecuteAsync(@"
                         INSERT INTO ASSIGNMENT_SUBMISSIONS (
-                            ASSIGNMENT_ID,
                             USER_ID,
+                            ASSIGNMENT_ID,
                             SUBMISSION_TEXT,
                             FILE_URL,
                             SUBMITTED_ON,
                             STATUS
                         ) VALUES (
+                            @StudentId,
                             @AssignmentId,
-                            @UserId,
                             @SubmissionText,
                             @FileUrl,
                             GETDATE(),
                             'Submitted'
                         )",
-                        new
-                        {
+                        new { 
+                            StudentId = studentId,
                             AssignmentId = Id,
-                            UserId = CurrentUserId,
                             SubmissionText = Submission.SubmissionText,
                             FileUrl = fileUrl
                         });
+
+                    _logger.LogInformation("Created new submission for Assignment {AssignmentId}", Id);
                 }
 
-                SuccessMessage = "Assignment submitted successfully!";
-                return RedirectToPage("/Student/Courses/Assignments", new { courseId = assignment.COURSE_ID });
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error submitting assignment {AssignmentId} for user {UserId}", Id, CurrentUserId);
-                ErrorMessage = "An error occurred while submitting the assignment: " + ex.Message;
-                return await OnGetAsync(); // Reload the page with error
-            }
+                TempData["SuccessMessage"] = "Assignment submitted successfully!";
+                return RedirectToPage("/Student/Courses/Assignments", new { courseId = assignmentCheck.COURSE_ID });
+            }, "Error submitting assignment");
+        }
+
+        private class AssignmentCheck
+        {
+            public int ASSIGNMENT_ID { get; set; }
+            public int COURSE_ID { get; set; }
+            public string CourseTitle { get; set; }
+            public int? ENROLLMENT_ID { get; set; }
+            public DateTime? DUE_DATE { get; set; }
         }
 
         public class AssignmentDetails
@@ -296,6 +270,7 @@ namespace E_Learning_Platform.Pages.Student.Courses
 
         public class AssignmentSubmission
         {
+            public int SubmissionId { get; set; }
             public string SubmissionText { get; set; }
             public string FileUrl { get; set; }
         }

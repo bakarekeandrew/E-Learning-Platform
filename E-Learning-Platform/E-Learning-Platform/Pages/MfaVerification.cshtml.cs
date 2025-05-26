@@ -1,11 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Data.SqlClient;
+using E_Learning_Platform.Services;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
-using E_Learning_Platform.Pages.Services;
+using System.Security.Cryptography;
+using System.Text;
 using Microsoft.Extensions.Logging;
-using System.ComponentModel.DataAnnotations;
 
 namespace E_Learning_Platform.Pages
 {
@@ -20,13 +23,13 @@ namespace E_Learning_Platform.Pages
         public string ErrorMessage { get; set; }
         public string InfoMessage { get; set; }
 
-        private readonly OtpService _otpService;
-        private readonly EmailService _emailService;
+        private readonly IOtpService _otpService;
+        private readonly IEmailService _emailService;
         private readonly ILogger<MfaVerificationModel> _logger;
 
         public MfaVerificationModel(
-            OtpService otpService,
-            EmailService emailService,
+            IOtpService otpService,
+            IEmailService emailService,
             ILogger<MfaVerificationModel> logger)
         {
             _otpService = otpService;
@@ -75,10 +78,11 @@ namespace E_Learning_Platform.Pages
             string role = TempData["PendingUserRole"]?.ToString();
             string fullName = TempData["PendingUserName"]?.ToString();
             bool rememberMe = TempData["RememberMe"] != null && (bool)TempData["RememberMe"];
+            string returnUrl = TempData["ReturnUrl"]?.ToString();
 
             try
             {
-                bool isValid = _otpService.ValidateOtp(userId, VerificationCode);
+                bool isValid = await _otpService.ValidateOtpAsync(userId, VerificationCode);
 
                 if (isValid)
                 {
@@ -110,12 +114,17 @@ namespace E_Learning_Platform.Pages
                         new ClaimsPrincipal(new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme)),
                         authProperties);
 
+                    if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                    {
+                        return LocalRedirect(returnUrl);
+                    }
+
                     return RedirectToPage(role switch
                     {
                         "INSTRUCTOR" => "/Instructor/Dashboard",
                         "ADMIN" => "/AdminDashboard",
                         "STUDENT" => "/Student/Dashboard",
-                        _ => "/Login"
+                        _ => "/Index"
                     });
                 }
 

@@ -8,22 +8,24 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System;
 using Microsoft.Extensions.Logging;
+using E_Learning_Platform.Services;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace E_Learning_Platform.Pages.Instructor
 {
+    [Authorize(Roles = "INSTRUCTOR")]
     public class DashboardModel : PageModel
     {
         private readonly string _connectionString;
         private readonly ILogger<DashboardModel> _logger;
 
-        public DashboardModel(ILogger<DashboardModel> logger = null)
+        public DashboardModel(
+            IConfiguration configuration, 
+            ILogger<DashboardModel> logger)
         {
-            _connectionString = "Data Source=ABAKAREKE_25497\\SQLEXPRESS;" +
-                              "Initial Catalog=ONLINE_LEARNING_PLATFORM;" +
-                              "Integrated Security=True;" +
-                              "TrustServerCertificate=True;" +
-                              "Connection Timeout=30";
-
+            _connectionString = configuration.GetConnectionString("DefaultConnection") ?? 
+                throw new ArgumentNullException("Connection string 'DefaultConnection' not found.");
             _logger = logger;
         }
 
@@ -68,29 +70,27 @@ namespace E_Learning_Platform.Pages.Instructor
             public DateTime SubmittedDate { get; set; }
         }
 
+        private async Task<int> GetCurrentUserIdAsync()
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out var userId))
+            {
+                _logger.LogWarning("User ID claim not found or invalid");
+                throw new InvalidOperationException("User not properly authenticated");
+            }
+            return userId;
+        }
+
         public async Task<IActionResult> OnGetAsync()
         {
-            // Get user ID from session
-            int? userId = null;
-            byte[] userIdBytes;
-            if (HttpContext.Session.TryGetValue("UserId", out userIdBytes))
-            {
-                userId = BitConverter.ToInt32(userIdBytes, 0);
-                LogInfo($"Retrieved userId: {userId} from session");
-            }
-
-
-            if (!userId.HasValue)
-            {
-                LogInfo("No userId found in session, redirecting to login");
-                return RedirectToPage("/Login");
-            }
-
             try
             {
+                var userId = await GetCurrentUserIdAsync();
+                _logger.LogInformation("Loading dashboard for instructor {UserId}", userId);
+
                 using var connection = new SqlConnection(_connectionString);
                 await connection.OpenAsync();
-                LogInfo("Database connection opened successfully");
+                _logger.LogInformation("Database connection opened successfully");
 
                 // Load data in separate try-catch blocks to identify which query might be failing
                 try
@@ -100,7 +100,7 @@ namespace E_Learning_Platform.Pages.Instructor
                         SELECT 
                             (SELECT COUNT(*) FROM COURSES WHERE CREATED_BY = @InstructorId) AS CourseCount,
                             (SELECT COUNT(DISTINCT e.USER_ID) 
-                             FROM COURSE_ENROLLMENTS e
+                            FROM COURSE_ENROLLMENTS e
                              JOIN COURSES c ON e.COURSE_ID = c.COURSE_ID
                              WHERE c.CREATED_BY = @InstructorId) AS StudentCount,
                             (SELECT COUNT(*) 
@@ -110,12 +110,12 @@ namespace E_Learning_Platform.Pages.Instructor
                              JOIN COURSES c ON m.COURSE_ID = c.COURSE_ID
                              WHERE c.CREATED_BY = @InstructorId AND s.GRADE IS NULL) AS PendingAssignments,
                             0 AS MonthlyEarnings",
-                        new { InstructorId = userId.Value });
-                    LogInfo("Stats loaded successfully");
+                        new { InstructorId = userId });
+                    _logger.LogInformation("Stats loaded successfully");
                 }
                 catch (Exception ex)
                 {
-                    LogError("Error loading stats", ex);
+                    _logger.LogError(ex, "Error loading stats");
                     Stats = new DashboardStats(); // Use default empty stats
                 }
 
@@ -133,12 +133,12 @@ namespace E_Learning_Platform.Pages.Instructor
                         FROM COURSES c
                         WHERE c.CREATED_BY = @InstructorId
                         ORDER BY c.CREATION_DATE DESC",
-                        new { InstructorId = userId.Value })).ToList();
-                    LogInfo("Courses loaded successfully");
+                        new { InstructorId = userId })).ToList();
+                    _logger.LogInformation("Courses loaded successfully");
                 }
                 catch (Exception ex)
                 {
-                    LogError("Error loading courses", ex);
+                    _logger.LogError(ex, "Error loading courses");
                     MyCourses = new List<Course>(); // Use empty list
                 }
 
@@ -159,19 +159,18 @@ namespace E_Learning_Platform.Pages.Instructor
                         JOIN USERS u ON s.USER_ID = u.USER_ID
                         WHERE c.CREATED_BY = @InstructorId AND s.GRADE IS NULL
                         ORDER BY s.SUBMITTED_ON DESC",
-                        new { InstructorId = userId.Value })).ToList();
-                    LogInfo("Pending submissions loaded successfully");
+                        new { InstructorId = userId })).ToList();
+                    _logger.LogInformation("Pending submissions loaded successfully");
                 }
                 catch (Exception ex)
                 {
-                    LogError("Error loading pending submissions", ex);
+                    _logger.LogError(ex, "Error loading pending submissions");
                     PendingSubmissions = new List<StudentSubmission>(); // Use empty list
                 }
 
                 try
                 {
                     // Load recent activities with simplified query
-                    // First try just enrollments (simpler query)
                     RecentActivities = (await connection.QueryAsync<RecentActivity>(@"
                         SELECT TOP 5
                             'New Enrollment' AS Type,
@@ -183,52 +182,33 @@ namespace E_Learning_Platform.Pages.Instructor
                         JOIN USERS u ON e.USER_ID = u.USER_ID
                         WHERE c.CREATED_BY = @InstructorId
                         ORDER BY e.ENROLLMENT_DATE DESC",
-                        new { InstructorId = userId.Value })).ToList();
-                    LogInfo("Recent activities (enrollments only) loaded successfully");
+                        new { InstructorId = userId })).ToList();
+                    _logger.LogInformation("Recent activities loaded successfully");
                 }
                 catch (Exception ex)
                 {
-                    LogError("Error loading recent activities", ex);
+                    _logger.LogError(ex, "Error loading recent activities");
                     RecentActivities = new List<RecentActivity>(); // Use empty list
                 }
 
                 return Page();
             }
+            catch (InvalidOperationException)
+            {
+                return RedirectToPage("/Login");
+            }
             catch (SqlException ex)
             {
-                LogError("SQL Error", ex);
+                _logger.LogError(ex, "SQL Error occurred while loading dashboard");
                 ErrorMessage = "Database error occurred. Please try again later.";
                 return Page();
             }
             catch (Exception ex)
             {
-                LogError("General Error", ex);
+                _logger.LogError(ex, "Unexpected error occurred while loading dashboard");
                 ErrorMessage = "An unexpected error occurred. Please try again later.";
                 return Page();
             }
-        }
-
-        private void LogInfo(string message)
-        {
-            if (_logger != null)
-            {
-                _logger.LogInformation(message);
-            }
-            System.Diagnostics.Debug.WriteLine($"INFO: {message}");
-        }
-
-        private void LogError(string message, Exception ex)
-        {
-            if (_logger != null)
-            {
-                _logger.LogError(ex, message);
-            }
-            System.Diagnostics.Debug.WriteLine($"ERROR: {message} - {ex.Message}");
-            if (ex.InnerException != null)
-            {
-                System.Diagnostics.Debug.WriteLine($"INNER: {ex.InnerException.Message}");
-            }
-            System.Diagnostics.Debug.WriteLine($"STACK: {ex.StackTrace}");
         }
     }
 }

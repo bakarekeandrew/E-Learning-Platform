@@ -1,0 +1,294 @@
+2025-05-22 00:09:27 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 01:00:32 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 09:57:20 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 10:07:57 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 10:26:23 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 10:37:06 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 10:46:37 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 10:57:20 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 11:42:14 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 12:04:32 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 12:07:44 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 12:15:58 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 12:28:42 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 12:39:06 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 12:45:05 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 12:48:52 [Information] [OtpService] Generated new OTP code: 680638
+2025-05-22 12:56:42 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 12:57:25 [Information] [OtpService] Generated new OTP code: 167210
+2025-05-22 13:02:20 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 13:02:48 [Information] [OtpService] Generated new OTP code: 870432
+2025-05-22 13:40:25 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 13:41:02 [Information] [OtpService] Generated new OTP code: 616419
+2025-05-22 13:43:30 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 13:44:06 [Information] [OtpService] Generated new OTP code: 578646
+2025-05-22 13:55:03 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 13:55:44 [Information] [OtpService] Generated new OTP code: 125355
+2025-05-22 13:55:44 [Information] [EmailService] Attempting to send OTP email to bakarekeandrewfils@gmail.com
+2025-05-22 13:55:48 [Information] [EmailService] Successfully sent OTP email to bakarekeandrewfils@gmail.com
+2025-05-22 13:56:50 [Information] [OtpService] Starting temp user OTP validation for tempUserId: 8
+2025-05-22 13:56:50 [Information] [OtpService] Opening database connection for temp user validation
+2025-05-22 13:56:50 [Information] [OtpService] Database connection opened successfully
+2025-05-22 13:56:50 [Information] [OtpService] Verifying TEMP_USERS table exists
+2025-05-22 13:56:51 [Information] [OtpService] TEMP_USERS table exists: True
+2025-05-22 13:56:51 [Information] [OtpService] Temp user exists: True
+2025-05-22 13:56:51 [Information] [OtpService] Retrieving temp user OTP information
+2025-05-22 13:56:51 [Error] [OtpService] Database error validating temp user OTP: Incorrect syntax near the keyword 'CURRENT_TIME'.
+Error Number: 156
+State: 1
+Stack Trace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteReaderInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteReaderAsync(IAsyncResult asyncResult)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at E_Learning_Platform.Pages.Services.OtpService.ValidateTempUserOtpAsync(Int32 tempUserId, String otpCode) in C:\Users\HP\Desktop\Dot-net\E-Learning-Platform\E-Learning-Platform\E-Learning-Platform\Pages\Services\OtpService.cs:line 333
+2025-05-22 13:57:03 [Information] [OtpService] Starting temp user OTP validation for tempUserId: 8
+2025-05-22 13:57:03 [Information] [OtpService] Opening database connection for temp user validation
+2025-05-22 13:57:03 [Information] [OtpService] Database connection opened successfully
+2025-05-22 13:57:03 [Information] [OtpService] Verifying TEMP_USERS table exists
+2025-05-22 13:57:03 [Information] [OtpService] TEMP_USERS table exists: True
+2025-05-22 13:57:03 [Information] [OtpService] Temp user exists: True
+2025-05-22 13:57:03 [Information] [OtpService] Retrieving temp user OTP information
+2025-05-22 13:57:03 [Error] [OtpService] Database error validating temp user OTP: Incorrect syntax near the keyword 'CURRENT_TIME'.
+Error Number: 156
+State: 1
+Stack Trace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteReaderInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteReaderAsync(IAsyncResult asyncResult)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at E_Learning_Platform.Pages.Services.OtpService.ValidateTempUserOtpAsync(Int32 tempUserId, String otpCode) in C:\Users\HP\Desktop\Dot-net\E-Learning-Platform\E-Learning-Platform\E-Learning-Platform\Pages\Services\OtpService.cs:line 333
+2025-05-22 14:08:05 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 14:08:35 [Information] [OtpService] Generated new OTP code: 678395
+2025-05-22 14:08:36 [Information] [EmailService] Attempting to send OTP email to bakarekeandrewfils@gmail.com
+2025-05-22 14:08:39 [Information] [EmailService] Successfully sent OTP email to bakarekeandrewfils@gmail.com
+2025-05-22 14:09:28 [Information] [OtpService] Starting temp user OTP validation for tempUserId: 9
+2025-05-22 14:09:28 [Information] [OtpService] Opening database connection for temp user validation
+2025-05-22 14:09:28 [Information] [OtpService] Database connection opened successfully
+2025-05-22 14:09:28 [Information] [OtpService] Verifying TEMP_USERS table exists
+2025-05-22 14:09:28 [Information] [OtpService] TEMP_USERS table exists: True
+2025-05-22 14:09:28 [Information] [OtpService] Temp user exists: True
+2025-05-22 14:09:28 [Information] [OtpService] Retrieving temp user OTP information
+2025-05-22 14:09:28 [Error] [OtpService] Database error validating temp user OTP: Incorrect syntax near the keyword 'CURRENT_TIME'.
+Error Number: 156
+State: 1
+Stack Trace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteReaderInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteReaderAsync(IAsyncResult asyncResult)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at E_Learning_Platform.Pages.Services.OtpService.ValidateTempUserOtpAsync(Int32 tempUserId, String otpCode) in C:\Users\HP\Desktop\Dot-net\E-Learning-Platform\E-Learning-Platform\E-Learning-Platform\Pages\Services\OtpService.cs:line 333
+2025-05-22 14:11:50 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 14:12:26 [Information] [OtpService] Generated new OTP code: 656212
+2025-05-22 14:12:27 [Information] [EmailService] Attempting to send OTP email to bakarekeandrewfils@gmail.com
+2025-05-22 14:12:30 [Information] [EmailService] Successfully sent OTP email to bakarekeandrewfils@gmail.com
+2025-05-22 14:13:00 [Information] [OtpService] Starting temp user OTP validation for tempUserId: 10
+2025-05-22 14:13:00 [Information] [OtpService] Opening database connection for temp user validation
+2025-05-22 14:13:00 [Information] [OtpService] Database connection opened successfully
+2025-05-22 14:13:00 [Information] [OtpService] Verifying TEMP_USERS table exists
+2025-05-22 14:13:00 [Information] [OtpService] TEMP_USERS table exists: True
+2025-05-22 14:13:00 [Information] [OtpService] Temp user exists: True
+2025-05-22 14:13:00 [Information] [OtpService] Retrieving temp user OTP information
+2025-05-22 14:13:00 [Error] [OtpService] Database error validating temp user OTP: Incorrect syntax near the keyword 'CURRENT_TIME'.
+Error Number: 156
+State: 1
+Stack Trace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteReaderInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteReaderAsync(IAsyncResult asyncResult)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at E_Learning_Platform.Pages.Services.OtpService.ValidateTempUserOtpAsync(Int32 tempUserId, String otpCode) in C:\Users\HP\Desktop\Dot-net\E-Learning-Platform\E-Learning-Platform\E-Learning-Platform\Pages\Services\OtpService.cs:line 333
+2025-05-22 14:22:29 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 14:22:49 [Information] [OtpService] Generated new OTP code: 658833
+2025-05-22 14:22:49 [Information] [EmailService] Attempting to send OTP email to bakarekeandrewfils@gmail.com
+2025-05-22 14:22:52 [Information] [EmailService] Successfully sent OTP email to bakarekeandrewfils@gmail.com
+2025-05-22 14:23:35 [Information] [OtpService] Starting temp user OTP validation for tempUserId: 11
+2025-05-22 14:23:35 [Information] [OtpService] Database connection opened successfully
+2025-05-22 14:23:35 [Information] [OtpService] Retrieving temp user OTP information
+2025-05-22 14:23:35 [Information] [OtpService] OTP Details:
+Email: bakarekeandrewfils@gmail.com
+Expiry Time: 5/22/2025 2:32:49 PM
+Current Time: 5/22/2025 2:23:35 PM
+Minutes Remaining: 9
+2025-05-22 14:23:35 [Information] [OtpService] OTP validation successful
+2025-05-22 14:27:44 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 14:28:11 [Information] [OtpService] Generated new OTP code: 811023
+2025-05-22 14:28:12 [Information] [EmailService] Attempting to send OTP email to bakarekeandrewfils@gmail.com
+2025-05-22 14:28:15 [Information] [EmailService] Successfully sent OTP email to bakarekeandrewfils@gmail.com
+2025-05-22 14:28:33 [Information] [OtpService] Starting temp user OTP validation for tempUserId: 12
+2025-05-22 14:28:33 [Information] [OtpService] Database connection opened successfully
+2025-05-22 14:28:33 [Information] [OtpService] Retrieving temp user OTP information
+2025-05-22 14:28:33 [Information] [OtpService] OTP Details:
+Email: bakarekeandrewfils@gmail.com
+Expiry Time: 5/22/2025 2:38:12 PM
+Current Time: 5/22/2025 2:28:33 PM
+Minutes Remaining: 10
+2025-05-22 14:28:33 [Information] [OtpService] OTP validation successful
+2025-05-22 14:34:24 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 14:34:56 [Information] [OtpService] Generated new OTP code: 902745
+2025-05-22 14:34:57 [Information] [EmailService] Attempting to send OTP email to bakarekeandrewfils@gmail.com
+2025-05-22 14:35:01 [Information] [EmailService] Successfully sent OTP email to bakarekeandrewfils@gmail.com
+2025-05-22 14:35:21 [Information] [OtpService] Starting temp user OTP validation for tempUserId: 13
+2025-05-22 14:35:21 [Information] [OtpService] Database connection opened successfully
+2025-05-22 14:35:21 [Information] [OtpService] Retrieving temp user OTP information
+2025-05-22 14:35:21 [Information] [OtpService] OTP Details:
+Email: bakarekeandrewfils@gmail.com
+Expiry Time: 5/22/2025 2:44:57 PM
+Current Time: 5/22/2025 2:35:21 PM
+Minutes Remaining: 9
+2025-05-22 14:35:21 [Information] [OtpService] OTP validation successful
+2025-05-22 14:38:33 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 14:39:07 [Information] [OtpService] Generated new OTP code: 484267
+2025-05-22 14:39:08 [Information] [EmailService] Attempting to send OTP email to bakarekeandrewfils@gmail.com
+2025-05-22 14:39:11 [Information] [EmailService] Successfully sent OTP email to bakarekeandrewfils@gmail.com
+2025-05-22 14:39:31 [Information] [OtpService] Starting temp user OTP validation for tempUserId: 14
+2025-05-22 14:39:31 [Information] [OtpService] Database connection opened successfully
+2025-05-22 14:39:31 [Information] [OtpService] Retrieving temp user OTP information
+2025-05-22 14:39:31 [Information] [OtpService] OTP Details:
+Email: bakarekeandrewfils@gmail.com
+Expiry Time: 5/22/2025 2:49:08 PM
+Current Time: 5/22/2025 2:39:31 PM
+Minutes Remaining: 10
+2025-05-22 14:39:31 [Information] [OtpService] OTP validation successful
+2025-05-22 14:49:58 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 14:50:48 [Information] [OtpService] Generated new OTP code: 371829
+2025-05-22 14:50:49 [Information] [EmailService] Attempting to send OTP email to bakarekeandrewfils@gmail.com
+2025-05-22 14:50:52 [Information] [EmailService] Successfully sent OTP email to bakarekeandrewfils@gmail.com
+2025-05-22 14:51:12 [Information] [OtpService] Starting temp user OTP validation for tempUserId: 15
+2025-05-22 14:51:12 [Information] [OtpService] Database connection opened successfully
+2025-05-22 14:51:12 [Information] [OtpService] Retrieving temp user OTP information
+2025-05-22 14:51:12 [Information] [OtpService] OTP Details:
+Email: bakarekeandrewfils@gmail.com
+Expiry Time: 5/22/2025 3:00:49 PM
+Current Time: 5/22/2025 2:51:12 PM
+Minutes Remaining: 9
+2025-05-22 14:51:12 [Information] [OtpService] OTP validation successful
+2025-05-22 14:51:26 [Information] [OtpService] Starting temp user OTP validation for tempUserId: 15
+2025-05-22 14:51:26 [Information] [OtpService] Database connection opened successfully
+2025-05-22 14:51:26 [Information] [OtpService] Retrieving temp user OTP information
+2025-05-22 14:51:26 [Information] [OtpService] OTP Details:
+Email: bakarekeandrewfils@gmail.com
+Expiry Time: 5/22/2025 3:00:49 PM
+Current Time: 5/22/2025 2:51:26 PM
+Minutes Remaining: 9
+2025-05-22 14:51:26 [Information] [OtpService] OTP validation successful
+2025-05-22 14:55:41 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 14:57:10 [Information] [OtpService] Generated new OTP code: 488297
+2025-05-22 14:57:11 [Information] [EmailService] Attempting to send OTP email to bakarekeandrewfils@gmail.com
+2025-05-22 14:57:15 [Information] [EmailService] Successfully sent OTP email to bakarekeandrewfils@gmail.com
+2025-05-22 14:57:42 [Information] [OtpService] Starting temp user OTP validation for tempUserId: 16
+2025-05-22 14:57:42 [Information] [OtpService] Database connection opened successfully
+2025-05-22 14:57:42 [Information] [OtpService] Retrieving temp user OTP information
+2025-05-22 14:57:42 [Information] [OtpService] OTP Details:
+Email: bakarekeandrewfils@gmail.com
+Expiry Time: 5/22/2025 3:07:11 PM
+Current Time: 5/22/2025 2:57:42 PM
+Minutes Remaining: 10
+2025-05-22 14:57:42 [Information] [OtpService] OTP validation successful
+2025-05-22 15:07:40 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 15:08:42 [Information] [OtpService] Generated new OTP code: 963417
+2025-05-22 15:08:42 [Information] [EmailService] Attempting to send OTP email to bakarekeandrewfils@gmail.com
+2025-05-22 15:08:46 [Information] [EmailService] Successfully sent OTP email to bakarekeandrewfils@gmail.com
+2025-05-22 15:09:03 [Information] [OtpService] Starting temp user OTP validation for tempUserId: 17
+2025-05-22 15:09:03 [Information] [OtpService] Database connection opened successfully
+2025-05-22 15:09:03 [Information] [OtpService] Retrieving temp user OTP information
+2025-05-22 15:09:03 [Information] [OtpService] OTP Details:
+Email: bakarekeandrewfils@gmail.com
+Expiry Time: 5/22/2025 3:18:42 PM
+Current Time: 5/22/2025 3:09:03 PM
+Minutes Remaining: 9
+2025-05-22 15:09:03 [Information] [OtpService] OTP validation successful
+2025-05-22 15:11:39 [Information] [OtpService] Generated new OTP code: 317452
+2025-05-22 15:11:39 [Information] [EmailService] Attempting to send OTP email to bakareke@auca.ac.rw
+2025-05-22 15:11:42 [Information] [EmailService] Successfully sent OTP email to bakareke@auca.ac.rw
+2025-05-22 15:14:12 [Information] [OtpService] Generated new OTP code: 313998
+2025-05-22 15:14:12 [Information] [EmailService] Attempting to send OTP email to andrew.bakareke@auca.ac.rw
+2025-05-22 15:14:16 [Information] [EmailService] Successfully sent OTP email to andrew.bakareke@auca.ac.rw
+2025-05-22 15:14:31 [Information] [OtpService] Starting temp user OTP validation for tempUserId: 19
+2025-05-22 15:14:31 [Information] [OtpService] Database connection opened successfully
+2025-05-22 15:14:31 [Information] [OtpService] Retrieving temp user OTP information
+2025-05-22 15:14:31 [Information] [OtpService] OTP Details:
+Email: andrew.bakareke@auca.ac.rw
+Expiry Time: 5/22/2025 3:24:12 PM
+Current Time: 5/22/2025 3:14:31 PM
+Minutes Remaining: 10
+2025-05-22 15:14:31 [Information] [OtpService] OTP validation successful
+2025-05-22 15:23:03 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 15:25:37 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 15:26:02 [Information] [OtpService] Generated new OTP code: 916335
+2025-05-22 15:26:03 [Information] [EmailService] Attempting to send OTP email to andrew.bakareke@auca.ac.rw
+2025-05-22 15:26:06 [Information] [EmailService] Successfully sent OTP email to andrew.bakareke@auca.ac.rw
+2025-05-22 15:26:24 [Information] [OtpService] Starting temp user OTP validation for tempUserId: 20
+2025-05-22 15:26:24 [Information] [OtpService] Database connection opened successfully
+2025-05-22 15:26:24 [Information] [OtpService] Retrieving temp user OTP information
+2025-05-22 15:26:24 [Information] [OtpService] OTP Details:
+Email: andrew.bakareke@auca.ac.rw
+Expiry Time: 5/22/2025 3:36:03 PM
+Current Time: 5/22/2025 3:26:24 PM
+Minutes Remaining: 10
+2025-05-22 15:26:24 [Information] [OtpService] OTP validation successful
+2025-05-22 15:35:53 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 15:36:55 [Information] [OtpService] Generated new OTP code: 557340
+2025-05-22 15:36:56 [Information] [EmailService] Attempting to send OTP email to andrew.bakareke@auca.ac.rw
+2025-05-22 15:37:00 [Information] [EmailService] Successfully sent OTP email to andrew.bakareke@auca.ac.rw
+2025-05-22 15:37:48 [Information] [OtpService] Starting temp user OTP validation for tempUserId: 21
+2025-05-22 15:37:48 [Information] [OtpService] Database connection opened successfully
+2025-05-22 15:37:48 [Information] [OtpService] Retrieving temp user OTP information
+2025-05-22 15:37:48 [Information] [OtpService] OTP Details:
+Email: andrew.bakareke@auca.ac.rw
+Expiry Time: 5/22/2025 3:46:56 PM
+Current Time: 5/22/2025 3:37:48 PM
+Minutes Remaining: 9
+2025-05-22 15:37:48 [Information] [OtpService] OTP validation successful
+2025-05-22 15:42:25 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 15:43:30 [Information] [OtpService] Generated new OTP code: 198101
+2025-05-22 15:43:30 [Information] [EmailService] Attempting to send OTP email to andrew.bakareke@auca.ac.rw
+2025-05-22 15:43:34 [Information] [EmailService] Successfully sent OTP email to andrew.bakareke@auca.ac.rw
+2025-05-22 15:43:57 [Information] [OtpService] Starting temp user OTP validation for tempUserId: 22
+2025-05-22 15:43:57 [Information] [OtpService] Database connection opened successfully
+2025-05-22 15:43:57 [Information] [OtpService] Retrieving temp user OTP information
+2025-05-22 15:43:57 [Information] [OtpService] OTP Details:
+Email: andrew.bakareke@auca.ac.rw
+Expiry Time: 5/22/2025 3:53:30 PM
+Current Time: 5/22/2025 3:43:57 PM
+Minutes Remaining: 10
+2025-05-22 15:43:57 [Information] [OtpService] OTP validation successful
+2025-05-22 15:49:27 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 15:50:03 [Information] [OtpService] Generated new OTP code: 310648
+2025-05-22 15:50:04 [Information] [EmailService] Attempting to send OTP email to andrew.bakareke@auca.ac.rw
+2025-05-22 15:50:08 [Information] [EmailService] Successfully sent OTP email to andrew.bakareke@auca.ac.rw
+2025-05-22 15:50:30 [Information] [OtpService] Starting temp user OTP validation for tempUserId: 23
+2025-05-22 15:50:30 [Information] [OtpService] Database connection opened successfully
+2025-05-22 15:50:30 [Information] [OtpService] Retrieving temp user OTP information
+2025-05-22 15:50:30 [Information] [OtpService] OTP Details:
+Email: andrew.bakareke@auca.ac.rw
+Expiry Time: 5/22/2025 4:00:04 PM
+Current Time: 5/22/2025 3:50:30 PM
+Minutes Remaining: 10
+2025-05-22 15:50:30 [Information] [OtpService] OTP validation successful
+2025-05-22 16:41:45 [Information] [OtpService] Initialized with provided connection string
+2025-05-22 16:49:04 [Information] [OtpService] Initialized with provided connection string

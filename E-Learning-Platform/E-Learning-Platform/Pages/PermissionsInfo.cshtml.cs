@@ -2,11 +2,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using Dapper;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Data;
 
 namespace E_Learning_Platform.Pages
 {
@@ -17,10 +20,8 @@ namespace E_Learning_Platform.Pages
 
         public PermissionsInfoModel(IConfiguration configuration)
         {
-            _connectionString = "Data Source=ABAKAREKE_25497\\SQLEXPRESS;" +
-                              "Initial Catalog=ONLINE_LEARNING_PLATFORM;" +
-                              "Integrated Security=True;" +
-                              "TrustServerCertificate=True";
+            _connectionString = configuration.GetConnectionString("DefaultConnection") ?? 
+                throw new ArgumentNullException("Connection string 'DefaultConnection' not found.");
         }
 
         // Properties for view

@@ -1,36 +1,907 @@
 @page
 @model E_Learning_Platform.Pages.Analytics.OverviewModel
 @{
+    Layout = "_AdminLayout";
     ViewData["Title"] = "Analytics Overview";
-    Layout = "_AnalyticsLayout";
 }
 
-@if (!ViewData.ModelState.IsValid)
-{
-    <div class="alert alert-danger">
-        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-        {
-            <div>@error.ErrorMessage</div>
+@section Styles {
+    <style>
+        /* Custom styles for Analytics page */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
         }
+
+        .stat-card {
+            background: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            padding: 1.5rem;
+            transition: transform 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .stat-icon {
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .stat-title {
+            color: #6b7280;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-change {
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .stat-change.positive {
+            color: #10b981;
+        }
+
+        .stat-change.negative {
+            color: #ef4444;
+        }
+
+        .chart-card {
+            background: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .chart-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .chart-filters {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chart-filter {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #6b7280;
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .chart-filter:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .chart-filter.active {
+            background: #4e73df;
+            color: #ffffff;
+            border-color: #4e73df;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+
+        .table-card {
+            background: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .table thead th {
+            background-color: #f8fafc;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            color: #6b7280;
+            padding: 1rem;
+        }
+
+        .table tbody td {
+            padding: 1rem;
+            vertical-align: middle;
+        }
+
+        .progress {
+            height: 0.5rem;
+            border-radius: 1rem;
+        }
+
+        .badge {
+            font-weight: 500;
+            padding: 0.5em 0.75em;
+        }
+
+        /* Tab styles */
+        .analytics-tabs {
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .analytics-tabs .nav-link {
+            border: none;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            color: #6b7280;
+            font-weight: 500;
+            padding: 1rem 1.5rem;
+        }
+
+        .analytics-tabs .nav-link:hover {
+            border-color: #4e73df;
+            color: #4e73df;
+        }
+
+        .analytics-tabs .nav-link.active {
+            border-color: #4e73df;
+            color: #4e73df;
+            background: transparent;
+        }
+
+        .tab-content {
+            padding-top: 2rem;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.min.js"></script>
+    <script>
+        function initializeCharts() {
+            // User Activity Chart
+            const userActivityCtx = document.getElementById('userActivityChart');
+            if (userActivityCtx) {
+                new Chart(userActivityCtx, {
+                    type: 'line',
+                    data: {
+                        labels: @Html.Raw(Json.Serialize(Model.ActivityLabels)),
+                        datasets: [{
+                            label: 'Active Users',
+                            data: @Html.Raw(Json.Serialize(Model.ActivityData)),
+                            borderColor: '#4e73df',
+                            backgroundColor: 'rgba(78, 115, 223, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Number of Users'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // User Distribution Chart
+            const userDistributionCtx = document.getElementById('userDistributionChart');
+            if (userDistributionCtx) {
+                new Chart(userDistributionCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: @Html.Raw(Json.Serialize(Model.UserRoleLabels)),
+                        datasets: [{
+                            data: @Html.Raw(Json.Serialize(Model.UserRoleData)),
+                            backgroundColor: [
+                                '#4e73df', // Primary
+                                '#1cc88a', // Success
+                                '#36b9cc', // Info
+                                '#f6c23e'  // Warning
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Course Completion Chart
+            const courseCompletionCtx = document.getElementById('courseCompletionChart');
+            if (courseCompletionCtx) {
+                const completionLabels = @Html.Raw(Json.Serialize(Model.CompletionLabels));
+                const completionData = @Html.Raw(Json.Serialize(Model.CompletionData));
+                console.log('Completion Labels:', completionLabels);
+                console.log('Completion Data:', completionData);
+                
+                new Chart(courseCompletionCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: completionLabels,
+                        datasets: [{
+                            label: 'Completed Courses',
+                            data: completionData,
+                            backgroundColor: '#1cc88a',
+                            borderRadius: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Number of Completions'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Course Categories Chart
+            const courseCategoriesCtx = document.getElementById('courseCategoriesChart');
+            if (courseCategoriesCtx) {
+                new Chart(courseCategoriesCtx, {
+                    type: 'pie',
+                    data: {
+                        labels: @Html.Raw(Json.Serialize(Model.CategoryLabels)),
+                        datasets: [{
+                            data: @Html.Raw(Json.Serialize(Model.CategoryData)),
+                            backgroundColor: [
+                                '#4e73df', // Primary
+                                '#1cc88a', // Success
+                                '#36b9cc', // Info
+                                '#f6c23e', // Warning
+                                '#e74a3b'  // Danger
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Rating Distribution Chart
+            const ratingDistributionCtx = document.getElementById('ratingDistributionChart');
+            if (ratingDistributionCtx) {
+                new Chart(ratingDistributionCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: @Html.Raw(Json.Serialize(Model.RatingLabels)),
+                        datasets: [{
+                            label: 'Number of Reviews',
+                            data: @Html.Raw(Json.Serialize(Model.RatingDistribution)),
+                            backgroundColor: [
+                                '#f6c23e', // 1 star
+                                '#e74a3b', // 2 stars
+                                '#f8f9fc', // 3 stars
+                                '#36b9cc', // 4 stars
+                                '#1cc88a'  // 5 stars
+                            ],
+                            borderRadius: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Number of Reviews'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Response Time Chart
+            const responseTimeCtx = document.getElementById('responseTimeChart');
+            if (responseTimeCtx) {
+                new Chart(responseTimeCtx, {
+                    type: 'line',
+                    data: {
+                        labels: @Html.Raw(Json.Serialize(Model.ResponseTimeLabels)),
+                        datasets: [{
+                            label: 'Response Time (ms)',
+                            data: @Html.Raw(Json.Serialize(Model.ResponseTimeData)),
+                            borderColor: '#4e73df',
+                            backgroundColor: 'rgba(78, 115, 223, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Response Time (ms)'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Error Rate Chart
+            const errorRateCtx = document.getElementById('errorRateChart');
+            if (errorRateCtx) {
+                new Chart(errorRateCtx, {
+                    type: 'line',
+                    data: {
+                        labels: @Html.Raw(Json.Serialize(Model.ErrorRateLabels)),
+                        datasets: [{
+                            label: 'Error Rate (%)',
+                            data: @Html.Raw(Json.Serialize(Model.ErrorRateData)),
+                            borderColor: '#e74a3b',
+                            backgroundColor: 'rgba(231, 74, 59, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Error Rate (%)'
+                                },
+                                ticks: {
+                                    callback: function(value) {
+                                        return value.toFixed(2) + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Initialize SignalR connection
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/dashboardHub")
+            .withAutomaticReconnect()
+            .build();
+
+        // Start the connection
+        connection.start()
+            .then(() => {
+                console.log("SignalR Connected");
+                // Join analytics group
+                connection.invoke("JoinGroup", "analytics");
+            })
+            .catch(err => console.error(err));
+
+        // Handle real-time updates
+        connection.on("UpdateSystemMetrics", (metrics) => {
+            // Update system metrics cards
+            document.querySelector('[data-metric="cpu-usage"]').textContent = `${(metrics.cpuUsage * 100).toFixed(1)}%`;
+            document.querySelector('[data-metric="memory-usage"]').textContent = `${(metrics.memoryUsage * 100).toFixed(1)}%`;
+            document.querySelector('[data-metric="db-connections"]').textContent = metrics.databaseConnections;
+            document.querySelector('[data-metric="response-time"]').textContent = `${metrics.responseTime}ms`;
+        });
+
+        // Student Engagement Updates
+        connection.on("UpdateStudentEngagement", (data) => {
+            if (window.studentActivityChart) {
+                window.studentActivityChart.data.labels = data.timeSlots;
+                window.studentActivityChart.data.datasets[0].data = data.activeStudents;
+                window.studentActivityChart.update();
+            }
+
+            // Update resource access stats
+            const resourceList = document.getElementById('resourceAccessList');
+            if (resourceList) {
+                resourceList.innerHTML = Object.entries(data.resourceAccess)
+                    .map(([type, count]) => `
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span>${type}</span>
+                            <span class="badge bg-primary">${count}</span>
+                        </div>
+                    `).join('');
+            }
+
+            // Update top engaged students
+            const topEngagedList = document.getElementById('topEngagedList');
+            if (topEngagedList) {
+                topEngagedList.innerHTML = data.topEngaged
+                    .map(student => `
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <h6 class="mb-0">${student.studentName}</h6>
+                                <small class="text-muted">
+                                    ${student.minutesEngaged} mins | ${student.resourcesAccessed} resources
+                                </small>
+                            </div>
+                            <div class="progress" style="width: 100px">
+                                <div class="progress-bar" role="progressbar" 
+                                     style="width: ${student.completionRate * 100}%">
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+            }
+        });
+
+        // Learning Progress Updates
+        connection.on("UpdateLearningProgress", (data) => {
+            if (window.moduleProgressChart) {
+                window.moduleProgressChart.data.labels = Object.keys(data.moduleProgress);
+                window.moduleProgressChart.data.datasets[0].data = Object.values(data.moduleProgress);
+                window.moduleProgressChart.update();
+            }
+
+            // Update recent assessments
+            const assessmentsList = document.getElementById('recentAssessmentsList');
+            if (assessmentsList) {
+                assessmentsList.innerHTML = data.recentAssessments
+                    .map(assessment => `
+                        <div class="assessment-item mb-3">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="mb-1">${assessment.assessmentName}</h6>
+                                <span class="badge bg-success">${assessment.averageScore.toFixed(1)}</span>
+                            </div>
+                            <small class="text-muted">
+                                ${assessment.participants} participants | 
+                                ${new Date(assessment.completionDate).toLocaleDateString()}
+                            </small>
+                        </div>
+                    `).join('');
+            }
+
+            // Update skill progress
+            const skillsList = document.getElementById('skillProgressList');
+            if (skillsList) {
+                skillsList.innerHTML = Object.entries(data.skillProgress)
+                    .map(([skill, progress]) => `
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>${skill}</span>
+                                <span>${(progress * 100).toFixed(1)}%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-info" role="progressbar" 
+                                     style="width: ${progress * 100}%">
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+            }
+        });
+
+        // Resource Utilization Updates
+        connection.on("UpdateResourceUtilization", (data) => {
+            if (window.resourceViewsChart) {
+                window.resourceViewsChart.data.labels = Object.keys(data.resourceViews);
+                window.resourceViewsChart.data.datasets[0].data = Object.values(data.resourceViews);
+                window.resourceViewsChart.update();
+            }
+
+            // Update time spent metrics
+            const timeSpentList = document.getElementById('timeSpentList');
+            if (timeSpentList) {
+                timeSpentList.innerHTML = Object.entries(data.averageTimeSpent)
+                    .map(([resource, minutes]) => `
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span>${resource}</span>
+                            <span>${minutes.toFixed(1)} mins</span>
+                        </div>
+                    `).join('');
+            }
+
+            // Update popular time slots
+            const popularSlotsList = document.getElementById('popularTimeSlots');
+            if (popularSlotsList) {
+                popularSlotsList.innerHTML = data.popularTimeSlots
+                    .map(slot => `
+                        <div class="badge bg-secondary me-2 mb-2">${slot}</div>
+                    `).join('');
+            }
+
+            // Update resource effectiveness
+            const effectivenessList = document.getElementById('resourceEffectiveness');
+            if (effectivenessList) {
+                effectivenessList.innerHTML = Object.entries(data.resourceEffectiveness)
+                    .map(([resource, rate]) => `
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>${resource}</span>
+                                <span>${(rate * 100).toFixed(1)}% completion</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" 
+                                     style="width: ${rate * 100}%">
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+            }
+        });
+
+        connection.on("ReceiveNotification", (message, type) => {
+            // Create toast notification
+            const toast = document.createElement('div');
+            toast.className = `toast bg-${type} text-white`;
+            toast.setAttribute('role', 'alert');
+            toast.setAttribute('aria-live', 'assertive');
+            toast.setAttribute('aria-atomic', 'true');
+            
+            toast.innerHTML = `
+                <div class="toast-header bg-${type} text-white">
+                    <strong class="me-auto">Analytics Update</strong>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    ${message}
     </div>
+            `;
+            
+            document.getElementById('toastContainer').appendChild(toast);
+            const bsToast = new bootstrap.Toast(toast);
+            bsToast.show();
+            
+            // Remove toast after it's hidden
+            toast.addEventListener('hidden.bs.toast', () => toast.remove());
+        });
+
+        // Initialize charts when the DOM is fully loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeCharts);
+        } else {
+            initializeCharts();
+        }
+    </script>
 }
 
 <div class="container-fluid">
-    <!-- Key Metrics -->
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/AdminDashboard">Dashboard</a></li>
+            <li class="breadcrumb-item active">Analytics</li>
+        </ol>
+    </nav>
+
+    <!-- Stats Overview -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon" style="background-color: rgba(78, 115, 223, 0.1); color: #4e73df;">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-title">Total Users</div>
+            <div class="stat-value">@Model.TotalUsers.ToString("N0")</div>
+            <div class="stat-change positive">
+                <i class="fas fa-arrow-up"></i>
+                <span>@Model.UserGrowthRate.ToString("P1")</span>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon" style="background-color: rgba(16, 185, 129, 0.1); color: #10b981;">
+                <i class="fas fa-book"></i>
+            </div>
+            <div class="stat-title">Active Courses</div>
+            <div class="stat-value">@Model.ActiveCourses.ToString("N0")</div>
+            <div class="stat-change positive">
+                <i class="fas fa-arrow-up"></i>
+                <span>@Model.CourseGrowthRate.ToString("P1")</span>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon" style="background-color: rgba(245, 158, 11, 0.1); color: #f59e0b;">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <div class="stat-title">Total Enrollments</div>
+            <div class="stat-value">@Model.TotalEnrollments.ToString("N0")</div>
+            <div class="stat-change @(Model.EnrollmentGrowthRate >= 0 ? "positive" : "negative")">
+                <i class="fas fa-arrow-@(Model.EnrollmentGrowthRate >= 0 ? "up" : "down")"></i>
+                <span>@Math.Abs(Model.EnrollmentGrowthRate).ToString("P1")</span>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon" style="background-color: rgba(239, 68, 68, 0.1); color: #ef4444;">
+                <i class="fas fa-star"></i>
+            </div>
+            <div class="stat-title">Average Rating</div>
+            <div class="stat-value">@Model.AverageRating.ToString("N1")</div>
+            <div class="stat-change @(Model.RatingGrowthRate >= 0 ? "positive" : "negative")">
+                <i class="fas fa-arrow-@(Model.RatingGrowthRate >= 0 ? "up" : "down")"></i>
+                <span>@Math.Abs(Model.RatingGrowthRate).ToString("P1")</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Analytics Tabs -->
+    <ul class="nav nav-tabs analytics-tabs" id="analyticsTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="user-engagement-tab" data-bs-toggle="tab" href="#userEngagement" role="tab">
+                <i class="fas fa-users me-2"></i>User Engagement
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="course-performance-tab" data-bs-toggle="tab" href="#coursePerformance" role="tab">
+                <i class="fas fa-graduation-cap me-2"></i>Course Performance
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="system-performance-tab" data-bs-toggle="tab" href="#systemPerformance" role="tab">
+                <i class="fas fa-server me-2"></i>System Performance
+            </a>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="analyticsTabContent">
+        <!-- User Engagement Tab -->
+        <div class="tab-pane fade show active" id="userEngagement" role="tabpanel">
+            <div class="row">
+                <!-- User Activity Chart -->
+                <div class="col-xl-8 col-lg-7">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h6 class="chart-title">User Activity</h6>
+                            <div class="chart-filters">
+                                <button class="chart-filter active" data-period="week">Week</button>
+                                <button class="chart-filter" data-period="month">Month</button>
+                                <button class="chart-filter" data-period="year">Year</button>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="userActivityChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Distribution Chart -->
+                <div class="col-xl-4 col-lg-5">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h6 class="chart-title">User Distribution</h6>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="userDistributionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Engagement Metrics -->
+                <div class="col-12">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h6 class="chart-title">Engagement Metrics</h6>
+                        </div>
+                        <div class="row g-4">
+                            <div class="col-md-3">
+                                <div class="small text-muted mb-1">Daily Active Users</div>
+                                <div class="h5 mb-0">@Model.DailyActiveUsers.ToString("N0")</div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="small text-muted mb-1">Average Session Duration</div>
+                                <div class="h5 mb-0">@Model.AverageSessionDuration.ToString("N0") min</div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="small text-muted mb-1">Retention Rate</div>
+                                <div class="h5 mb-0">@Model.RetentionRate.ToString("P1")</div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="small text-muted mb-1">New Users Today</div>
+                                <div class="h5 mb-0">@Model.NewUsersToday.ToString("N0")</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Course Performance Tab -->
+        <div class="tab-pane fade" id="coursePerformance" role="tabpanel">
+            <div class="row">
+                <!-- Course Completion Chart -->
+                <div class="col-xl-8 col-lg-7">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h6 class="chart-title">Course Completion Trends</h6>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="courseCompletionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Categories Distribution -->
+                <div class="col-xl-4 col-lg-5">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h6 class="chart-title">Course Categories</h6>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="courseCategoriesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Performing Courses -->
+                <div class="col-12">
+                    <div class="table-card">
+                        <div class="chart-header">
+                            <h6 class="chart-title">Top Performing Courses</h6>
+                            <a href="/Analytics/CoursePerformance" class="btn btn-sm btn-primary">
+                                View All
+                            </a>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Course</th>
+                                        <th>Instructor</th>
+                                        <th>Enrollments</th>
+                                        <th>Completion Rate</th>
+                                        <th>Rating</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var course in Model.TopCourses)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <img src="@course.ThumbnailUrl" alt="@course.Title" 
+                                                         class="rounded" style="width: 32px; height: 32px; object-fit: cover;">
+                                                    <span class="ms-2">@course.Title</span>
+                                                </div>
+                                            </td>
+                                            <td>@course.InstructorName</td>
+                                            <td>@course.Enrollments.ToString("N0")</td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="progress flex-grow-1 me-2">
+                                                        <div class="progress-bar bg-success" 
+                                                             role="progressbar" 
+                                                             style="width: @course.CompletionRate.ToString("P0")"
+                                                             aria-valuenow="@(course.CompletionRate * 100)"
+                                                             aria-valuemin="0"
+                                                             aria-valuemax="100">
+                                                        </div>
+                                                    </div>
+                                                    <span class="text-muted">@course.CompletionRate.ToString("P0")</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <span class="text-warning me-1">@course.Rating.ToString("N1")</span>
+                                                    <i class="fas fa-star text-warning"></i>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Performance Tab -->
+        <div class="tab-pane fade" id="systemPerformance" role="tabpanel">
+            <div class="row">
+                <!-- System Metrics -->
+                <div class="col-12">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">System Performance</h6>
+                        </div>
+                        <div class="card-body">
+                            <!-- Current Metrics -->
     <div class="row mb-4">
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Users</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.TotalUsers</div>
-                            <div class="text-xs text-muted mt-1">
-                                <i class="fas fa-arrow-up text-success"></i> @Model.UserGrowthRate% growth
+                                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                        CPU Usage
+                                                    </div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                        @((Model.CpuUsage * 100).ToString("N1"))%
                             </div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                                                    <i class="fas fa-microchip fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -42,14 +913,15 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Active Courses</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.ActiveCourses</div>
-                            <div class="text-xs text-muted mt-1">
-                                <i class="fas fa-arrow-up text-success"></i> @Model.CourseGrowthRate% growth
+                                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                        Memory Usage
+                                                    </div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                        @((Model.MemoryUsage * 100).ToString("N1"))%
                             </div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-graduation-cap fa-2x text-gray-300"></i>
+                                                    <i class="fas fa-memory fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -61,14 +933,15 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Completion Rate</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.CompletionRate.ToString("F1")%</div>
-                            <div class="text-xs text-muted mt-1">
-                                <i class="fas fa-arrow-up text-success"></i> @Model.CompletionGrowthRate% growth
+                                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                        Database Connections
+                                                    </div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                        @Model.DatabaseConnections
                             </div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-clipboard-check fa-2x text-gray-300"></i>
+                                                    <i class="fas fa-database fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -80,14 +953,15 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Average Score</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.AverageScore.ToString("F1")</div>
-                            <div class="text-xs text-muted mt-1">
-                                <i class="fas fa-arrow-up text-success"></i> @Model.ScoreGrowthRate% growth
+                                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                        Response Time
+                                                    </div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                        @Model.AverageResponseTime ms
                             </div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-star fa-2x text-gray-300"></i>
+                                                    <i class="fas fa-clock fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -97,68 +971,62 @@
 
     <!-- Charts -->
     <div class="row">
-        <div class="col-xl-8 col-lg-7">
+                                <div class="col-xl-6">
             <div class="card shadow mb-4">
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Enrollment Trends</h6>
-                    <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                            <div class="dropdown-header">Chart Period:</div>
-                            <a class="dropdown-item" href="#" onclick="updateChartPeriod('weekly')">Weekly</a>
-                            <a class="dropdown-item" href="#" onclick="updateChartPeriod('monthly')">Monthly</a>
-                            <a class="dropdown-item" href="#" onclick="updateChartPeriod('yearly')">Yearly</a>
-                        </div>
-                    </div>
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">Response Time Trend</h6>
                 </div>
                 <div class="card-body">
-                    <div class="chart-area">
-                        <canvas id="enrollmentChart"></canvas>
+                                            <div class="chart-container" style="height: 300px;">
+                                                <canvas id="responseTimeChart"></canvas>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="col-xl-4 col-lg-5">
+                                <div class="col-xl-6">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Course Categories</h6>
+                                            <h6 class="m-0 font-weight-bold text-primary">Error Rate Trend</h6>
                 </div>
                 <div class="card-body">
-                    <div class="chart-pie">
-                        <canvas id="categoryChart"></canvas>
+                                            <div class="chart-container" style="height: 300px;">
+                                                <canvas id="errorRateChart"></canvas>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Recent Activity -->
-    <div class="row">
-        <div class="col-xl-6">
+                            <!-- Recent Errors Table -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Recent Enrollments</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Recent Errors</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>Course</th>
-                                    <th>Student</th>
-                                    <th>Date</th>
+                                                    <th>Time</th>
+                                                    <th>Type</th>
+                                                    <th>Path</th>
+                                                    <th>Message</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var enrollment in Model.RecentEnrollments)
+                                                @foreach (var error in Model.RecentErrors)
                                 {
                                     <tr>
-                                        <td>@enrollment.CourseName</td>
-                                        <td>@enrollment.StudentName</td>
-                                        <td>@enrollment.EnrollmentDate.ToString("MMM dd, yyyy")</td>
+                                                        <td>@error.Timestamp.ToString("MM/dd HH:mm")</td>
+                                                        <td>
+                                                            <span class="badge badge-@(error.ErrorType.ToLower() == "error" ? "danger" : 
+                                                                                error.ErrorType.ToLower() == "warning" ? "warning" : 
+                                                                                error.ErrorType.ToLower() == "info" ? "info" : "secondary")">
+                                                                @error.ErrorType
+                                                            </span>
+                                                        </td>
+                                                        <td>@error.Path</td>
+                                                        <td>@error.Message</td>
                                     </tr>
                                 }
                             </tbody>
@@ -167,35 +1035,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-xl-6">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Recent Completions</h6>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>Course</th>
-                                    <th>Student</th>
-                                    <th>Score</th>
-                                    <th>Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var completion in Model.RecentCompletions)
-                                {
-                                    <tr>
-                                        <td>@completion.CourseName</td>
-                                        <td>@completion.StudentName</td>
-                                        <td>@completion.Score.ToString("F1")</td>
-                                        <td>@completion.CompletionDate.ToString("MMM dd, yyyy")</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>
@@ -203,195 +1042,5 @@
     </div>
 </div>
 
-@section Scripts {
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.min.js"></script>
-    <script>
-        let enrollmentChart;
-        let categoryChart;
-        let currentChartPeriod = 'monthly';
-
-        // Initialize SignalR connection
-        const connection = new signalR.HubConnectionBuilder()
-            .withUrl("/dashboardHub")
-            .withAutomaticReconnect()
-            .build();
-
-        // Join the analytics overview group
-        connection.start().then(function () {
-            connection.invoke("JoinDashboardGroup", "analyticsOverview");
-        }).catch(function (err) {
-            console.error(err.toString());
-        });
-
-        // Handle real-time analytics updates
-        connection.on("AnalyticsUpdated", function (data) {
-            updateAnalyticsData(data);
-        });
-
-        // Function to update analytics data
-        function updateAnalyticsData(data) {
-            // Update metrics
-            document.getElementById('totalUsers').textContent = data.totalUsers;
-            document.getElementById('activeCourses').textContent = data.activeCourses;
-            document.getElementById('completionRate').textContent = data.completionRate.toFixed(1) + '%';
-            document.getElementById('averageScore').textContent = data.averageScore.toFixed(1);
-            document.getElementById('activeStudents').textContent = data.activeStudents;
-            document.getElementById('totalRevenue').textContent = '$' + data.totalRevenue.toFixed(2);
-            document.getElementById('averageRating').textContent = data.averageRating.toFixed(1);
-            document.getElementById('studentSatisfaction').textContent = data.studentSatisfaction.toFixed(1) + '%';
-
-            // Update charts
-            if (enrollmentChart) {
-                enrollmentChart.data.labels = data.engagementLabels;
-                enrollmentChart.data.datasets[0].data = data.activeUsersData;
-                enrollmentChart.data.datasets[1].data = data.completionData;
-                enrollmentChart.update();
-            }
-
-            if (categoryChart) {
-                categoryChart.data.labels = data.courseCategories;
-                categoryChart.data.datasets[0].data = data.courseDistribution;
-                categoryChart.update();
-            }
-
-            // Update recent activity tables
-            updateRecentEnrollments(data.recentEnrollments);
-            updateRecentCompletions(data.recentCompletions);
-        }
-
-        // Function to update recent enrollments table
-        function updateRecentEnrollments(enrollments) {
-            const tbody = document.querySelector('#recentEnrollments tbody');
-            tbody.innerHTML = '';
-            enrollments.forEach(enrollment => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${enrollment.courseName}</td>
-                    <td>${enrollment.studentName}</td>
-                    <td>${new Date(enrollment.enrollmentDate).toLocaleDateString()}</td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        // Function to update recent completions table
-        function updateRecentCompletions(completions) {
-            const tbody = document.querySelector('#recentCompletions tbody');
-            tbody.innerHTML = '';
-            completions.forEach(completion => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${completion.courseName}</td>
-                    <td>${completion.studentName}</td>
-                    <td>${completion.score.toFixed(1)}</td>
-                    <td>${new Date(completion.completionDate).toLocaleDateString()}</td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        // Initialize charts
-        document.addEventListener('DOMContentLoaded', function() {
-            // Enrollment Chart
-            var enrollmentCtx = document.getElementById('enrollmentChart').getContext('2d');
-            enrollmentChart = new Chart(enrollmentCtx, {
-                type: 'line',
-                data: {
-                    labels: @Json.Serialize(Model.EngagementLabels),
-                    datasets: [{
-                        label: 'Enrollments',
-                        data: @Json.Serialize(Model.ActiveUsersData),
-                        borderColor: 'rgb(75, 192, 192)',
-                        tension: 0.1,
-                        fill: false
-                    }, {
-                        label: 'Completions',
-                        data: @Json.Serialize(Model.CompletionData),
-                        borderColor: 'rgb(255, 99, 132)',
-                        tension: 0.1,
-                        fill: false
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                precision: 0
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                        },
-                        tooltip: {
-                            mode: 'index',
-                            intersect: false
-                        }
-                    }
-                }
-            });
-
-            // Category Chart
-            var categoryCtx = document.getElementById('categoryChart').getContext('2d');
-            categoryChart = new Chart(categoryCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: @Json.Serialize(Model.CourseCategories),
-                    datasets: [{
-                        data: @Json.Serialize(Model.CourseDistribution),
-                        backgroundColor: [
-                            'rgb(255, 99, 132)',
-                            'rgb(54, 162, 235)',
-                            'rgb(255, 206, 86)',
-                            'rgb(75, 192, 192)',
-                            'rgb(153, 102, 255)',
-                            'rgb(255, 159, 64)'
-                        ]
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'right'
-                        }
-                    }
-                }
-            });
-
-            // Store chart instances for later updates
-            window.enrollmentChart = enrollmentChart;
-            window.categoryChart = categoryChart;
-        });
-
-        // Function to update chart period
-        async function updateChartPeriod(period) {
-            try {
-                const response = await fetch(`/Analytics/Overview?handler=ChartData&period=${period}`);
-                if (!response.ok) throw new Error('Network response was not ok');
-                
-                const data = await response.json();
-                
-                // Update enrollment chart
-                window.enrollmentChart.data.labels = data.labels;
-                window.enrollmentChart.data.datasets[0].data = data.enrollments;
-                window.enrollmentChart.data.datasets[1].data = data.completions;
-                window.enrollmentChart.update();
-                
-                // Update category chart
-                window.categoryChart.data.labels = data.categories;
-                window.categoryChart.data.datasets[0].data = data.distribution;
-                window.categoryChart.update();
-            } catch (error) {
-                console.error('Error updating chart period:', error);
-            }
-        }
-    </script>
-} 
-} 
+<!-- Add toast container at the end of the body -->
+<div id="toastContainer" class="position-fixed bottom-0 end-0 p-3" style="z-index: 11"></div> 

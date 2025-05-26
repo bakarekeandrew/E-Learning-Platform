@@ -157,7 +157,7 @@ namespace E_Learning_Platform.Pages.Analytics
 
     public class PopularContentData
     {
-        public string Title { get; set; }
+        public required string Title { get; set; }
         public int ViewCount { get; set; }
         public double AverageTimeSpent { get; set; }
     }
